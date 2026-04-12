@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>About — Adaptable Furniture</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/styles.css" />
+  </head>
+  <body class="page-about">
+    <header class="site-header">
+      <span class="site-header__left">About</span>
+      <a class="site-header__logo" href="index.html" aria-label="Adaptable Furniture home">AF</a>
+      <button
+        type="button"
+        class="site-header__menu"
+        aria-label="Open menu"
+        aria-expanded="false"
+        aria-controls="nav-overlay"
+        data-nav-open
+      >
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+          <path d="M4 7h16M4 12h16M4 17h16" />
+        </svg>
+      </button>
+    </header>
+
+    <div class="site-blur">
+      <div class="about-hero">
+        <div class="about-hero__video">
+          <div class="about-hero__play" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path d="M8 5v14l11-7z" />
+            </svg>
+          </div>
+          <span class="about-hero__pill">video placeholder</span>
+        </div>
+        <h1 class="about-hero__tagline">Furniture done right.</h1>
+      </div>
+
+      <main class="page-wrap">
+        <p class="intro">
+          Furniture that <mark>moves with people.</mark> Not the other way around.
+        </p>
+
+        <p class="section-label">THE INNOVATING TEAM</p>
+        <h2 class="section-title">Rethinking what furniture can do.</h2>
+        <div class="team-rows">
+          <div class="team-row">
+            <div class="team-card">
+              <div class="team-avatar"></div>
+              <div class="team-name">Name Last Name</div>
+              <a class="btn-linkedin" href="#">LinkedIn</a>
+            </div>
+            <div class="team-card">
+              <div class="team-avatar"></div>
+              <div class="team-name">Name Last Name</div>
+              <a class="btn-linkedin" href="#">LinkedIn</a>
+            </div>
+            <div class="team-card">
+              <div class="team-avatar"></div>
+              <div class="team-name">Name Last Name</div>
+              <a class="btn-linkedin" href="#">LinkedIn</a>
+            </div>
+          </div>
+          <div class="team-row team-row--centered">
+            <div class="team-card">
+              <div class="team-avatar"></div>
+              <div class="team-name">Name Last Name</div>
+              <a class="btn-linkedin" href="#">LinkedIn</a>
+            </div>
+            <div class="team-card">
+              <div class="team-avatar"></div>
+              <div class="team-name">Name Last Name</div>
+              <a class="btn-linkedin" href="#">LinkedIn</a>
+            </div>
+          </div>
+        </div>
+
+        <p class="section-label">THE WEB TEAM</p>
+        <h2 class="section-title">Every detail intentional. Nothing accidental.</h2>
+        <div class="team-rows">
+          <div class="team-row team-row--four">
+            <div class="team-card">
+              <div class="team-avatar"></div>
+              <div class="team-name">Name Last Name</div>
+              <a class="btn-linkedin" href="#">LinkedIn</a>
+            </div>
+            <div class="team-card">
+              <div class="team-avatar"></div>
+              <div class="team-name">Name Last Name</div>
+              <a class="btn-linkedin" href="#">LinkedIn</a>
+            </div>
+            <div class="team-card">
+              <div class="team-avatar"></div>
+              <div class="team-name">Name Last Name</div>
+              <a class="btn-linkedin" href="#">LinkedIn</a>
+            </div>
+            <div class="team-card">
+              <div class="team-avatar"></div>
+              <div class="team-name">Name Last Name</div>
+              <a class="btn-linkedin" href="#">LinkedIn</a>
+            </div>
+          </div>
+        </div>
+
+        <p class="section-label">BEHIND THE SCENES</p>
+        <h2 class="section-title">A lot happens before anything reaches you.</h2>
+        <div class="bts-scroll" role="region" aria-label="Behind the scenes gallery">
+          <div class="bts-card">behind the scenes…</div>
+          <div class="bts-card">behind the scenes…</div>
+          <div class="bts-card">behind the scenes…</div>
+        </div>
+        <blockquote class="quote">
+          Not done until every part of it — seen and unseen — is right.
+        </blockquote>
+        <a class="about-cta" href="shop.html">Shop Adaptable Furniture →</a>
+      </main>
+    </div>
+
+    <div
+      id="nav-overlay"
+      class="nav-overlay"
+      role="dialog"
+      aria-modal="true"
+      aria-label="Site menu"
+      aria-hidden="true"
+    >
+      <button type="button" class="nav-overlay__close" data-nav-close aria-label="Close menu">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M6 6l12 12M18 6L6 18" />
+        </svg>
+      </button>
+      <a class="site-header__logo" href="index.html" style="position: absolute; top: 8px; left: 50%; transform: translateX(-50%)">AF</a>
+      <nav class="nav-overlay__links" aria-label="Primary">
+        <a href="index.html" data-nav>Home</a>
+        <a href="about.html" data-nav>About</a>
+        <a href="why-af.html" data-nav>Why AF?</a>
+        <a href="shop.html" data-nav>Shop</a>
+        <a href="invest.html" data-nav>Invest</a>
+      </nav>
+    </div>
+
+    <script src="js/app.js" defer></script>
+  </body>
+</html>

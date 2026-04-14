@@ -425,6 +425,7 @@ body.page-about {
   background: #c8c4bc;
   margin: 0 auto 10px;
   object-fit: cover;
+  overflow: hidden;
 }
 
 .page-about .team-avatar img {
@@ -465,6 +466,7 @@ body.page-about {
 .page-about .team-row--four .team-avatar {
   width: 64px;
   height: 64px;
+  overflow: hidden;
 }
 
 .page-about .team-row--four .team-name {

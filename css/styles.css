@@ -424,6 +424,7 @@ body.page-about {
   border-radius: 50%;
   background: #c8c4bc;
   margin: 0 auto 10px;
+  object-fit: cover;
 }
 
 .page-about .team-name {
@@ -890,12 +891,6 @@ body.page-invest {
   margin: 0;
 }
 
-.team-avatar {
-  width: 150px;
-  height: 150px;
-  border-radius: 50%;
-  object-fit: cover;
-}
 
 @media (min-width: 600px) {
   .page-about .team-row--four .team-avatar {

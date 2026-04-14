@@ -56,24 +56,34 @@ ul {
 }
 
 /* ——— Site header ——— */
+
+.desk-header{
+  height: 65px;
+  width: 100%;
+  background-color: rgb(234, 227, 213);
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  place-items: center;
+}
+
+.af-logo {
+  padding: 10px;
+}
+
+
+.active {
+  color: #e07a5f;
+}
+
 .site-header {
   position: sticky;
   top: 0;
   z-index: 50;
-  display: flex;
+  grid-template-columns: 1fr;
   align-items: center;
   justify-content: center;
   min-height: var(--header-h);
-  padding: 0 16px;
   background: var(--header-bg, transparent);
-}
-
-.site-header__left {
-  position: absolute;
-  left: 16px;
-  font-size: 14px;
-  font-weight: 500;
-  color: var(--header-left-color, transparent);
 }
 
 .site-header__logo {
@@ -90,22 +100,6 @@ ul {
   font-size: 15px;
   letter-spacing: -0.02em;
   color: #111;
-}
-
-.site-header__menu {
-  position: absolute;
-  right: 12px;
-  width: 44px;
-  height: 44px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--menu-icon-color, #111);
-}
-
-.site-header__menu svg {
-  width: 22px;
-  height: 22px;
 }
 
 /* ——— Nav overlay ——— */
@@ -173,7 +167,7 @@ body.nav-open .site-blur {
 
 /* ——— Page shells ——— */
 .page-wrap {
-  max-width: 480px;
+  max-width: 1000px;
   margin: 0 auto;
   padding: 0 20px 48px;
   min-height: calc(100dvh - var(--header-h));
@@ -404,8 +398,9 @@ body.page-about {
 }
 
 .page-about .team-row--centered {
+  display: flex;
   justify-content: center;
-  gap: 32px;
+  gap: 35%;
 }
 
 .page-about .team-card {
@@ -900,6 +895,71 @@ body.page-invest {
   margin: 0;
 }
 
+@media (max-width: 520px) {
+  .page-wrap {
+    max-width: 480px;
+  }
+
+  .page-about .team-row--centered {
+    gap: 32px;
+  }
+
+  .desk-header {
+    display: none;
+  }
+
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: var(--header-h);
+    padding: 0 16px;
+    background: var(--header-bg, transparent);
+  }
+
+  .site-header__left {
+    position: absolute;
+    left: 16px;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--header-left-color, transparent);
+  }
+
+  .site-header__logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    border-radius: var(--radius-sm);
+    background: #fff;
+    box-shadow: var(--shadow-logo);
+    font-family: var(--font-logo);
+    font-weight: 700;
+    font-size: 15px;
+    letter-spacing: -0.02em;
+    color: #111;
+  }
+
+  .site-header__menu {
+    position: absolute;
+    right: 12px;
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--menu-icon-color, #111);
+  }
+
+  .site-header__menu svg {
+    width: 22px;
+    height: 22px;
+  }
+}
 
 @media (min-width: 600px) {
   .page-about .team-row--four .team-avatar {

@@ -427,6 +427,13 @@ body.page-about {
   object-fit: cover;
 }
 
+.page-about .team-avatar img {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
 .page-about .team-name {
   font-size: 12px;
   font-weight: 600;

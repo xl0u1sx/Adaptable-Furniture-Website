@@ -890,6 +890,13 @@ body.page-invest {
   margin: 0;
 }
 
+.team-avatar img {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
 @media (min-width: 600px) {
   .page-about .team-row--four .team-avatar {
     width: 72px;

@@ -915,6 +915,12 @@ body.page-shop {
   padding: 20px;
 }
 
+.shop-panel [data-cart-list] {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
 .page-shop .cart-item .product-card__add {
   background: #f28c38;
 }

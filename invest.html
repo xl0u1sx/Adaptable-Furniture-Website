@@ -11,6 +11,8 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="css/styles.css" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="/js/invest.js"></script>
   </head>
   <body class="page-invest">
     <header class="site-header">
@@ -42,9 +44,37 @@
     <div class="site-blur">
       <main class="page-wrap simple-content">
         <h1>Invest</h1>
-        <p>
-          Der invest page
-        </p>
+        <div id="info-card">
+          <div class="product-title">Product Name</div>
+          <div class="product-img">Image Placeholder</div>
+          <div class="product-price">$0.00</div>
+        </div>
+        <div class="matrix-container-container">
+        <div class="matrix-container">
+          <div class="axis-h"></div>
+          <div class="axis-v"></div>
+
+          <div class="label label-top">Ease of use</div>
+          <div class="label label-bottom">Difficulty of use</div>
+
+          <div class="label label-left">Fixed</div>
+          <div class="label label-right">Versatility</div>
+          
+          <div class="dot" 
+              style="left: 30%; top: 40%;" 
+              data-name="Competitor A" 
+              data-price="$1,200.00" 
+              data-img="image_url_here.jpg">
+          </div>
+
+          <div class="dot" 
+              style="left: 75%; top: 20%;" 
+              data-name="Your Product" 
+              data-price="$850.00" 
+              data-img="your_logo.png">
+          </div>
+          </div>
+        </div>
       </main>
     </div>
 

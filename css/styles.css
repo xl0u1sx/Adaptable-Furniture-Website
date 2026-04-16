@@ -65,7 +65,7 @@ ul {
 .desk-header{
   height: 65px;
   width: 100%;
-  background-color: rgb(234, 227, 213);
+  background-color: transparent;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
   place-items: center;
@@ -81,14 +81,22 @@ ul {
 }
 
 .site-header {
-  position: sticky;
-  top: 0;
+  position: fixed;
+  top: 16px;
+  left: 16px;
+  right: 16px;
   z-index: 50;
-  grid-template-columns: 1fr;
-  align-items: center;
-  justify-content: center;
-  min-height: var(--header-h);
-  background: var(--header-bg, transparent);
+  background: rgba(255, 255, 255, 0.26);
+  backdrop-filter: blur(24px) saturate(140%);
+  -webkit-backdrop-filter: blur(24px) saturate(140%);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.1);
+}
+
+/* hide hamburger on desktop — desk-header provides nav */
+.site-header__menu {
+  display: none;
 }
 
 .site-header__logo {
@@ -207,8 +215,8 @@ body.nav-open .site-blur {
 .page-wrap {
   max-width: 1000px;
   margin: 0 auto;
-  padding: 0 20px 48px;
-  min-height: calc(100dvh - var(--header-h));
+  padding: calc(16px + 65px + 16px) 20px 48px; /* clear floating header: offset + height + gap */
+  min-height: 100dvh;
 }
 
 .sr-only {
@@ -232,7 +240,12 @@ body.page-home {
 
 .page-home .hero {
   text-align: center;
-  padding-top: 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100dvh;
+  padding: calc(12px + 56px + 16px) 0 24px; /* clear floating mobile header */
 }
 
 .page-home .hero__glass-top,
@@ -259,7 +272,7 @@ body.page-home {
 .page-home .hero__hint {
   font-size: 12px;
   color: #333;
-  margin: 0 0 10px;
+  margin: 0 0 4px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -962,15 +975,14 @@ body.page-invest {
   }
 
   .site-header {
-    position: sticky;
-    top: 0;
-    z-index: 50;
+    top: 12px;
+    left: 12px;
+    right: 12px;
     display: flex;
     align-items: center;
     justify-content: center;
     min-height: var(--header-h);
     padding: 0 16px;
-    background: var(--header-bg, transparent);
   }
 
   .site-header__left {
@@ -1010,7 +1022,7 @@ body.page-invest {
     right: 12px;
     width: 44px;
     height: 44px;
-    display: flex;
+    display: flex; /* override the desktop display:none */
     align-items: center;
     justify-content: center;
     color: var(--menu-icon-color, #111);
@@ -1032,19 +1044,20 @@ body.page-invest {
 @media (min-width: 768px) {
   /* Lock the whole hero to the viewport — no scrolling */
   .page-home .page-wrap {
-    padding-bottom: 0;
+    padding: 0; /* hero handles its own layout */
     min-height: unset;
   }
 
   /* Hero is the full viewport canvas; panels float on top */
   .page-home .hero {
     position: relative;
-    height: calc(100dvh - 65px);
+    height: 100dvh;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
-    padding: 36px 20px;
+    padding: calc(16px + 65px + 16px) 20px 24px; /* clear floating header */
+    min-height: unset;
   }
 
   /* Viewer fills the entire hero area behind the panels */
@@ -1077,7 +1090,7 @@ body.page-invest {
 
   .page-home .hero__hint {
     font-size: 12px;
-    margin-bottom: 10px;
+    margin-bottom: 4px;
   }
 
   .page-home .hero__caption {

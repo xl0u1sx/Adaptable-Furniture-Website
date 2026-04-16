@@ -147,17 +147,13 @@ ul {
 .product-price { font-size: 0.9em; color: #555; text-align: right; }
 .product-img { width: 100%; height: 60px; background: #fff; margin: 5px 0; border: 1px dashed #ccc; display: flex; align-items: center; justify-content: center; font-size: 12px; color: #999; }
 
-.spacer {
-  width: 100%;
-  height: 80px;
-}
 
 /* ——— Site header ——— */
 
 .desk-header{
   height: 65px;
   width: 100%;
-  background-color: transparent;
+  background-color: rgb(234, 227, 213);
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
   place-items: center;
@@ -173,22 +169,14 @@ ul {
 }
 
 .site-header {
-  position: fixed;
-  top: 16px;
-  left: 16px;
-  right: 16px;
+  position: sticky;
+  top: 0;
   z-index: 50;
-  background: rgba(255, 255, 255, 0.26);
-  backdrop-filter: blur(24px) saturate(140%);
-  -webkit-backdrop-filter: blur(24px) saturate(140%);
-  border: 1px solid rgba(255, 255, 255, 0.5);
-  border-radius: var(--radius-lg);
-  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.1);
-}
-
-/* hide hamburger on desktop — desk-header provides nav */
-.site-header__menu {
-  display: none;
+  grid-template-columns: 1fr;
+  align-items: center;
+  justify-content: center;
+  min-height: var(--header-h);
+  background: var(--header-bg, transparent);
 }
 
 .site-header__logo {
@@ -307,8 +295,8 @@ body.nav-open .site-blur {
 .page-wrap {
   max-width: 1000px;
   margin: 0 auto;
-  padding: calc(16px + 65px + 16px) 20px 48px; /* clear floating header: offset + height + gap */
-  min-height: 100dvh;
+  padding: 0 20px 48px;
+  min-height: calc(100dvh - var(--header-h));
 }
 
 .sr-only {
@@ -332,12 +320,7 @@ body.page-home {
 
 .page-home .hero {
   text-align: center;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  min-height: 100dvh;
-  padding: calc(12px + 56px + 16px) 0 24px; /* clear floating mobile header */
+  padding-top: 8px;
 }
 
 .page-home .hero__glass-top,
@@ -364,7 +347,7 @@ body.page-home {
 .page-home .hero__hint {
   font-size: 12px;
   color: #333;
-  margin: 0 0 4px;
+  margin: 0 0 10px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -938,6 +921,12 @@ body.page-shop {
   gap: 16px;
 }
 
+.shop-panel [data-cart-list] {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
 .page-shop .cart-item .product-card__add {
   background: #f28c38;
 }
@@ -1073,14 +1062,15 @@ body.page-invest {
   }
 
   .site-header {
-    top: 12px;
-    left: 12px;
-    right: 12px;
+    position: sticky;
+    top: 0;
+    z-index: 50;
     display: flex;
     align-items: center;
     justify-content: center;
     min-height: var(--header-h);
     padding: 0 16px;
+    background: var(--header-bg, transparent);
   }
 
   .site-header__left {
@@ -1120,7 +1110,7 @@ body.page-invest {
     right: 12px;
     width: 44px;
     height: 44px;
-    display: flex; /* override the desktop display:none */
+    display: flex;
     align-items: center;
     justify-content: center;
     color: var(--menu-icon-color, #111);
@@ -1142,20 +1132,19 @@ body.page-invest {
 @media (min-width: 768px) {
   /* Lock the whole hero to the viewport — no scrolling */
   .page-home .page-wrap {
-    padding: 0; /* hero handles its own layout */
+    padding-bottom: 0;
     min-height: unset;
   }
 
   /* Hero is the full viewport canvas; panels float on top */
   .page-home .hero {
     position: relative;
-    height: 100dvh;
+    height: calc(100dvh - 65px);
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
-    padding: calc(16px + 65px + 16px) 20px 24px; /* clear floating header */
-    min-height: unset;
+    padding: 36px 20px;
   }
 
   /* Viewer fills the entire hero area behind the panels */
@@ -1188,7 +1177,7 @@ body.page-invest {
 
   .page-home .hero__hint {
     font-size: 12px;
-    margin-bottom: 4px;
+    margin-bottom: 10px;
   }
 
   .page-home .hero__caption {

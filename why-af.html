@@ -10,16 +10,23 @@
       href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
       rel="stylesheet"
     />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="css/styles.css" />
+    <link rel="stylesheet" href="css/story.css" />
   </head>
-  <body class="page-why">
-  <header class="site-header">
+  <body class="page-why page-why-story">
+    <header class="site-header">
       <div class="desk-header">
         <a href="about.html">About</a>
         <span class="active"><a href="why-af.html">Why AF?</a></span>
-      <div class="af-logo">
-      <a class="site-header__logo" href="index.html" aria-label="Adaptable Furniture home">AF</a>
-      </div>
+        <div class="af-logo">
+          <a class="site-header__logo site-header__logo--mark" href="index.html" aria-label="Adaptable Furniture home">
+            <img src="img/Logo.png" alt="" width="180" height="48" decoding="async" />
+          </a>
+        </div>
         <a href="shop.html">Shop</a>
         <a href="invest.html">Invest</a>
       </div>
@@ -37,73 +44,223 @@
       </button>
     </header>
 
+    <div
+      class="story-progress"
+      id="story-progress"
+      role="progressbar"
+      aria-label="Product story progress"
+      aria-valuemin="0"
+      aria-valuemax="100"
+      aria-valuenow="0"
+    >
+      <div class="story-progress__segment"><div class="story-progress__fill"></div></div>
+      <div class="story-progress__segment"><div class="story-progress__fill"></div></div>
+      <div class="story-progress__segment"><div class="story-progress__fill"></div></div>
+      <div class="story-progress__segment"><div class="story-progress__fill"></div></div>
+    </div>
+
     <div class="site-blur">
-      <main class="page-wrap">
-        <h1 class="page-title">Why AF?</h1>
-        <p class="page-sub">Because we’re cool <span class="af-accent">AF</span></p>
+      <section class="hero" aria-label="Introduction">
+        <div class="hero__banner">
+          <img
+            class="hero__banner-img"
+            src="images/Render1.png"
+            alt=""
+            width="1440"
+            height="1080"
+            decoding="async"
+          />
+          <div class="hero__banner-overlay" aria-hidden="true"></div>
+          <div class="hero__banner-content">
+            <div class="hero__text">
+              <h1 class="hero__title">Meet AF.</h1>
+              <p class="hero__subtitle">One couch. Every configuration.</p>
+            </div>
+            <div class="hero__scroll" aria-hidden="true">
+              <span>Scroll</span>
+              <span class="hero__scroll-arrow"></span>
+            </div>
+          </div>
+        </div>
+      </section>
 
-        <section class="feature-block" aria-labelledby="feat-adaptable">
-          <div class="feature-head">
-            <h2 id="feat-adaptable">Adaptable</h2>
-            <span class="af-mark" aria-hidden="true">AF</span>
-          </div>
-          <div class="feature-card">
-            <ul>
-              <li>Intuitively supports creative use</li>
-              <li>Adapts to scenarios with different headcounts</li>
-              <li>Great for young adults with limited living space</li>
-              <li>Transforms quickly without complex setup</li>
-            </ul>
-            <a class="learn-more" href="shop.html">Learn more</a>
-          </div>
-        </section>
+      <section class="story-scroll" id="story-scroll" aria-label="Product features">
+        <div class="story-sticky">
+          <div class="story-layout">
+            <div class="story-img-column">
+              <div class="story-visual">
+                <div class="story-visual__stack">
+                  <img
+                    class="story-visual__img is-active"
+                    src="images/Render1.png"
+                    alt="Scattered modular seat pieces"
+                    data-scale="0"
+                    width="1440"
+                    height="1080"
+                    decoding="async"
+                  />
+                  <img
+                    class="story-visual__img"
+                    src="images/Use1.png"
+                    alt="Friends gathered in a social seating circle"
+                    data-scale="1"
+                    width="1440"
+                    height="1080"
+                    decoding="async"
+                  />
+                  <img
+                    class="story-visual__img"
+                    src="images/Render3.png"
+                    alt="Floor cushion and lounge configurations"
+                    data-scale="2"
+                    width="1440"
+                    height="1080"
+                    decoding="async"
+                  />
+                  <img
+                    class="story-visual__img"
+                    src="images/Use2.png"
+                    alt="Solo lounging and reading"
+                    data-scale="3"
+                    width="1440"
+                    height="1080"
+                    decoding="async"
+                  />
+                </div>
+              </div>
+            </div>
 
-        <section class="feature-block" aria-labelledby="feat-playful">
-          <div class="feature-head">
-            <h2 id="feat-playful">Playful &amp; Sleek</h2>
-            <span class="af-mark" aria-hidden="true">AF</span>
+            <div class="story-copy">
+              <article class="feature-panel is-active" data-feature="0">
+                <h2 class="feature-panel__title">Adaptable</h2>
+                <ul class="feature-panel__list">
+                  <li>Intuitively supports creative use</li>
+                  <li>Adapts to any headcount</li>
+                  <li>Great for small living spaces</li>
+                  <li>No complex setup required</li>
+                </ul>
+              </article>
+              <article class="feature-panel" data-feature="1">
+                <h2 class="feature-panel__title">Playful &amp; Sleek</h2>
+                <ul class="feature-panel__list">
+                  <li>Built for socializing and connecting</li>
+                  <li>Visually durable, long-lasting design</li>
+                  <li>Encourages shared experiences</li>
+                  <li>A vibe, not just furniture</li>
+                </ul>
+              </article>
+              <article class="feature-panel" data-feature="2">
+                <h2 class="feature-panel__title">Space-Efficient</h2>
+                <ul class="feature-panel__list">
+                  <li>Reconfigures without extra floor space</li>
+                  <li>Serves multiple functions in one piece</li>
+                  <li>Easy to store or rearrange</li>
+                  <li>Compact when you need it to be</li>
+                </ul>
+              </article>
+              <article class="feature-panel" data-feature="3">
+                <h2 class="feature-panel__title">Durable &amp; Comfortable</h2>
+                <ul class="feature-panel__list">
+                  <li>Soft yet strong materials</li>
+                  <li>Multiple comfort positions</li>
+                  <li>Built for frequent reconfiguration</li>
+                  <li>Maintains shape over time</li>
+                </ul>
+              </article>
+            </div>
           </div>
-          <div class="feature-card">
-            <ul>
-              <li>Creates a setting for socializing and connecting</li>
-              <li>Supports having fun and stress relief</li>
-              <li>Visually durable as a long-standing furniture piece</li>
-              <li>Encourages interaction and shared experiences</li>
-            </ul>
-            <a class="learn-more" href="shop.html">Learn more</a>
-          </div>
-        </section>
+        </div>
+      </section>
 
-        <section class="feature-block" aria-labelledby="feat-space">
-          <div class="feature-head">
-            <h2 id="feat-space">Space-Efficient</h2>
-            <span class="af-mark" aria-hidden="true">AF</span>
+      <section class="config" aria-labelledby="config-headline">
+        <h2 id="config-headline" class="config__headline">One piece. Infinite layouts.</h2>
+        <div class="config-marquee" role="region" aria-label="Layout examples, scrolling">
+          <div class="config-marquee__track">
+            <figure class="config-marquee__item">
+              <img src="images/Render2.png" alt="Four-seat sofa with blue side tables" width="1440" height="1080" decoding="async" />
+              <figcaption class="config-marquee__caption">4-Seat Sofa</figcaption>
+            </figure>
+            <figure class="config-marquee__item">
+              <img src="images/Render4.png" alt="Flat bed configuration" width="1440" height="1080" decoding="async" />
+              <figcaption class="config-marquee__caption">Twin Bed</figcaption>
+            </figure>
+            <figure class="config-marquee__item">
+              <img src="images/Render2.png" alt="" width="1440" height="1080" decoding="async" />
+              <figcaption class="config-marquee__caption">Social Setup</figcaption>
+            </figure>
+            <figure class="config-marquee__item">
+              <img src="images/Render4.png" alt="" width="1440" height="1080" decoding="async" />
+              <figcaption class="config-marquee__caption">Guest Sleep</figcaption>
+            </figure>
+            <figure class="config-marquee__item">
+              <img src="images/Render2.png" alt="" width="1440" height="1080" decoding="async" />
+              <figcaption class="config-marquee__caption">Lounge Row</figcaption>
+            </figure>
+            <figure class="config-marquee__item">
+              <img src="images/Render4.png" alt="" width="1440" height="1080" decoding="async" />
+              <figcaption class="config-marquee__caption">Flat Rest</figcaption>
+            </figure>
+            <figure class="config-marquee__item" aria-hidden="true">
+              <img src="images/Render2.png" alt="" width="1440" height="1080" decoding="async" />
+              <figcaption class="config-marquee__caption">4-Seat Sofa</figcaption>
+            </figure>
+            <figure class="config-marquee__item" aria-hidden="true">
+              <img src="images/Render4.png" alt="" width="1440" height="1080" decoding="async" />
+              <figcaption class="config-marquee__caption">Twin Bed</figcaption>
+            </figure>
+            <figure class="config-marquee__item" aria-hidden="true">
+              <img src="images/Render2.png" alt="" width="1440" height="1080" decoding="async" />
+              <figcaption class="config-marquee__caption">Social Setup</figcaption>
+            </figure>
+            <figure class="config-marquee__item" aria-hidden="true">
+              <img src="images/Render4.png" alt="" width="1440" height="1080" decoding="async" />
+              <figcaption class="config-marquee__caption">Guest Sleep</figcaption>
+            </figure>
+            <figure class="config-marquee__item" aria-hidden="true">
+              <img src="images/Render2.png" alt="" width="1440" height="1080" decoding="async" />
+              <figcaption class="config-marquee__caption">Lounge Row</figcaption>
+            </figure>
+            <figure class="config-marquee__item" aria-hidden="true">
+              <img src="images/Render4.png" alt="" width="1440" height="1080" decoding="async" />
+              <figcaption class="config-marquee__caption">Flat Rest</figcaption>
+            </figure>
           </div>
-          <div class="feature-card">
-            <ul>
-              <li>Easy to store or reconfigure when not in use</li>
-              <li>Serves multiple functions without overcrowding the space</li>
-              <li>Easily reconfigures without requiring much additional floor space</li>
-            </ul>
-            <a class="learn-more" href="shop.html">Learn more</a>
-          </div>
-        </section>
+        </div>
+        <p class="config__body">
+          AF transforms in seconds. No tools. No instructions. Just move.
+        </p>
+      </section>
 
-        <section class="feature-block" aria-labelledby="feat-durable">
-          <div class="feature-head">
-            <h2 id="feat-durable">Durable &amp; Comfortable</h2>
-            <span class="af-mark" aria-hidden="true">AF</span>
-          </div>
-          <div class="feature-card">
-            <ul>
-              <li>Using soft yet strong materials to help prevent wear and tear</li>
-              <li>Creates multiple layouts for different comfort preferences</li>
-              <li>Maintains structural integrity for frequent reconfigurations</li>
-            </ul>
-            <a class="learn-more" href="shop.html">Learn more</a>
-          </div>
-        </section>
-      </main>
+      <section class="lifestyle" aria-label="Lifestyle">
+        <img
+          class="lifestyle__img"
+          src="images/Use2.png"
+          alt=""
+          width="1920"
+          height="1080"
+          decoding="async"
+        />
+        <div class="lifestyle__overlay" aria-hidden="true"></div>
+        <div class="lifestyle__content">
+          <h2 class="lifestyle__title">Your space, your rules.</h2>
+          <p class="lifestyle__sub">AF fits around your life — not the other way around.</p>
+        </div>
+      </section>
+
+      <footer class="cta" aria-label="Call to action">
+        <p class="cta__logo">
+          <img
+            class="cta__logo-img"
+            src="img/Logo.png"
+            alt="Adaptable Furniture"
+            width="200"
+            height="72"
+            decoding="async"
+          />
+        </p>
+        <a class="cta__btn" href="shop.html">Shop AF</a>
+        <p class="cta__tagline">Because we&apos;re cool AF</p>
+      </footer>
     </div>
 
     <div
@@ -119,7 +276,13 @@
           <path d="M6 6l12 12M18 6L6 18" />
         </svg>
       </button>
-      <a class="site-header__logo" href="index.html" style="position: absolute; top: 8px; left: 50%; transform: translateX(-50%)">AF</a>
+      <a
+        class="site-header__logo site-header__logo--mark nav-overlay__brand"
+        href="index.html"
+        aria-label="Adaptable Furniture home"
+      >
+        <img src="img/Logo.png" alt="" width="180" height="48" decoding="async" />
+      </a>
       <nav class="nav-overlay__links" aria-label="Primary">
         <a href="index.html" data-nav>Home</a>
         <a href="about.html" data-nav>About</a>
@@ -130,5 +293,26 @@
     </div>
 
     <script src="js/app.js" defer></script>
+    <script src="js/story.js" defer></script>
+    <script>
+      (function () {
+        var bar = document.getElementById("story-progress");
+        var story = document.getElementById("story-scroll");
+        if (!bar || !story) return;
+
+        function ariaUpdate() {
+          var rect = story.getBoundingClientRect();
+          var vh = window.innerHeight;
+          var sectionTop = rect.top + window.scrollY;
+          var denom = story.offsetHeight - vh;
+          var p = denom <= 0 ? 0 : (window.scrollY - sectionTop) / denom;
+          p = Math.min(1, Math.max(0, p));
+          bar.setAttribute("aria-valuenow", String(Math.round(p * 100)));
+        }
+
+        window.addEventListener("scroll", ariaUpdate, { passive: true });
+        ariaUpdate();
+      })();
+    </script>
   </body>
 </html>

@@ -102,6 +102,39 @@ ul {
   color: #111;
 }
 
+/* Logo image (replaces "AF" text) — use with .site-header__logo */
+.site-header__logo--mark {
+  width: auto;
+  min-width: 44px;
+  height: 44px;
+  padding: 4px 8px;
+  background: transparent;
+  box-shadow: none;
+  border-radius: 0;
+}
+
+.site-header__logo--mark img {
+  display: block;
+  height: 34px;
+  width: auto;
+  max-width: 140px;
+  object-fit: contain;
+}
+
+@media (min-width: 900px) {
+  .site-header__logo--mark img {
+    height: 38px;
+    max-width: 160px;
+  }
+}
+
+.nav-overlay__brand {
+  position: absolute;
+  top: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
 /* ——— Nav overlay ——— */
 .nav-overlay {
   position: fixed;
@@ -289,6 +322,11 @@ body.page-about {
 .page-about .site-header__logo {
   background: #fff;
   color: #1c1c1c;
+}
+
+.page-about .site-header__logo--mark {
+  background: transparent;
+  box-shadow: none;
 }
 
 .page-about .nav-overlay {
@@ -942,6 +980,14 @@ body.page-invest {
     font-size: 15px;
     letter-spacing: -0.02em;
     color: #111;
+  }
+
+  .site-header__logo--mark {
+    width: auto;
+    min-width: 44px;
+    background: transparent;
+    box-shadow: none;
+    border-radius: 0;
   }
 
   .site-header__menu {

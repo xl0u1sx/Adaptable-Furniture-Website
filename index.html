@@ -7,10 +7,11 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Host+Grotesk:wght@400;500;600;700;800&family=Nunito+Sans:wght@400;500;600;700;800&display=swap"
       rel="stylesheet"
     />
     <link rel="stylesheet" href="css/styles.css" />
+    <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.5.0/model-viewer.min.js"></script>
   </head>
   <body class="page-home">
     <header class="site-header">
@@ -42,20 +43,29 @@
     <div class="site-blur" data-home-load>
       <main class="page-wrap">
         <section class="hero" aria-label="Featured product">
-          <p class="hero__hint">
-            <span aria-hidden="true">◆</span>
-            Pinch with two fingers to zoom and use one finger to orbit.
-          </p>
-          <h1 class="hero__title">Furniture done right.</h1>
-          <div class="hero__viewer">
-            <div class="hero__viewer-inner">
-              <div class="hero-fallback" role="img" aria-label="Sea foam green and glacier blue floor seating set"></div>
-            </div>
+          <div class="hero__glass-top">
+            <p class="hero__hint">
+              <span aria-hidden="true">◆</span>
+              Pinch with two fingers to zoom and use one finger to orbit.
+            </p>
+            <h1 class="hero__title">Furniture done right.</h1>
           </div>
-          <p class="hero__caption">
-            Check out our sea foam <span style="color:#2c9473">green</span> / <span style="color:#56afc3">glacier blue</span> floor seating set for a limited time only.
-          </p>
-          <a class="hero__cta" href="shop.html">Shop Adaptable Furniture &gt;</a>
+          <div class="hero__viewer">
+            <model-viewer
+              src="3dassets/sofa.glb"
+              alt="Sea foam green and glacier blue floor seating set"
+              camera-controls
+              auto-rotate
+              shadow-intensity="1"
+              style="width:100%;height:100%;background:transparent;"
+            ></model-viewer>
+          </div>
+          <div class="hero__glass-bottom">
+            <p class="hero__caption">
+              Check out our sea foam <span style="color:#2c9473">green</span> / <span style="color:#56afc3">glacier blue</span> floor seating set for a limited time only.
+            </p>
+            <a class="hero__cta" href="shop.html">Shop Adaptable Furniture &gt;</a>
+          </div>
         </section>
       </main>
     </div>

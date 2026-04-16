@@ -1,8 +1,9 @@
 /* Adaptable Furniture — shared + page themes */
 
 :root {
-  --font-sans: "Plus Jakarta Sans", system-ui, sans-serif;
-  --font-logo: "Fraunces", Georgia, serif;
+  --font-sans: "Nunito Sans", system-ui, sans-serif;
+  --font-heading: "Host Grotesk", system-ui, sans-serif;
+  --font-logo: "Host Grotesk", system-ui, sans-serif;
   --radius-sm: 10px;
   --radius-md: 16px;
   --radius-lg: 24px;
@@ -29,6 +30,10 @@ body {
   color: #111;
   background: var(--page-bg, #dccbb5);
   min-height: 100dvh;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
 }
 
 img {
@@ -230,10 +235,31 @@ body.page-home {
   padding-top: 8px;
 }
 
+.page-home .hero__glass-top,
+.page-home .hero__glass-bottom {
+  background: rgba(255, 255, 255, 0.26);
+  backdrop-filter: blur(24px) saturate(140%);
+  -webkit-backdrop-filter: blur(24px) saturate(140%);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 2px 16px rgba(0, 0, 0, 0.04);
+  max-width: 420px;
+  margin: 0 auto;
+  padding: 20px 24px;
+}
+
+.page-home .hero__glass-top {
+  margin-bottom: 0;
+}
+
+.page-home .hero__glass-bottom {
+  margin-top: 0;
+}
+
 .page-home .hero__hint {
   font-size: 12px;
   color: #333;
-  margin-bottom: 12px;
+  margin: 0 0 10px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -243,50 +269,23 @@ body.page-home {
 .page-home .hero__title {
   font-size: clamp(1.75rem, 7vw, 2.25rem);
   font-weight: 700;
-  margin: 0 0 20px;
+  margin: 0;
   letter-spacing: -0.02em;
 }
 
 .page-home .hero__viewer {
-  position: relative;
-  border-radius: var(--radius-lg);
-  overflow: hidden;
-  background: linear-gradient(145deg, #c5e8d8 0%, #a8d4c4 40%, #7eb8f0 100%);
+  width: 100%;
+  max-width: 420px;
   aspect-ratio: 4 / 5;
   max-height: 420px;
   margin: 0 auto;
-  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.12);
-}
-
-.page-home .hero__viewer-inner {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 16px;
-}
-
-.page-home .hero__viewer-inner .hero-fallback {
-  width: 100%;
-  height: 100%;
-  border-radius: var(--radius-md);
-}
-
-.page-home .hero-fallback {
-  object-fit: cover;
-  background: url("https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=800&q=80")
-    center / cover no-repeat;
 }
 
 .page-home .hero__caption {
   font-size: 13px;
   color: #2a2a2a;
   text-align: center;
-  margin: 16px 0 32px;
-  max-width: 320px;
-  margin-left: auto;
-  margin-right: auto;
+  margin: 0 0 20px;
 }
 
 .page-home .hero__cta {
@@ -652,7 +651,10 @@ body.page-shop {
   display: flex;
   align-items: center;
   gap: 8px;
-  background: rgba(255, 255, 255, 0.55);
+  background: rgba(255, 255, 255, 0.26);
+  backdrop-filter: blur(24px) saturate(140%);
+  -webkit-backdrop-filter: blur(24px) saturate(140%);
+  border: 1px solid rgba(255, 255, 255, 0.5);
   border-radius: var(--radius-pill);
   padding: 10px 14px;
 }
@@ -686,7 +688,10 @@ body.page-shop {
   flex-shrink: 0;
   padding: 10px 14px;
   border-radius: var(--radius-pill);
-  background: #b0c4de;
+  background: rgba(255, 255, 255, 0.26);
+  backdrop-filter: blur(24px) saturate(140%);
+  -webkit-backdrop-filter: blur(24px) saturate(140%);
+  border: 1px solid rgba(255, 255, 255, 0.5);
   color: var(--text-navy);
   font-size: 12px;
   font-weight: 700;
@@ -703,17 +708,21 @@ body.page-shop {
   display: grid;
   grid-template-columns: 120px 1fr;
   gap: 14px;
-  background: rgba(255, 255, 255, 0.45);
+  background: rgba(255, 255, 255, 0.26);
+  backdrop-filter: blur(24px) saturate(140%);
+  -webkit-backdrop-filter: blur(24px) saturate(140%);
+  border: 1px solid rgba(255, 255, 255, 0.5);
   border-radius: var(--radius-lg);
   padding: 12px;
   position: relative;
   align-items: start;
+  box-shadow: 0 2px 16px rgba(0, 0, 0, 0.04);
 }
 
 .page-shop .product-card__img {
   border-radius: var(--radius-md);
   aspect-ratio: 1;
-  background: linear-gradient(135deg, #9fd4c4, #7ec8b8);
+  background: rgba(255, 255, 255, 0.45);
   position: relative;
   overflow: hidden;
 }
@@ -796,7 +805,10 @@ body.page-shop {
   font-weight: 700;
   padding: 10px 16px;
   border-radius: var(--radius-pill);
-  background: #b0c4de;
+  background: rgba(255, 255, 255, 0.26);
+  backdrop-filter: blur(24px) saturate(140%);
+  -webkit-backdrop-filter: blur(24px) saturate(140%);
+  border: 1px solid rgba(255, 255, 255, 0.5);
   margin-right: 40px;
 }
 
@@ -842,7 +854,10 @@ body.page-shop {
   width: 100%;
   padding: 16px;
   border-radius: var(--radius-md);
-  background: #b0c4de;
+  background: rgba(255, 255, 255, 0.26);
+  backdrop-filter: blur(24px) saturate(140%);
+  -webkit-backdrop-filter: blur(24px) saturate(140%);
+  border: 1px solid rgba(255, 255, 255, 0.5);
   color: var(--text-navy);
   font-weight: 700;
   font-size: 1rem;
@@ -1011,5 +1026,66 @@ body.page-invest {
   .page-about .team-row--four .team-avatar {
     width: 72px;
     height: 72px;
+  }
+}
+
+@media (min-width: 768px) {
+  /* Lock the whole hero to the viewport — no scrolling */
+  .page-home .page-wrap {
+    padding-bottom: 0;
+    min-height: unset;
+  }
+
+  /* Hero is the full viewport canvas; panels float on top */
+  .page-home .hero {
+    position: relative;
+    height: calc(100dvh - 65px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    padding: 36px 20px;
+  }
+
+  /* Viewer fills the entire hero area behind the panels */
+  .page-home .hero__viewer {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    max-width: none;
+    max-height: none;
+    aspect-ratio: unset;
+    z-index: 0;
+    margin: 0;
+  }
+
+  .page-home .hero__glass-top,
+  .page-home .hero__glass-bottom {
+    max-width: 480px;
+    width: 100%;
+    padding: 18px 28px;
+    position: relative;
+    z-index: 2;
+    margin: 0;
+  }
+
+  .page-home .hero__title {
+    font-size: clamp(1.6rem, 2.8vw, 2.4rem);
+    letter-spacing: -0.03em;
+  }
+
+  .page-home .hero__hint {
+    font-size: 12px;
+    margin-bottom: 10px;
+  }
+
+  .page-home .hero__caption {
+    font-size: 13px;
+    margin-bottom: 16px;
+  }
+
+  .page-home .hero__cta {
+    font-size: 1rem;
   }
 }

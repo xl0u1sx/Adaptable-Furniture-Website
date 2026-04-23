@@ -2,6 +2,7 @@
   const root = document.querySelector("[data-checkout-root]");
   if (!root) return;
 
+  const API_BASE_URL = "https://6e7ggqrms0.execute-api.us-east-1.amazonaws.com";
   const STORAGE_KEY = "af-cart";
   const TAX_RATE = 0.085;
   const SHIPPING_FEE_CENTS = 5900;
@@ -51,6 +52,7 @@
     form: root.querySelector("[data-checkout-form]"),
     submit: root.querySelector("[data-place-order]"),
     confirmation: root.querySelector("[data-checkout-confirmation]"),
+    error: root.querySelector("[data-checkout-error]"),
   };
 
   function formatMoney(cents) {
@@ -98,6 +100,22 @@
     const taxCents = Math.round(subtotalCents * TAX_RATE);
     const totalCents = subtotalCents + shippingCents + taxCents;
     return { subtotalCents, shippingCents, taxCents, totalCents };
+  }
+
+  function clearMessages() {
+    if (els.error) {
+      els.error.hidden = true;
+      els.error.textContent = "";
+    }
+    if (els.confirmation) {
+      els.confirmation.hidden = true;
+    }
+  }
+
+  function showError(message) {
+    if (!els.error) return;
+    els.error.textContent = message;
+    els.error.hidden = false;
   }
 
   function renderEmpty() {
@@ -152,24 +170,98 @@
     if (els.total) els.total.textContent = formatMoney(totals.totalCents);
   }
 
-  els.form?.addEventListener("submit", (event) => {
+  function buildOrderPayload(form, entries, totals) {
+    const data = new FormData(form);
+    return {
+      customerName: String(data.get("fullName") || "").trim(),
+      email: String(data.get("email") || "").trim(),
+      items: entries.map((entry) => ({
+        id: entry.product.id,
+        name: entry.product.name,
+        qty: entry.qty,
+        price: entry.product.price,
+      })),
+      total: Math.round(totals.totalCents / 100),
+      shippingAddress: {
+        line1: String(data.get("address1") || "").trim(),
+        city: String(data.get("city") || "").trim(),
+        state: String(data.get("state") || "").trim(),
+        zip: String(data.get("zip") || "").trim(),
+        country: String(data.get("country") || "").trim(),
+      },
+      notes: "Demo checkout submission",
+    };
+  }
+
+  function setSubmitState(isLoading) {
+    if (!els.submit) return;
+    els.submit.disabled = isLoading;
+    els.submit.textContent = isLoading ? "Placing order..." : "Place order";
+  }
+
+  els.form?.addEventListener("submit", async (event) => {
     event.preventDefault();
     if (!els.form.checkValidity()) {
       els.form.reportValidity();
       return;
     }
 
-    localStorage.removeItem(STORAGE_KEY);
-    render();
+    clearMessages();
 
-    if (els.confirmation) {
-      els.confirmation.hidden = false;
+    const cart = loadCart();
+    const entries = cartEntries(cart);
+    if (!entries.length) {
+      showError("Your cart is empty. Add at least one item before checkout.");
+      return;
     }
-    if (els.submit) {
-      els.submit.disabled = true;
-      els.submit.textContent = "Order placed";
+
+    const totals = computeTotals(entries);
+    const payload = buildOrderPayload(els.form, entries, totals);
+
+    setSubmitState(true);
+
+    try {
+      const response = await fetch(`${API_BASE_URL}/orders`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(payload),
+      });
+
+      let result = {};
+      try {
+        result = await response.json();
+      } catch {
+        result = {};
+      }
+
+      if (!response.ok) {
+        const serverMessage =
+          typeof result?.message === "string" ? result.message : "";
+        throw new Error(serverMessage || "Unable to place order right now.");
+      }
+
+      localStorage.removeItem(STORAGE_KEY);
+      render();
+
+      if (els.confirmation) {
+        els.confirmation.hidden = false;
+      }
+      if (els.submit) {
+        els.submit.disabled = true;
+        els.submit.textContent = "Order placed";
+      }
+    } catch (error) {
+      const message =
+        error instanceof Error
+          ? error.message
+          : "Something went wrong while placing your order.";
+      showError(message);
+      setSubmitState(false);
     }
   });
 
+  clearMessages();
   render();
 })();

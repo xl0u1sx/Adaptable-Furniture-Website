@@ -2309,6 +2309,12 @@ body.page-checkout {
   cursor: not-allowed;
 }
 
+.checkout-error {
+  margin: 10px 0 0;
+  font-size: 13px;
+  color: #8d1b1b;
+}
+
 .checkout-disclaimer {
   margin: 10px 0 0;
   font-size: 12px;

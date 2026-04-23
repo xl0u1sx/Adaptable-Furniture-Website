@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Invest — Adaptable Furniture</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Host+Grotesk:wght@400;500;600;700;800&family=Nunito+Sans:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/styles.css" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" defer></script>
+    <script src="js/invest.js" defer></script>
+  </head>
+  <body class="page-invest">
+    <header class="site-header">
+      <div class="desk-header">
+        <a href="about.html">About</a>
+        <a href="why-af.html">Why AF?</a>
+        <div class="af-logo">
+          <a class="site-header__logo site-header__logo--mark" href="index.html" aria-label="Adaptable Furniture home">
+            <img src="img/Logo.png" alt="" width="180" height="48" decoding="async" />
+          </a>
+        </div>
+        <a href="shop.html">Shop</a>
+        <span class="active"><a href="invest.html">Invest</a></span>
+      </div>
+      <button
+        type="button"
+        class="site-header__menu"
+        aria-label="Open menu"
+        aria-expanded="false"
+        aria-controls="nav-overlay"
+        data-nav-open
+      >
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+          <path d="M4 7h16M4 12h16M4 17h16" />
+        </svg>
+      </button>
+    </header>
+
+    <div class="site-blur">
+      <main class="page-wrap">
+        <div class="simple-content">
+          <section class="about-opp" aria-labelledby="invest-opp-heading">
+          <h2 id="invest-opp-heading" class="about-section-h2">The opportunity</h2>
+          <div class="about-opp__grid">
+            <article class="about-glass about-opp__card">
+              <span class="about-opp__num about-opp__num--navy">78M</span>
+              <p class="about-opp__desc">Young adults (18–34) renting in the US</p>
+            </article>
+            <article class="about-glass about-opp__card">
+              <span class="about-opp__num about-opp__num--green">52%</span>
+              <p class="about-opp__desc">Live in spaces under 700 sq ft</p>
+            </article>
+            <article class="about-glass about-opp__card">
+              <span class="about-opp__num about-opp__num--orange">$0</span>
+              <p class="about-opp__desc">Truly affordable + versatile + stylish options</p>
+            </article>
+            <article class="about-glass about-opp__card">
+              <span class="about-opp__num about-opp__num--navy">$280</span>
+              <p class="about-opp__desc">Average spend on a single-use furniture piece</p>
+            </article>
+          </div>
+          </section>
+
+          <div class="spacer"></div>
+          <div class="invest-info">
+            <ul>
+              <li>Click on a dot to view a product.</li>
+            </ul>
+          </div>
+          <div class="matrix-container-container">
+            <div class="matrix-container">
+              <div class="axis-h"></div>
+              <div class="axis-v"></div>
+
+              <div class="label label-top">Ease of use</div>
+              <div class="label label-bottom">Difficulty of use</div>
+
+              <div class="label label-left">Fixed</div>
+              <div class="label label-right">Versatility</div>
+
+              <div class="dot" style="left: 5%; top: 15%;" data-name="Maggis" data-price="$450" data-img="image_url_here.jpg"></div>
+
+              <div class="dot" style="left: 15%; top: 35%;" data-name="House of Noa" data-price="$249" data-img="your_logo.png"></div>
+
+              <div class="dot" style="left: 25%; top: 10%;" data-name="Costway" data-price="$80" data-img="your_logo.png"></div>
+
+              <div class="dot" style="left: 30%; top: 35%;" data-name="BulbSquare" data-price="$220" data-img="your_logo.png"></div>
+
+              <div class="dot" style="left: 35%; top: 35%;" data-name="Cozey" data-price="$1,795-$5,050" data-img="your_logo.png"></div>
+
+              <div class="dot" style="left: 40%; top: 15%;" data-name="Mercer41" data-price="$490" data-img="your_logo.png"></div>
+
+              <div class="dot" style="left: 60%; top: 20%;" data-name="Louann Tatami" data-price="$469" data-img="your_logo.png"></div>
+
+              <div class="dot" style="left: 70%; top: 30%;" data-name="Welle 1~6" data-price="$1,234" data-img="your_logo.png"></div>
+
+              <div class="dot" style="left: 65%; top: 65%;" data-name="Dune Sofa" data-price="$4995-$9550" data-img="your_logo.png"></div>
+
+              <div class="dot" style="left: 10%; top: 70%;" data-name="Thorvald" data-price="$2,679" data-img="your_logo.png"></div>
+
+              <div class="afdot" style="left: 85%; top: 5%;">
+                <a href="#why-jump" aria-label="Jump to Why AF on this page"
+                  ><img src="img/Logo.png" alt="" width="44" height="44" decoding="async"
+                /></a>
+              </div>
+
+              <div id="info-card" role="status" aria-live="polite">
+                <div class="product-title">Product Name</div>
+                <div class="product-img">Image Placeholder</div>
+                <div class="product-price">$0.00</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div id="why-jump"></div>
+
+        <h1 class="page-title">Why AF?</h1>
+        <p class="page-sub">Because we’re cool <span class="af-accent">AF</span></p>
+
+        <section class="invest-why" aria-label="Product story pillars">
+          <div class="invest-why__grid">
+            <article class="about-glass invest-why__card">
+              <h2 class="invest-why__title">Adaptable <span class="invest-why__af" aria-hidden="true">AF</span></h2>
+              <a class="invest-why__learn" href="why-af.html#story-scroll">Learn more</a>
+            </article>
+            <article class="about-glass invest-why__card">
+              <h2 class="invest-why__title">Playful &amp; Sleek <span class="invest-why__af" aria-hidden="true">AF</span></h2>
+              <a class="invest-why__learn" href="why-af.html#story-scroll">Learn more</a>
+            </article>
+            <article class="about-glass invest-why__card">
+              <h2 class="invest-why__title">Space-Efficient <span class="invest-why__af" aria-hidden="true">AF</span></h2>
+              <a class="invest-why__learn" href="why-af.html#story-scroll">Learn more</a>
+            </article>
+            <article class="about-glass invest-why__card">
+              <h2 class="invest-why__title">Durable &amp; Comfortable <span class="invest-why__af" aria-hidden="true">AF</span></h2>
+              <a class="invest-why__learn" href="why-af.html#story-scroll">Learn more</a>
+            </article>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <div
+      id="nav-overlay"
+      class="nav-overlay"
+      role="dialog"
+      aria-modal="true"
+      aria-label="Site menu"
+      aria-hidden="true"
+    >
+      <button type="button" class="nav-overlay__close" data-nav-close aria-label="Close menu">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M6 6l12 12M18 6L6 18" />
+        </svg>
+      </button>
+      <a class="site-header__logo site-header__logo--mark nav-overlay__brand" href="index.html" aria-label="Adaptable Furniture home">
+        <img src="img/Logo.png" alt="" width="180" height="48" decoding="async" />
+      </a>
+      <nav class="nav-overlay__links" aria-label="Primary">
+        <a href="index.html" data-nav>Home</a>
+        <a href="about.html" data-nav>About</a>
+        <a href="why-af.html" data-nav>Why AF?</a>
+        <a href="shop.html" data-nav>Shop</a>
+        <a href="invest.html" data-nav>Invest</a>
+      </nav>
+    </div>
+
+    <script src="js/app.js" defer></script>
+  </body>
+</html>

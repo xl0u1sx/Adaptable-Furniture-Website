@@ -1,0 +1,588 @@
+/* AF Product Story — Apple-style scroll narrative */
+
+:root {
+  /* Align with site-wide About / globals (styles.css) */
+  --bg: #f2ebe1;
+  --accent: #e37222;
+  --text: #111;
+  --white: #ffffff;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body.page-why.page-why-story {
+  --page-bg: var(--bg);
+  margin: 0;
+  font-family: var(--font-sans, "Nunito Sans", system-ui, sans-serif);
+  background: var(--page-bg, var(--bg));
+  color: var(--text);
+  -webkit-font-smoothing: antialiased;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* ----- Progress bar (fixed; sits just below the floating header) ----- */
+.story-progress {
+  position: fixed;
+  top: calc(16px + 65px + 6px); /* floating header: offset + height + gap */
+  left: 16px;
+  right: 16px;
+  z-index: 60;
+  display: flex;
+  gap: 4px;
+  height: 3px;
+  padding: 0;
+  border-radius: 2px;
+  overflow: hidden;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.35s ease, visibility 0.35s ease;
+}
+
+.story-progress.is-visible {
+  opacity: 1;
+  visibility: visible;
+}
+
+.story-progress__segment {
+  flex: 1;
+  height: 100%;
+  background: rgba(26, 26, 46, 0.12);
+  border-radius: 1px;
+  overflow: hidden;
+}
+
+.story-progress__fill {
+  height: 100%;
+  width: 0%;
+  background: var(--accent);
+  border-radius: 1px;
+  will-change: width;
+}
+
+/* ----- Hero (image banner + text overlay) ----- */
+.hero {
+  position: relative;
+  width: 100%;
+  padding: 0;
+  overflow: hidden;
+}
+
+.hero__banner {
+  position: relative;
+  min-height: 100dvh;
+  width: 100%;
+  display: flex;
+  align-items: stretch;
+  justify-content: center;
+}
+
+.hero__banner-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 42%;
+  opacity: 0;
+  animation: heroBannerIn 1s ease 0.15s forwards;
+}
+
+@keyframes heroBannerIn {
+  from {
+    opacity: 0;
+    transform: scale(1.03);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.hero__banner-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(
+    165deg,
+    rgba(26, 26, 46, 0.55) 0%,
+    rgba(26, 26, 46, 0.35) 40%,
+    rgba(26, 26, 46, 0.65) 100%
+  );
+  pointer-events: none;
+}
+
+.hero__banner-content {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 100dvh;
+  padding: clamp(6rem, 13vh, 8rem) 1.5rem 2.5rem;
+  text-align: center;
+}
+
+.hero__text {
+  max-width: 20ch;
+}
+
+.hero__title {
+  margin: 0;
+  font-size: clamp(2.75rem, 8vw, 4.5rem);
+  font-weight: 700;
+  letter-spacing: -0.04em;
+  line-height: 1.05;
+  color: var(--white);
+  text-shadow: 0 2px 28px rgba(0, 0, 0, 0.25);
+}
+
+.hero__subtitle {
+  margin: 1rem 0 0;
+  font-size: clamp(1.1rem, 2.5vw, 1.35rem);
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  color: rgba(255, 255, 255, 0.92);
+  text-shadow: 0 1px 16px rgba(0, 0, 0, 0.2);
+}
+
+.hero__scroll {
+  margin-top: clamp(2rem, 6vh, 3.5rem);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.55);
+}
+
+.hero__scroll-arrow {
+  width: 22px;
+  height: 22px;
+  border-right: 2px solid rgba(255, 255, 255, 0.45);
+  border-bottom: 2px solid rgba(255, 255, 255, 0.45);
+  transform: rotate(45deg);
+  margin-top: 0.25rem;
+  animation: scrollBounce 2.2s ease-in-out infinite;
+}
+
+@keyframes scrollBounce {
+  0%,
+  100% {
+    transform: rotate(45deg) translateY(0);
+    opacity: 0.5;
+  }
+  50% {
+    transform: rotate(45deg) translateY(6px);
+    opacity: 1;
+  }
+}
+
+/* ----- Scroll story (taller = less sensitive per feature, esp. first) ----- */
+.story-scroll {
+  position: relative;
+  height: 680vh;
+  scroll-margin-top: 96px;
+}
+
+.story-sticky {
+  position: sticky;
+  top: 0;
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  justify-content: stretch;
+  padding: 0;
+  width: 100%;
+}
+
+/* Full-viewport canvas + copy stacked in one grid cell */
+.story-layout {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: minmax(100vh, min-content);
+  min-height: 100vh;
+  min-height: 100dvh;
+  width: 100%;
+  max-width: none;
+  margin: 0;
+}
+
+.story-img-column {
+  grid-column: 1;
+  grid-row: 1;
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: flex;
+  justify-content: stretch;
+  align-items: stretch;
+}
+
+.story-visual {
+  position: relative;
+  flex: 1;
+  width: 100%;
+  max-width: none;
+  margin: 0;
+  min-height: 100vh;
+  min-height: 100dvh;
+  aspect-ratio: auto;
+  will-change: transform;
+}
+
+.story-visual__stack {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.story-visual__model {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  max-width: 100%;
+  max-height: 100%;
+  margin: 0;
+  background: transparent;
+  --poster-color: transparent;
+  z-index: 1;
+  /* Camera is scroll-driven only — do not capture drag / pinch / wheel */
+  pointer-events: none;
+  touch-action: pan-y;
+}
+
+.story-visual__hint {
+  position: absolute;
+  top: calc(16px + 65px + 6px + 14px);
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: auto;
+  z-index: 3;
+  margin: 0;
+  padding: 0.35rem 0.65rem;
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: rgba(26, 26, 46, 0.45);
+  pointer-events: none;
+  user-select: none;
+}
+
+.story-copy {
+  grid-column: 1;
+  grid-row: 1;
+  position: relative;
+  z-index: 4;
+  align-self: stretch;
+  justify-self: stretch;
+  min-height: 100vh;
+  min-height: 100dvh;
+  pointer-events: none;
+  /* Soft scrim so type stays readable over the model */
+  background: linear-gradient(
+    to top,
+    rgba(242, 235, 225, 0.94) 0%,
+    rgba(242, 235, 225, 0.38) 40%,
+    rgba(242, 235, 225, 0) 62%
+  );
+}
+
+/* One fixed glass slot; panels cross-fade in place */
+.story-copy__slot {
+  position: absolute;
+  left: clamp(1rem, 4vw, 2rem);
+  right: clamp(1rem, 4vw, 2rem);
+  bottom: clamp(1.25rem, 4vh, 2.75rem);
+  width: min(36rem, calc(100% - 2rem));
+  max-width: calc(100% - 2rem);
+  min-height: min(42vh, 320px);
+  pointer-events: none;
+  z-index: 2;
+}
+
+.feature-panel {
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  margin: 0;
+  opacity: 0;
+  transform: scale(0.98);
+  pointer-events: none;
+  transition: opacity 0.75s ease, transform 0.75s ease;
+  z-index: 0;
+  padding: clamp(1rem, 3vw, 1.35rem) clamp(1.15rem, 3vw, 1.5rem);
+  border-radius: 24px;
+  /* Same glass as floating nav (.desk-header in styles.css) */
+  background: rgba(255, 255, 255, 0.26);
+  backdrop-filter: blur(24px) saturate(140%);
+  -webkit-backdrop-filter: blur(24px) saturate(140%);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+  overflow: auto;
+}
+
+.feature-panel.is-active {
+  opacity: 1;
+  transform: scale(1);
+  pointer-events: auto;
+  z-index: 1;
+}
+
+.feature-panel__title {
+  margin: 0 0 1rem;
+  font-size: clamp(1.65rem, 5vw, 2.75rem);
+  font-weight: 700;
+  letter-spacing: -0.035em;
+  font-family: var(--font-heading, "Host Grotesk", system-ui, sans-serif);
+  color: var(--text);
+  line-height: 1.1;
+}
+
+.feature-panel__list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: 16px;
+  line-height: 1.65;
+}
+
+.feature-panel__list li {
+  position: relative;
+  padding-left: 1.1rem;
+  margin-bottom: 0.65rem;
+  opacity: 0;
+  transform: translateY(8px);
+}
+
+.feature-panel__list li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.65em;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+.feature-panel.is-active .feature-panel__list li {
+  animation: bulletIn 0.5s ease forwards;
+}
+
+.feature-panel.is-active .feature-panel__list li:nth-child(1) {
+  animation-delay: 0.08s;
+}
+
+.feature-panel.is-active .feature-panel__list li:nth-child(2) {
+  animation-delay: 0.18s;
+}
+
+.feature-panel.is-active .feature-panel__list li:nth-child(3) {
+  animation-delay: 0.28s;
+}
+
+.feature-panel.is-active .feature-panel__list li:nth-child(4) {
+  animation-delay: 0.38s;
+}
+
+@keyframes bulletIn {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Wider glass card on small screens — slot gutters were visually heavy */
+@media (max-width: 768px) {
+  .story-copy__slot {
+    left: max(10px, env(safe-area-inset-left, 0px));
+    right: max(10px, env(safe-area-inset-right, 0px));
+    width: auto;
+    max-width: none;
+    bottom: max(1rem, env(safe-area-inset-bottom, 0px));
+  }
+}
+
+/* ----- Configurations (infinite horizontal scroll) ----- */
+.config {
+  padding: 6rem 0 5rem;
+  margin: 0 auto;
+  overflow: hidden;
+}
+
+.config__headline {
+  margin: 0 0 3rem;
+  padding: 0 1.5rem;
+  max-width: 1100px;
+  margin-left: auto;
+  margin-right: auto;
+  font-size: clamp(1.85rem, 4vw, 2.75rem);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  text-align: center;
+}
+
+.config-marquee {
+  overflow: hidden;
+  padding: 0.5rem 0;
+  -webkit-mask-image: linear-gradient(
+    90deg,
+    transparent,
+    #000 10%,
+    #000 90%,
+    transparent
+  );
+  mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent);
+}
+
+.config-marquee__track {
+  display: flex;
+  gap: clamp(1.25rem, 3vw, 2rem);
+  width: max-content;
+  animation: configMarquee 50s linear infinite;
+  will-change: transform;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .config-marquee__track {
+    animation: none;
+  }
+}
+
+@keyframes configMarquee {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.config-marquee__item {
+  flex: 0 0 auto;
+  width: min(72vw, 340px);
+  margin: 0;
+  text-align: center;
+}
+
+.config-marquee__item img {
+  width: 100%;
+  height: auto;
+  border-radius: 6px;
+  display: block;
+}
+
+.config-marquee__caption {
+  margin: 0.85rem 0 0;
+  font-size: 0.95rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: var(--text);
+}
+
+.config__body {
+  margin: 2.5rem auto 0;
+  padding: 0 1.5rem;
+  max-width: 42rem;
+  text-align: center;
+  font-size: 1.05rem;
+  line-height: 1.7;
+  color: rgba(26, 26, 46, 0.82);
+}
+
+/* ----- Lifestyle ----- */
+.lifestyle {
+  position: relative;
+  min-height: min(85vh, 720px);
+  display: flex;
+  align-items: flex-end;
+  overflow: hidden;
+}
+
+.lifestyle__img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.lifestyle__overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    rgba(26, 26, 46, 0.72) 0%,
+    rgba(26, 26, 46, 0.25) 45%,
+    rgba(26, 26, 46, 0.05) 100%
+  );
+  pointer-events: none;
+}
+
+.lifestyle__content {
+  position: relative;
+  z-index: 1;
+  padding: 4rem 1.5rem;
+  max-width: 640px;
+}
+
+.lifestyle__title {
+  margin: 0;
+  font-size: clamp(2rem, 5vw, 3.25rem);
+  font-weight: 700;
+  letter-spacing: -0.035em;
+  color: var(--white);
+  line-height: 1.1;
+}
+
+.lifestyle__sub {
+  margin: 1rem 0 0;
+  font-size: clamp(1rem, 2vw, 1.2rem);
+  font-weight: 400;
+  line-height: 1.55;
+  color: rgba(255, 255, 255, 0.92);
+  max-width: 28rem;
+}
+
+/* ----- CTA / Footer (button visuals: styles.css — shared with home) ----- */
+.cta {
+  padding: 4rem 1.5rem 4rem;
+  text-align: center;
+}
+
+.cta__btn {
+  margin-top: 0;
+}
+
+.cta__tagline {
+  margin: 1.5rem 0 0;
+  font-size: 0.95rem;
+  color: rgba(17, 17, 17, 0.55);
+  letter-spacing: 0.02em;
+}

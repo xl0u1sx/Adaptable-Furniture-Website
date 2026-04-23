@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Adaptable Furniture — Home</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Host+Grotesk:wght@400;500;600;700;800&family=Nunito+Sans:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/styles.css" />
+    <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.5.0/model-viewer.min.js"></script>
+  </head>
+  <body class="page-home">
+    <header class="site-header">
+      <div class="desk-header">
+        <a href="about.html">About</a>
+        <a href="why-af.html">Why AF?</a>
+        <div class="af-logo">
+          <a class="site-header__logo site-header__logo--mark" href="index.html" aria-label="Adaptable Furniture home">
+            <img src="img/Logo.png" alt="" width="180" height="48" decoding="async" />
+          </a>
+        </div>
+        <a href="shop.html">Shop</a>
+        <a href="invest.html">Invest</a>
+      </div>
+      <button
+        type="button"
+        class="site-header__menu"
+        aria-label="Open menu"
+        aria-expanded="false"
+        aria-controls="nav-overlay"
+        data-nav-open
+      >
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+          <path d="M4 7h16M4 12h16M4 17h16" />
+        </svg>
+      </button>
+    </header>
+
+    <div class="site-blur" data-home-load>
+      <main class="page-wrap">
+        <section class="hero" aria-label="Featured product">
+          <div class="hero__glass-top">
+            <p class="hero__hint">
+              <span aria-hidden="true">◆</span>
+              Pinch with two fingers to zoom and use one finger to orbit.
+            </p>
+            <h1 class="hero__title">Furniture done right.</h1>
+          </div>
+          <div class="hero__viewer">
+            <model-viewer
+              src="3dassets/sofa.glb"
+              alt="Sea foam green and glacier blue floor seating set"
+              camera-controls
+              auto-rotate
+              shadow-intensity="1"
+              style="width:100%;height:100%;background:transparent;"
+            ></model-viewer>
+          </div>
+          <div class="hero__glass-bottom hero__glass-bottom--cta">
+            <a class="hero__btn-shop" href="shop.html">Shop Adaptable Furniture</a>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <div
+      id="nav-overlay"
+      class="nav-overlay"
+      role="dialog"
+      aria-modal="true"
+      aria-label="Site menu"
+      aria-hidden="true"
+    >
+      <button type="button" class="nav-overlay__close" data-nav-close aria-label="Close menu">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M6 6l12 12M18 6L6 18" />
+        </svg>
+      </button>
+      <a class="site-header__logo site-header__logo--mark nav-overlay__brand" href="index.html" aria-label="Adaptable Furniture home">
+        <img src="img/Logo.png" alt="" width="180" height="48" decoding="async" />
+      </a>
+      <nav class="nav-overlay__links" aria-label="Primary">
+        <a href="index.html" data-nav>Home</a>
+        <a href="about.html" data-nav>About</a>
+        <a href="why-af.html" data-nav>Why AF?</a>
+        <a href="shop.html" data-nav>Shop</a>
+        <a href="invest.html" data-nav>Invest</a>
+      </nav>
+    </div>
+
+    <script src="js/app.js" defer></script>
+    <script src="js/home-load.js" defer></script>
+  </body>
+</html>

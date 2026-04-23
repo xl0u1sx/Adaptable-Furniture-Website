@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Checkout — Adaptable Furniture</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Host+Grotesk:wght@400;500;600;700;800&family=Nunito+Sans:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/styles.css" />
+  </head>
+  <body class="page-checkout" data-nav-active="shop.html">
+    <header class="site-header">
+      <div class="desk-header">
+        <a href="about.html">About</a>
+        <a href="why-af.html">Why AF?</a>
+        <div class="af-logo">
+          <a class="site-header__logo site-header__logo--mark" href="index.html" aria-label="Adaptable Furniture home">
+            <img src="img/Logo.png" alt="" width="180" height="48" decoding="async" />
+          </a>
+        </div>
+        <span class="active"><a href="shop.html">Shop</a></span>
+        <a href="invest.html">Invest</a>
+      </div>
+      <button
+        type="button"
+        class="site-header__menu"
+        aria-label="Open menu"
+        aria-expanded="false"
+        aria-controls="nav-overlay"
+        data-nav-open
+      >
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+          <path d="M4 7h16M4 12h16M4 17h16" />
+        </svg>
+      </button>
+    </header>
+
+    <div class="site-blur">
+      <main class="page-wrap checkout-wrap" data-checkout-root>
+        <section class="checkout-intro">
+          <a class="checkout-back" href="shop.html" aria-label="Back to shop">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path d="M15 6l-6 6 6 6" />
+            </svg>
+            Back to shop
+          </a>
+          <h1>Secure Checkout</h1>
+          <p>Complete your order below. All transactions are encrypted and protected.</p>
+        </section>
+
+        <div class="checkout-grid">
+          <form id="checkout-form" class="checkout-form" data-checkout-form>
+            <section class="checkout-card">
+              <h2>Contact</h2>
+              <div class="checkout-field">
+                <label for="email">Email address</label>
+                <input id="email" name="email" type="email" autocomplete="email" required />
+              </div>
+            </section>
+
+            <section class="checkout-card">
+              <h2>Shipping address</h2>
+              <div class="checkout-field">
+                <label for="fullName">Full name</label>
+                <input id="fullName" name="fullName" type="text" autocomplete="name" required />
+              </div>
+              <div class="checkout-field">
+                <label for="address1">Street address</label>
+                <input id="address1" name="address1" type="text" autocomplete="address-line1" required />
+              </div>
+              <div class="checkout-row">
+                <div class="checkout-field">
+                  <label for="city">City</label>
+                  <input id="city" name="city" type="text" autocomplete="address-level2" required />
+                </div>
+                <div class="checkout-field">
+                  <label for="state">State</label>
+                  <input id="state" name="state" type="text" autocomplete="address-level1" required />
+                </div>
+              </div>
+              <div class="checkout-row">
+                <div class="checkout-field">
+                  <label for="zip">ZIP code</label>
+                  <input id="zip" name="zip" type="text" inputmode="numeric" autocomplete="postal-code" required />
+                </div>
+                <div class="checkout-field">
+                  <label for="country">Country</label>
+                  <select id="country" name="country" autocomplete="country-name" required>
+                    <option value="United States">United States</option>
+                    <option value="Canada">Canada</option>
+                    <option value="United Kingdom">United Kingdom</option>
+                  </select>
+                </div>
+              </div>
+            </section>
+
+            <section class="checkout-card">
+              <h2>Payment</h2>
+              <div class="checkout-field">
+                <label for="cardName">Name on card</label>
+                <input id="cardName" name="cardName" type="text" autocomplete="cc-name" required />
+              </div>
+              <div class="checkout-field">
+                <label for="cardNumber">Card number</label>
+                <input id="cardNumber" name="cardNumber" type="text" inputmode="numeric" autocomplete="cc-number" placeholder="1234 5678 9012 3456" required />
+              </div>
+              <div class="checkout-row">
+                <div class="checkout-field">
+                  <label for="exp">Expiration</label>
+                  <input id="exp" name="exp" type="text" inputmode="numeric" autocomplete="cc-exp" placeholder="MM/YY" required />
+                </div>
+                <div class="checkout-field">
+                  <label for="cvc">CVC</label>
+                  <input id="cvc" name="cvc" type="text" inputmode="numeric" autocomplete="cc-csc" placeholder="123" required />
+                </div>
+              </div>
+            </section>
+          </form>
+
+          <aside class="checkout-summary">
+            <section class="checkout-card">
+              <h2>Order Summary</h2>
+              <div class="checkout-items" data-checkout-items></div>
+              <div class="checkout-totals">
+                <div><span>Subtotal</span><strong data-subtotal>$0</strong></div>
+                <div><span>Shipping</span><strong data-shipping>$0</strong></div>
+                <div><span>Estimated tax</span><strong data-tax>$0</strong></div>
+                <div class="checkout-totals__grand"><span>Total</span><strong data-total>$0</strong></div>
+              </div>
+              <button type="submit" class="btn-primary checkout-place-order" form="checkout-form" data-place-order>
+                Place order
+              </button>
+              <p class="checkout-disclaimer">By placing your order, you agree to our Terms and Privacy Policy.</p>
+              <div class="checkout-confirmation" data-checkout-confirmation hidden>
+                <h3>Order confirmed</h3>
+                <p>Thanks for your purchase. A confirmation email is on the way.</p>
+              </div>
+            </section>
+          </aside>
+        </div>
+      </main>
+    </div>
+
+    <div
+      id="nav-overlay"
+      class="nav-overlay"
+      role="dialog"
+      aria-modal="true"
+      aria-label="Site menu"
+      aria-hidden="true"
+    >
+      <button type="button" class="nav-overlay__close" data-nav-close aria-label="Close menu">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M6 6l12 12M18 6L6 18" />
+        </svg>
+      </button>
+      <a class="site-header__logo site-header__logo--mark nav-overlay__brand" href="index.html" aria-label="Adaptable Furniture home">
+        <img src="img/Logo.png" alt="" width="180" height="48" decoding="async" />
+      </a>
+      <nav class="nav-overlay__links" aria-label="Primary">
+        <a href="index.html" data-nav>Home</a>
+        <a href="about.html" data-nav>About</a>
+        <a href="why-af.html" data-nav>Why AF?</a>
+        <a href="shop.html" data-nav>Shop</a>
+        <a href="invest.html" data-nav>Invest</a>
+      </nav>
+    </div>
+
+    <script src="js/app.js" defer></script>
+    <script src="js/checkout.js" defer></script>
+  </body>
+</html>

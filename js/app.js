@@ -35,9 +35,15 @@
   });
 
   const path = window.location.pathname.split("/").pop() || "index.html";
+  const forcedActive = document.body.getAttribute("data-nav-active");
   overlay.querySelectorAll("a[data-nav]").forEach((a) => {
-    const href = a.getAttribute("href");
-    if (href === path || (path === "" && href === "index.html")) {
+    const href = a.getAttribute("href") || "";
+    const hrefLeaf = href.split("/").pop() || "";
+    if (
+      hrefLeaf === forcedActive ||
+      hrefLeaf === path ||
+      (path === "" && hrefLeaf === "index.html")
+    ) {
       a.classList.add("is-active");
     }
   });

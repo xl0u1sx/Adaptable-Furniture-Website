@@ -41,6 +41,11 @@
 
     <div class="site-blur">
       <main class="page-wrap">
+        <section class="shop-intro" aria-label="Shop intro">
+          <p class="shop-intro__kicker">Adaptive Collection</p>
+          <h1 class="shop-intro__title">Modular pieces built for flexible living.</h1>
+          <p class="shop-intro__sub">Discover colorways designed to move with your space.</p>
+        </section>
         <div class="shop-toolbar">
           <div class="search-wrap">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
@@ -59,12 +64,13 @@
             Go to cart<span class="cart-count"></span>
           </button>
         </div>
+        <p class="shop-results" data-results-count aria-live="polite"></p>
 
         <div class="product-list" data-product-list aria-live="polite"></div>
       </main>
     </div>
 
-    <div id="cart-panel" class="shop-panel" role="dialog" aria-modal="true" aria-label="Shopping cart" aria-hidden="true">
+    <div id="cart-panel" class="shop-panel shop-panel--cart" role="dialog" aria-modal="true" aria-label="Shopping cart" aria-hidden="true">
       <div class="shop-panel__bar">
         <button type="button" class="shop-panel__back" data-close-cart aria-label="Back to shop">
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -78,6 +84,11 @@
         <div data-cart-list></div>
       </div>
       <div class="shop-panel__footer">
+        <div class="cart-summary">
+          <span>Subtotal</span>
+          <strong data-cart-total-footer>$0</strong>
+        </div>
+        <p class="cart-summary__note">Taxes and shipping are calculated at checkout.</p>
         <button type="button" class="btn-primary" data-checkout>Check out</button>
       </div>
     </div>
@@ -96,49 +107,44 @@
         <form id="filter-form" class="filter-glass">
           <h3>colors:</h3>
           <div class="filter-row">
-            <input type="radio" name="color" id="c-all" value="all" checked />
-            <label for="c-all">All</label>
-            <div class="filter-swatch-bar" style="background: linear-gradient(90deg, #888, #ccc)"></div>
-          </div>
-          <div class="filter-row">
-            <input type="radio" name="color" id="c-green" value="green" />
+            <input type="checkbox" name="colors" id="c-green" value="green" />
             <label for="c-green">Green</label>
-            <div class="filter-swatch-bar" style="background: #2d6a4f"></div>
+            <div class="filter-swatch-bar" style="background: #b3d4cf"></div>
           </div>
           <div class="filter-row">
-            <input type="radio" name="color" id="c-blue" value="blue" />
+            <input type="checkbox" name="colors" id="c-blue" value="blue" />
             <label for="c-blue">Blue</label>
-            <div class="filter-swatch-bar" style="background: #1d3557"></div>
+            <div class="filter-swatch-bar" style="background: #a9bfcb"></div>
           </div>
           <div class="filter-row">
-            <input type="radio" name="color" id="c-purple" value="purple" />
+            <input type="checkbox" name="colors" id="c-purple" value="purple" />
             <label for="c-purple">Purple</label>
-            <div class="filter-swatch-bar" style="background: #5f4bb6"></div>
+            <div class="filter-swatch-bar" style="background: #b9a7cc"></div>
           </div>
           <div class="filter-row">
-            <input type="radio" name="color" id="c-pink" value="pink" />
+            <input type="checkbox" name="colors" id="c-pink" value="pink" />
             <label for="c-pink">Pink</label>
-            <div class="filter-swatch-bar" style="background: #d63384"></div>
+            <div class="filter-swatch-bar" style="background: #e3bed4"></div>
           </div>
           <div class="filter-row">
-            <input type="radio" name="color" id="c-red" value="red" />
+            <input type="checkbox" name="colors" id="c-red" value="red" />
             <label for="c-red">Red</label>
-            <div class="filter-swatch-bar" style="background: #c1121f"></div>
+            <div class="filter-swatch-bar" style="background: #d7b2b4"></div>
           </div>
           <div class="filter-row">
-            <input type="radio" name="color" id="c-brown" value="brown" />
+            <input type="checkbox" name="colors" id="c-brown" value="brown" />
             <label for="c-brown">Brown</label>
-            <div class="filter-swatch-bar" style="background: #7f5539"></div>
+            <div class="filter-swatch-bar" style="background: #d9c0ab"></div>
           </div>
           <div class="filter-row">
-            <input type="radio" name="color" id="c-orange" value="orange" />
+            <input type="checkbox" name="colors" id="c-orange" value="orange" />
             <label for="c-orange">Orange</label>
-            <div class="filter-swatch-bar" style="background: #e85d04"></div>
+            <div class="filter-swatch-bar" style="background: #f4eee1"></div>
           </div>
           <div class="filter-row">
-            <input type="radio" name="color" id="c-yellow" value="yellow" />
+            <input type="checkbox" name="colors" id="c-yellow" value="yellow" />
             <label for="c-yellow">Yellow</label>
-            <div class="filter-swatch-bar" style="background: #f4a261"></div>
+            <div class="filter-swatch-bar" style="background: #f2f6dc"></div>
           </div>
           <label class="filter-toggle">
             <input type="checkbox" name="customOnly" />

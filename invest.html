@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Invest — Adaptable Furniture</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Host+Grotesk:wght@400;500;600;700;800&family=Nunito+Sans:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/styles.css" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="/js/invest.js"></script>
+  </head>
+  <body class="page-invest">
+    <header class="site-header">
+      <div class="desk-header">
+        <a href="about.html">About</a>
+        <a href="why-af.html">Why AF?</a>
+      <div class="af-logo">
+        <a class="site-header__logo site-header__logo--mark" href="index.html" aria-label="Adaptable Furniture home">
+          <img src="img/Logo.png" alt="" width="180" height="48" decoding="async" />
+        </a>
+      </div>
+        <a href="shop.html">Shop</a>
+        <span class="active"><a href="invest.html">Invest</a></span>
+      </div>
+      <button
+        type="button"
+        class="site-header__menu"
+        aria-label="Open menu"
+        aria-expanded="false"
+        aria-controls="nav-overlay"
+        data-nav-open
+      >
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+          <path d="M4 7h16M4 12h16M4 17h16" />
+        </svg>
+      </button>
+    </header>
+
+    <div class="site-blur">
+      <main class="page-wrap simple-content">
+        <div class="spacer"></div>
+        <div class="invest-info">
+        <ul>
+             <li>Click on a dot to view a product.</li>
+          </ul>
+          </div>
+        <div id="info-card">
+          <div class="product-title">Product Name</div>
+          <div class="product-img">Image Placeholder</div>
+          <div class="product-price">$0.00</div>
+        </div>
+        <div class="matrix-container-container">
+        <div class="matrix-container">
+          <div class="axis-h"></div>
+          <div class="axis-v"></div>
+
+          <div class="label label-top">Ease of use</div>
+          <div class="label label-bottom">Difficulty of use</div>
+
+          <div class="label label-left">Fixed</div>
+          <div class="label label-right">Versatility</div>
+          
+          <div class="dot" 
+              style="left: 5%; top: 15%;" 
+              data-name="Maggis" 
+              data-price="$450" 
+              data-img="image_url_here.jpg">
+          </div>
+
+          <div class="dot" 
+              style="left: 15%; top: 35%;" 
+              data-name="House of Noa" 
+              data-price="$249" 
+              data-img="your_logo.png">
+          </div>
+
+          <div class="dot" 
+              style="left: 25%; top: 10%;" 
+              data-name="Costway" 
+              data-price="$80" 
+              data-img="your_logo.png">
+          </div>
+
+          <div class="dot" 
+              style="left: 30%; top: 35%;" 
+              data-name="BulbSquare" 
+              data-price="$220" 
+              data-img="your_logo.png">
+          </div>
+
+          <div class="dot" 
+              style="left: 35%; top: 35%;" 
+              data-name="Cozey" 
+              data-price="$1,795-$5,050" 
+              data-img="your_logo.png">
+          </div>
+
+          <div class="dot" 
+              style="left: 40%; top: 15%;" 
+              data-name="Mercer41" 
+              data-price="$490" 
+              data-img="your_logo.png">
+          </div>
+
+          <div class="dot" 
+              style="left: 60%; top: 20%;" 
+              data-name="Louann Tatami" 
+              data-price="$469" 
+              data-img="your_logo.png">
+          </div>
+
+          <div class="dot" 
+              style="left: 70%; top: 30%;" 
+              data-name="Welle 1~6" 
+              data-price="$1,234" 
+              data-img="your_logo.png">
+          </div>
+
+          <div class="dot" 
+              style="left: 65%; top: 65%;" 
+              data-name="Dune Sofa" 
+              data-price="$4995-$9550" 
+              data-img="your_logo.png">
+          </div>
+
+          <div class="dot" 
+              style="left: 10%; top: 70%;" 
+              data-name="Thorvald" 
+              data-price="$2,679" 
+              data-img="your_logo.png">
+          </div>
+
+          <div class="afdot" 
+              style="left: 85%; top: 5%;">
+              <a href="#why-jump"><img src="img/Logo.png"></a>
+          </div>
+
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <div  id="why-jump"></div>
+       <div class="site-blur">
+     <main class="page-wrap">
+       <h1 class="page-title">Why AF?</h1>
+       <p class="page-sub">Because we’re cool <span class="af-accent">AF</span></p>
+
+
+       <section class="feature-block" aria-labelledby="feat-adaptable">
+         <div class="feature-head">
+           <h2 id="feat-adaptable">Adaptable</h2>
+           <span class="af-mark" aria-hidden="true">AF</span>
+         </div>
+         <div class="feature-card">
+           <ul>
+             <li>Intuitively supports creative use</li>
+             <li>Adapts to scenarios with different headcounts</li>
+             <li>Great for young adults with limited living space</li>
+             <li>Transforms quickly without complex setup</li>
+           </ul>
+           <a class="learn-more" href="shop.html">Learn more</a>
+         </div>
+       </section>
+
+
+       <section class="feature-block" aria-labelledby="feat-playful">
+         <div class="feature-head">
+           <h2 id="feat-playful">Playful &amp; Sleek</h2>
+           <span class="af-mark" aria-hidden="true">AF</span>
+         </div>
+         <div class="feature-card">
+           <ul>
+             <li>Creates a setting for socializing and connecting</li>
+             <li>Supports having fun and stress relief</li>
+             <li>Visually durable as a long-standing furniture piece</li>
+             <li>Encourages interaction and shared experiences</li>
+           </ul>
+           <a class="learn-more" href="shop.html">Learn more</a>
+         </div>
+       </section>
+
+
+       <section class="feature-block" aria-labelledby="feat-space">
+         <div class="feature-head">
+           <h2 id="feat-space">Space-Efficient</h2>
+           <span class="af-mark" aria-hidden="true">AF</span>
+         </div>
+         <div class="feature-card">
+           <ul>
+             <li>Easy to store or reconfigure when not in use</li>
+             <li>Serves multiple functions without overcrowding the space</li>
+             <li>Easily reconfigures without requiring much additional floor space</li>
+           </ul>
+           <a class="learn-more" href="shop.html">Learn more</a>
+         </div>
+       </section>
+
+
+       <section class="feature-block" aria-labelledby="feat-durable">
+         <div class="feature-head">
+           <h2 id="feat-durable">Durable &amp; Comfortable</h2>
+           <span class="af-mark" aria-hidden="true">AF</span>
+         </div>
+         <div class="feature-card">
+           <ul>
+             <li>Using soft yet strong materials to help prevent wear and tear</li>
+             <li>Creates multiple layouts for different comfort preferences</li>
+             <li>Maintains structural integrity for frequent reconfigurations</li>
+           </ul>
+           <a class="learn-more" href="shop.html">Learn more</a>
+         </div>
+       </section>
+     </main>
+   </div>
+
+    <div
+      id="nav-overlay"
+      class="nav-overlay"
+      role="dialog"
+      aria-modal="true"
+      aria-label="Site menu"
+      aria-hidden="true"
+    >
+      <button type="button" class="nav-overlay__close" data-nav-close aria-label="Close menu">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M6 6l12 12M18 6L6 18" />
+        </svg>
+      </button>
+      <a class="site-header__logo site-header__logo--mark nav-overlay__brand" href="index.html" aria-label="Adaptable Furniture home">
+        <img src="img/Logo.png" alt="" width="180" height="48" decoding="async" />
+      </a>
+      <nav class="nav-overlay__links" aria-label="Primary">
+        <a href="index.html" data-nav>Home</a>
+        <a href="about.html" data-nav>About</a>
+        <a href="why-af.html" data-nav>Why AF?</a>
+        <a href="shop.html" data-nav>Shop</a>
+        <a href="invest.html" data-nav>Invest</a>
+      </nav>
+    </div>
+
+    <script src="js/app.js" defer></script>
+  </body>
+</html>

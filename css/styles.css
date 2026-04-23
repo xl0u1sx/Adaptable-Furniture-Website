@@ -152,7 +152,7 @@ ul {
   width: 180px;
   background: var(--card-bg);
   border: 1.5px solid var(--line-color);
-  border-radius: 8px;
+  border-radius: var(--radius-md);
   padding: 15px;
   margin-left: 10px;
   box-shadow: 5px 5px 15px rgba(0,0,0,0.1);
@@ -167,13 +167,24 @@ ul {
 
 /* ——— Site header ——— */
 
-.desk-header{
-  height: 65px;
-  width: 100%;
-  background-color: rgb(234, 227, 213);
+.desk-header {
+  position: fixed;
+  top: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 200;
+  width: calc(100% - 48px);
+  max-width: 860px;
+  height: 60px;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
   place-items: center;
+  background: rgba(255, 255, 255, 0.26);
+  backdrop-filter: blur(24px) saturate(140%);
+  -webkit-backdrop-filter: blur(24px) saturate(140%);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-radius: 9999px;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
 }
 
 .af-logo {
@@ -192,7 +203,6 @@ ul {
   grid-template-columns: 1fr;
   align-items: center;
   justify-content: center;
-  min-height: var(--header-h);
   background: var(--header-bg, transparent);
 }
 
@@ -746,6 +756,10 @@ body.page-shop {
   color: var(--text-navy);
 }
 
+.page-shop .page-wrap {
+  padding-top: 92px;
+}
+
 .page-shop .shop-toolbar {
   display: flex;
   gap: 10px;
@@ -1054,7 +1068,7 @@ body.page-invest {
 }
 
 .page-invest .simple-content {
-  padding-top: 24px;
+  padding-top: 92px;
 }
 
 .page-invest .simple-content h1 {
@@ -1139,7 +1153,7 @@ body.page-invest {
   width: 250px;
   color: #1a365d;
   background: #f2efe9;
-  border-radius: var(--radius-md) var(--radius-md) 0 0;
+  border-radius: var(--radius-lg);
 }
 
 
@@ -1188,10 +1202,16 @@ body.page-invest {
     display: none;
   }
 
+  .page-shop .page-wrap,
+  .page-invest .simple-content {
+    padding-top: 16px;
+  }
+
   .site-header {
     position: sticky;
     top: 0;
     z-index: 50;
+    min-height: var(--header-h);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -1266,12 +1286,12 @@ body.page-invest {
   /* Hero is the full viewport canvas; panels float on top */
   .page-home .hero {
     position: relative;
-    height: calc(100dvh - 65px);
+    height: 100dvh;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
-    padding: 36px 20px;
+    padding: 92px 20px 36px;
   }
 
   /* Viewer fills the entire hero area behind the panels */

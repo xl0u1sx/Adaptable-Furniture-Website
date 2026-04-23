@@ -68,7 +68,7 @@ ul {
 
 .matrix-container {
   position: relative;
-  width: 500px;
+  width: 600px;
   height: 500px;
   margin-bottom: 100px;
   border: 1px solid transparent;
@@ -92,14 +92,14 @@ ul {
 }
 
 .label-left {
-  top: 50%;
-  left: 10px;
+  top: 52%;
+  left: 0px;
   transform: translateY(-120%); 
 }
 
 .label-right {
-  top: 50%;
-  right: 10px;
+  top: 52%;
+  right: 0px;
   transform: translateY(-120%);
 }
 
@@ -126,6 +126,13 @@ ul {
   transform: translate(-50%, -50%);
   cursor: pointer;
   transition: transform 0.2s;
+}
+
+.afdot {
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  cursor: pointer;
 }
 
 .dot:hover { transform: translate(-50%, -50%) scale(1.2); }

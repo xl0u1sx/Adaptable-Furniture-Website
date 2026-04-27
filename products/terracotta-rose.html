@@ -12,8 +12,25 @@
     />
     <link rel="stylesheet" href="../css/styles.css" />
   </head>
-  <body class="page-product" data-nav-active="shop.html">
+  <body class="page-product" data-nav-active="shop.html" data-product-id="terracotta">
     <header class="site-header">
+      <div class="desk-header">
+        <a href="../about.html">About</a>
+        <a href="../why-af.html">Why AF?</a>
+        <div class="af-logo">
+          <a class="site-header__logo site-header__logo--mark" href="../index.html" aria-label="Adaptable Furniture home">
+            <img src="../img/Logo.png" alt="" width="180" height="48" decoding="async" />
+          </a>
+        </div>
+        <span class="active"><a href="../shop.html">Shop</a></span>
+        <a href="../invest.html">Invest</a>
+        <a class="site-header__cart" href="../shop.html?cart=1" aria-label="Open shopping cart">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.08-.14.12-.31.12-.48 0-.55-.45-1-1-1H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/>
+          </svg>
+          <span class="site-header__cart-count is-hidden" data-cart-count-badge>0</span>
+        </a>
+      </div>
       <button
         type="button"
         class="site-header__menu"
@@ -79,7 +96,8 @@
               <p class="product-detail__note"><strong>30-Day Trial:</strong> Rearrange as needed and return if it is not ideal.</p>
             </div>
             <div class="product-detail__actions">
-              <a class="btn-shop-now" href="../shop.html">Shop This Color</a>
+              <a class="btn-shop-now" href="../shop.html" data-add-to-cart>Shop now</a>
+              <a class="btn-view-cart" href="../shop.html?cart=1">View cart</a>
               <a class="btn-back-shop" href="../shop.html">Back to Shop</a>
             </div>
           </article>
@@ -114,5 +132,6 @@
 
 
     <script src="../js/app.js" defer></script>
+    <script src="../js/product.js" defer></script>
   </body>
 </html>

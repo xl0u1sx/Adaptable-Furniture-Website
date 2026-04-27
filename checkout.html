@@ -24,6 +24,12 @@
         </div>
         <span class="active"><a href="shop.html">Shop</a></span>
         <a href="invest.html">Invest</a>
+        <a class="site-header__cart" href="shop.html?cart=1" aria-label="Open shopping cart">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.08-.14.12-.31.12-.48 0-.55-.45-1-1-1H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/>
+          </svg>
+          <span class="site-header__cart-count is-hidden" data-cart-count-badge>0</span>
+        </a>
       </div>
       <button
         type="button"
@@ -66,26 +72,30 @@
               <h2>Shipping address</h2>
               <div class="checkout-field">
                 <label for="fullName">Full name</label>
-                <input id="fullName" name="fullName" type="text" autocomplete="name" required />
+                <input id="fullName" name="fullName" type="text" autocomplete="name" pattern="[A-Za-z\s\.\-']{2,}" title="Please enter your full name." required />
               </div>
               <div class="checkout-field">
                 <label for="address1">Street address</label>
                 <input id="address1" name="address1" type="text" autocomplete="address-line1" required />
               </div>
+              <div class="checkout-field">
+                <label for="address2">Address line 2 (optional)</label>
+                <input id="address2" name="address2" type="text" autocomplete="address-line2" />
+              </div>
               <div class="checkout-row">
                 <div class="checkout-field">
                   <label for="city">City</label>
-                  <input id="city" name="city" type="text" autocomplete="address-level2" required />
+                  <input id="city" name="city" type="text" autocomplete="address-level2" pattern="[A-Za-z\s\.\-']{2,}" title="Please enter a valid city name." required />
                 </div>
                 <div class="checkout-field">
                   <label for="state">State</label>
-                  <input id="state" name="state" type="text" autocomplete="address-level1" required />
+                  <input id="state" name="state" type="text" autocomplete="address-level1" pattern="[A-Za-z\s\.\-']{2,}" title="Please enter a valid state or province." required />
                 </div>
               </div>
               <div class="checkout-row">
                 <div class="checkout-field">
                   <label for="zip">ZIP code</label>
-                  <input id="zip" name="zip" type="text" inputmode="numeric" autocomplete="postal-code" required />
+                  <input id="zip" name="zip" type="text" inputmode="numeric" autocomplete="postal-code" pattern="[0-9A-Za-z\-\s]{4,10}" title="Please enter a valid postal code." required />
                 </div>
                 <div class="checkout-field">
                   <label for="country">Country</label>
@@ -102,20 +112,20 @@
               <h2>Payment</h2>
               <div class="checkout-field">
                 <label for="cardName">Name on card</label>
-                <input id="cardName" name="cardName" type="text" autocomplete="cc-name" required />
+                <input id="cardName" name="cardName" type="text" autocomplete="cc-name" pattern="[A-Za-z\s\.\-']{2,}" title="Please enter the cardholder name." required />
               </div>
               <div class="checkout-field">
                 <label for="cardNumber">Card number</label>
-                <input id="cardNumber" name="cardNumber" type="text" inputmode="numeric" autocomplete="cc-number" placeholder="1234 5678 9012 3456" required />
+                <input id="cardNumber" name="cardNumber" type="text" inputmode="numeric" autocomplete="cc-number" pattern="[0-9\s]{13,23}" title="Please enter a valid card number." placeholder="1234 5678 9012 3456" required />
               </div>
               <div class="checkout-row">
                 <div class="checkout-field">
                   <label for="exp">Expiration</label>
-                  <input id="exp" name="exp" type="text" inputmode="numeric" autocomplete="cc-exp" placeholder="MM/YY" required />
+                  <input id="exp" name="exp" type="text" inputmode="numeric" autocomplete="cc-exp" pattern="(0[1-9]|1[0-2])\/\d{2}" title="Use MM/YY format." placeholder="MM/YY" required />
                 </div>
                 <div class="checkout-field">
                   <label for="cvc">CVC</label>
-                  <input id="cvc" name="cvc" type="text" inputmode="numeric" autocomplete="cc-csc" placeholder="123" required />
+                  <input id="cvc" name="cvc" type="text" inputmode="numeric" autocomplete="cc-csc" pattern="\d{3,4}" title="Please enter a valid CVC." placeholder="123" required />
                 </div>
               </div>
             </section>

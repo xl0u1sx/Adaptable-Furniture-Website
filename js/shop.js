@@ -161,6 +161,25 @@
     return `<svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2" d="M9 3h6l1 2h4v2H4V5h4l1-2zm1 5v10m4-10v10M6 8h12l-1 12H7L6 8z"/></svg>`;
   }
 
+  function notifyCartUpdated() {
+    document.dispatchEvent(new CustomEvent("af:cart-updated", { detail: { count: cartCount() } }));
+  }
+
+  function updateQty(id, delta) {
+    if (!id) return;
+    const next = (cart[id] || 0) + delta;
+    if (next <= 0) {
+      delete cart[id];
+    } else {
+      cart[id] = next;
+    }
+    saveCart();
+    notifyCartUpdated();
+    updateCartButton();
+    renderProducts();
+    renderCart();
+  }
+
   function renderProducts() {
     if (!els.list) return;
     const items = getFilteredProducts();
@@ -181,26 +200,65 @@
         <a class="product-card__img" href="${p.detailUrl}" aria-label="View ${p.name} details">
           <img src="${p.image}" alt="${p.name} modular sofa" width="400" height="400" loading="lazy" />
         </a>
-        <button type="button" class="product-card__add" data-add="${p.id}" aria-label="Add ${p.name} to cart">
-          ${iconCart()}
-        </button>
         <div class="product-card__body">
           <h3><a href="${p.detailUrl}" aria-label="View ${p.name} details">${p.name}</a></h3>
           <p class="product-card__price">${formatDollars(p.price)}</p>
           <p>${p.desc}</p>
+          ${
+            (cart[p.id] || 0) > 0
+              ? `<div class="product-card__qty" data-qty-wrap="${p.id}">
+            <button type="button" class="qty-btn" data-qty-minus="${p.id}" aria-label="Decrease ${p.name} quantity">-</button>
+            <span class="qty-value" data-qty-value="${p.id}">${cart[p.id] || 0}</span>
+            <button type="button" class="qty-btn" data-qty-plus="${p.id}" aria-label="Increase ${p.name} quantity">+</button>
+          </div>`
+              : `<button type="button" class="product-card__inline-add" data-add="${p.id}" aria-label="Add ${p.name} to cart">
+            ${iconCart()} <span>Add to cart</span>
+          </button>`
+          }
+          <p class="product-card__added" data-added="${p.id}" aria-live="polite"></p>
           <a class="product-card__cta" href="${p.detailUrl}" aria-label="View ${p.name} details">View details</a>
         </div>
       </article>`
       )
       .join("");
 
+    els.list.querySelectorAll(".product-card").forEach((card) => {
+      const id = card.getAttribute("data-id");
+      const detail = productById(id || "");
+      if (!id || !detail) return;
+      card.addEventListener("click", (event) => {
+        const target = event.target;
+        if (!(target instanceof Element)) return;
+        if (target.closest("a, button")) return;
+        window.location.href = detail.detailUrl;
+      });
+    });
+
     els.list.querySelectorAll("[data-add]").forEach((btn) => {
       btn.addEventListener("click", () => {
         const id = btn.getAttribute("data-add");
         if (!id) return;
-        cart[id] = (cart[id] || 0) + 1;
-        saveCart();
-        updateCartButton();
+        updateQty(id, 1);
+        const added = els.list?.querySelector(`[data-added="${id}"]`);
+        if (added) {
+          added.textContent = "Added to cart";
+          added.classList.add("is-visible");
+          window.setTimeout(() => {
+            added.classList.remove("is-visible");
+          }, 900);
+        }
+      });
+    });
+
+    els.list.querySelectorAll("[data-qty-plus]").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        updateQty(btn.getAttribute("data-qty-plus"), 1);
+      });
+    });
+
+    els.list.querySelectorAll("[data-qty-minus]").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        updateQty(btn.getAttribute("data-qty-minus"), -1);
       });
     });
   }
@@ -236,7 +294,11 @@
         <div class="product-card__body">
           <h3>${p.name}</h3>
           <p class="product-card__price">${formatDollars(p.price)} each</p>
-          <p>Qty: ${qty}</p>
+          <div class="product-card__qty" data-qty-wrap="${id}">
+            <button type="button" class="qty-btn" data-cart-minus="${id}" aria-label="Decrease ${p.name} quantity">-</button>
+            <span class="qty-value" data-cart-qty="${id}">${qty}</span>
+            <button type="button" class="qty-btn" data-cart-plus="${id}" aria-label="Increase ${p.name} quantity">+</button>
+          </div>
           <p class="cart-item__line-total">${lineTotal}</p>
         </div>
       </article>`;
@@ -253,8 +315,22 @@
         if (!id) return;
         delete cart[id];
         saveCart();
+        notifyCartUpdated();
         updateCartButton();
+        renderProducts();
         renderCart();
+      });
+    });
+
+    els.cartList.querySelectorAll("[data-cart-plus]").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        updateQty(btn.getAttribute("data-cart-plus"), 1);
+      });
+    });
+
+    els.cartList.querySelectorAll("[data-cart-minus]").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        updateQty(btn.getAttribute("data-cart-minus"), -1);
       });
     });
   }
@@ -263,6 +339,7 @@
     const n = cartCount();
     const label = els.cartOpen?.querySelector(".cart-count");
     if (label) label.textContent = n ? ` (${n})` : "";
+    document.dispatchEvent(new CustomEvent("af:cart-updated", { detail: { count: n } }));
   }
 
   function openPanel(panel) {
@@ -337,4 +414,10 @@
   renderCart();
   updateCartButton();
   updateFilterVisualState();
+
+  const params = new URLSearchParams(window.location.search);
+  if (params.get("cart") === "1") {
+    renderCart();
+    openPanel(els.cartPanel);
+  }
 })();

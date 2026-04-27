@@ -184,6 +184,7 @@
       total: Math.round(totals.totalCents / 100),
       shippingAddress: {
         line1: String(data.get("address1") || "").trim(),
+        line2: String(data.get("address2") || "").trim(),
         city: String(data.get("city") || "").trim(),
         state: String(data.get("state") || "").trim(),
         zip: String(data.get("zip") || "").trim(),

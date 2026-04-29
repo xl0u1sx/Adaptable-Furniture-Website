@@ -171,8 +171,32 @@ ul {
   border-radius: var(--radius-md);
   padding: 15px;
   box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.1);
-  z-index: 100;
+  z-index: 999;
   pointer-events: none;
+}
+
+.product-img {
+  width: 100%;            
+  overflow: hidden;  
+  border-radius: 8px; 
+  background: #f0f0f0;
+  margin-bottom: 10px;
+  width: 100%; 
+  height: 80px; 
+  background: #fff; 
+  margin: 5px 0; 
+  border: 1px solid #ccc; 
+  display: flex; 
+  align-items: center; 
+  justify-content: center; 
+  font-size: 12px;
+  color: #999;
+}
+
+.product-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; 
 }
   
 .product-title {
@@ -182,7 +206,7 @@ ul {
   color: var(--matrix-label-blue, #1a3a5a);
 }
 .product-price { font-size: 0.9em; color: #555; text-align: right; }
-.product-img { width: 100%; height: 60px; background: #fff; margin: 5px 0; border: 1px dashed #ccc; display: flex; align-items: center; justify-content: center; font-size: 12px; color: #999; }
+
 
 
 /* ——— Site header ——— */
@@ -195,7 +219,7 @@ ul {
   z-index: 200;
   width: calc(100% - 48px);
   max-width: 860px;
-  height: 60px;
+  height: 65px;
   display: grid;
   grid-template-columns: repeat(5, minmax(0, 1fr));
   gap: 0;
@@ -820,6 +844,20 @@ body.page-about .about-glass.about-problem__card {
   font-size: 0.95rem;
   line-height: 1.5;
   color: #333;
+}
+
+.moreinfo {
+  list-style-type: disc;
+  text-align: left;
+}
+
+ul li::marker {
+  color: var(--af-accent);
+}
+
+.invest-why__extra-info {
+  display: none;
+  margin-left: 10px;
 }
 
 /* Behind the scenes */
@@ -2106,6 +2144,7 @@ body.page-invest {
   grid-template-columns: repeat(2, 1fr);
   gap: 12px;
   margin-top: 8px;
+  align-items: start;
 }
 
 @media (max-width: 520px) {
@@ -2123,6 +2162,7 @@ body.page-invest {
   min-height: 140px;
   padding: 22px 18px 18px;
   text-align: center;
+  height: auto;
 }
 
 .page-invest .invest-why__title {

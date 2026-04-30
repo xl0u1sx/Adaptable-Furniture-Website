@@ -1042,6 +1042,13 @@ ul li::marker {
   font-family: var(--font-heading);
 }
 
+.page-about .about-teamcard__bio {
+  margin: 6px 0 8px;
+  font-size: 0.72rem;
+  line-height: 1.5;
+  color: #5c534a;
+}
+
 .page-about .about-teamcard__link {
   font-size: 0.7rem;
   font-weight: 600;

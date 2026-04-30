@@ -1125,6 +1125,13 @@ body.page-why {
   --header-bg: transparent;
 }
 
+@media (min-width: 521px) {
+  body.page-why .site-header {
+    height: 0;
+    overflow: visible;
+  }
+}
+
 .page-why .page-title {
   text-align: center;
   font-size: clamp(2rem, 8vw, 2.5rem);

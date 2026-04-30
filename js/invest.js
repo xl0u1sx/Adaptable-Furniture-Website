@@ -1,24 +1,4 @@
 $(document).ready(function() {
-  $('.invest-why__learn').on('click', function(e) {
-    e.preventDefault();
-
-    const $link = $(this);
-    const $extraInfo = $link.next('.invest-why__extra-info');
-
-    $extraInfo.slideToggle(300, function() {
-      if ($extraInfo.is(':visible')) {
-        $link.text('Show less');
-      } else {
-        $link.text('Learn more');
-      }
-    });
-
-    $('.invest-why__extra-info').not($extraInfo).slideUp(300);
-    $('.invest-why__learn').not($link).text('Learn more');
-  });
-});
-
-$(document).ready(function() {
   $('.dot').on('click', function(e) {
     e.stopPropagation();
 
@@ -42,7 +22,7 @@ $(document).ready(function() {
     
     $card.css({
       top: (pos.top + 30) + 'px', 
-      left: (pos.left + 30) + 'px',
+      left: (pos.left) + 'px',
       position: 'absolute'
     }).stop(true, true).fadeIn(200);
   });

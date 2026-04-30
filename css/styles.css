@@ -518,9 +518,8 @@ body.page-home {
   padding: 16px 24px;
 }
 
-/* Primary shop CTA — home hero + Why AF footer */
-.page-home .hero__btn-shop,
-body.page-why.page-why-story .cta__btn {
+/* Primary shop CTA — one look site-wide (use with .af-shop-cta on the anchor) */
+.af-shop-cta {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -528,36 +527,48 @@ body.page-why.page-why-story .cta__btn {
   font-family: var(--font-sans);
   font-size: 1rem;
   font-weight: 700;
-  color: #111;
+  color: #fff;
   text-decoration: none;
   text-align: center;
   border-radius: var(--radius-pill);
   border: 2px solid var(--af-accent, #e37222);
-  background: rgba(255, 255, 255, 0.45);
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+  background: var(--af-accent, #e37222);
+  box-shadow: 0 8px 20px rgba(227, 114, 34, 0.26);
   transition: background 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
 }
 
-.page-home .hero__btn-shop {
+.af-shop-cta:hover {
+  background: #cf6115;
+  color: #fff;
+  box-shadow: 0 10px 24px rgba(207, 97, 21, 0.33);
+}
+
+.af-shop-cta:focus-visible {
+  outline: 2px solid var(--af-accent, #e37222);
+  outline-offset: 3px;
+}
+
+/* Home: full width inside hero glass */
+.page-home .hero__btn-shop.af-shop-cta {
   width: 100%;
   max-width: 100%;
 }
 
-body.page-why.page-why-story .cta__btn {
+/* Why AF footer + About: same max width, centered where wrapped */
+body.page-why.page-why-story .cta__btn.af-shop-cta,
+.page-about .about-cta.af-shop-cta {
   width: auto;
   max-width: min(100%, 22rem);
 }
 
-.page-home .hero__btn-shop:hover,
-body.page-why.page-why-story .cta__btn:hover {
-  background: rgba(227, 114, 34, 0.12);
-  color: #1a1a1a;
+.page-about .about-cta-wrap {
+  display: flex;
+  justify-content: center;
+  margin-top: clamp(14px, 2.5vw, 24px);
 }
 
-.page-home .hero__btn-shop:focus-visible,
-body.page-why.page-why-story .cta__btn:focus-visible {
-  outline: 2px solid var(--af-accent, #e37222);
-  outline-offset: 3px;
+.page-about .about-cta.af-shop-cta {
+  margin-top: 0;
 }
 
 .page-home .hero__hint {
@@ -587,7 +598,7 @@ body.page-why.page-why-story .cta__btn:focus-visible {
 
 .page-home .load-state .hero__title,
 .page-home .load-state .hero__hint,
-.page-home .load-state .hero__btn-shop {
+.page-home .load-state .hero__btn-shop.af-shop-cta {
   filter: blur(8px);
   user-select: none;
 }
@@ -613,6 +624,10 @@ body.page-invest .about-glass {
   border: 1px solid rgba(255, 255, 255, 0.5);
   box-shadow: 0 2px 16px rgba(0, 0, 0, 0.04);
   border-radius: 28px;
+}
+
+body.page-about .about-glass {
+  border-radius: 20px;
 }
 
 /* Left accent is part of the problem card’s border, not a separate bar */
@@ -806,7 +821,7 @@ body.page-about .about-glass.about-problem__card {
   color: #333;
   background: rgba(255, 255, 255, 0.85);
   padding: 6px 12px;
-  border-radius: 9999px;
+  border-radius: 14px;
   box-shadow: 0 1px 6px rgba(0, 0, 0, 0.08);
   border: 1px solid rgba(0, 0, 0, 0.06);
 }
@@ -934,7 +949,7 @@ ul li::marker {
   padding: 8px;
   flex-direction: column;
   gap: 4px;
-  border-radius: 28px;
+  border-radius: 20px;
   overflow: hidden;
   box-shadow: 0 2px 16px rgba(0, 0, 0, 0.05);
 }
@@ -1014,6 +1029,12 @@ ul li::marker {
   display: flex;
   flex-direction: column;
   align-items: center;
+  transition: transform 0.22s ease, box-shadow 0.22s ease;
+}
+
+.page-about .about-teamcard:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.1);
 }
 
 .page-about .about-teamcard__av {
@@ -1050,23 +1071,52 @@ ul li::marker {
 }
 
 .page-about .about-teamcard__link {
-  font-size: 0.7rem;
-  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 2px;
+  padding: 6px;
+  margin-left: -6px;
+  margin-right: -6px;
   color: var(--matrix-label-blue, #1a3a5a);
-  text-decoration: underline;
-  text-underline-offset: 2px;
+  text-decoration: none;
+  background: none;
+  border: none;
+  border-radius: 4px;
+  transition: color 0.2s ease, transform 0.2s ease, opacity 0.2s ease;
 }
 
-.page-about .about-cta {
-  display: inline-flex;
-  font-weight: 600;
-  font-size: 15px;
-  line-height: 1.55;
-  color: #111;
-  border-bottom: 2px solid var(--af-accent, #e37222);
-  padding-bottom: 2px;
-  margin-top: 12px;
-  text-decoration: none;
+.page-about .about-teamcard__link:hover {
+  color: color-mix(in srgb, var(--matrix-label-blue, #1a3a5a) 82%, #000);
+  transform: translateY(-1px);
+}
+
+.page-about .about-teamcard__link:focus-visible {
+  outline: 2px solid var(--af-accent, #e37222);
+  outline-offset: 2px;
+}
+
+.page-about .about-teamcard__link-icon {
+  display: flex;
+  line-height: 0;
+}
+
+.page-about .about-teamcard__link-icon svg {
+  display: block;
+  width: 15px;
+  height: 15px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .page-about .about-teamcard,
+  .page-about .about-teamcard__link {
+    transition: none;
+  }
+
+  .page-about .about-teamcard:hover,
+  .page-about .about-teamcard__link:hover {
+    transform: none;
+  }
 }
 
 /* About page responsive */
@@ -1109,8 +1159,9 @@ ul li::marker {
     font-size: 0.82rem;
   }
 
-  .page-about .about-teamcard__link {
-    font-size: 0.65rem;
+  .page-about .about-teamcard__link-icon svg {
+    width: 16px;
+    height: 16px;
   }
 }
 
@@ -2385,7 +2436,7 @@ body.page-invest {
     margin-bottom: 10px;
   }
 
-  .page-home .hero__btn-shop {
+  .page-home .hero__btn-shop.af-shop-cta {
     font-size: 1rem;
   }
 }

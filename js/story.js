@@ -6,9 +6,11 @@
   var fills = progressEl
     ? progressEl.querySelectorAll(".story-progress__fill")
     : [];
-  var images = document.querySelectorAll(".story-visual__img");
   var panels = document.querySelectorAll(".feature-panel");
   var viewer = document.querySelector(".story-visual__model");
+  var slot = document.querySelector(".story-copy__slot");
+  var storyCopy = storySection ? storySection.querySelector(".story-copy") : null;
+  var heroIntro = document.querySelector(".hero.hero--intro");
 
   if (!storySection || !progressEl) return;
 
@@ -24,6 +26,64 @@
 
   function easeInOutCubic(t) {
     return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+  }
+
+  function isStorySlotMobile() {
+    return window.matchMedia("(max-width: 768px)").matches;
+  }
+
+  /**
+   * Glass card path (desktop): bottom-left → bottom-right → top-right → top-left,
+   * interpolated continuously from scroll progress so motion follows the scroll instead of jumping per feature.
+   */
+  function updateSlotPosition(progress) {
+    if (!slot || !storyCopy) return;
+    if (isStorySlotMobile()) {
+      slot.style.removeProperty("--slot-tx");
+      slot.style.removeProperty("--slot-ty");
+      slot.style.removeProperty("transform");
+      return;
+    }
+
+    var p = clamp(progress, 0, 1);
+    var W = storyCopy.offsetWidth;
+    var H = storyCopy.offsetHeight;
+    var slotW = slot.offsetWidth;
+    var slotH = slot.offsetHeight;
+    if (W <= 0 || H <= 0 || slotW <= 0 || slotH <= 0) return;
+
+    var padX = clamp(window.innerWidth * 0.04, 16, 32);
+    var padBottom = clamp(window.innerHeight * 0.04, 20, 44);
+    var padTop = clamp(window.innerHeight * 0.12, 88, 136);
+
+    var yBottom = H - slotH - padBottom;
+    var yTop = padTop;
+
+    var bl = { x: padX, y: yBottom };
+    var br = { x: W - slotW - padX, y: yBottom };
+    var tr = { x: W - slotW - padX, y: yTop };
+    var tl = { x: padX, y: yTop };
+
+    /* Linear in scroll progress so the card tracks the finger/wheel without easing “drift”. */
+    var u = p * 3;
+    var x;
+    var y;
+    if (u <= 1) {
+      var t0 = clamp(u, 0, 1);
+      x = lerp(bl.x, br.x, t0);
+      y = lerp(bl.y, br.y, t0);
+    } else if (u <= 2) {
+      var t1 = clamp(u - 1, 0, 1);
+      x = lerp(br.x, tr.x, t1);
+      y = lerp(br.y, tr.y, t1);
+    } else {
+      var t2 = clamp(u - 2, 0, 1);
+      x = lerp(tr.x, tl.x, t2);
+      y = lerp(tr.y, tl.y, t2);
+    }
+
+    slot.style.setProperty("--slot-tx", Math.round(x) + "px");
+    slot.style.setProperty("--slot-ty", Math.round(y) + "px");
   }
 
   function getProgress() {
@@ -109,10 +169,6 @@
     if (index === lastIndex) return;
     lastIndex = index;
 
-    images.forEach(function (img, i) {
-      img.classList.toggle("is-active", i === index);
-    });
-
     panels.forEach(function (panel, i) {
       var on = i === index;
       panel.classList.toggle("is-active", on);
@@ -125,13 +181,20 @@
   function updateProgressVisibility() {
     var rect = storySection.getBoundingClientRect();
     var vh = window.innerHeight;
-    var visible = rect.top < vh && rect.bottom > 0;
-    progressEl.classList.toggle("is-visible", visible);
+    var inViewport = rect.top < vh && rect.bottom > 0;
+    /* Hide under the fixed nav on the text hero — only show once intro has scrolled away. */
+    var pastHero = true;
+    if (heroIntro) {
+      var hb = heroIntro.getBoundingClientRect();
+      pastHero = hb.bottom < 24;
+    }
+    progressEl.classList.toggle("is-visible", inViewport && pastHero);
   }
 
   function onScroll() {
     var p = getProgress();
     applyModelCamera(p);
+    updateSlotPosition(p);
     var widths = segmentWidths(p);
     fills.forEach(function (fill, i) {
       fill.style.width = widths[i] + "%";
@@ -159,6 +222,12 @@
 
   if ("ResizeObserver" in window) {
     new ResizeObserver(requestTick).observe(storySection);
+    if (storyCopy) {
+      new ResizeObserver(requestTick).observe(storyCopy);
+    }
+    if (slot) {
+      new ResizeObserver(requestTick).observe(slot);
+    }
   }
 
   onScroll();

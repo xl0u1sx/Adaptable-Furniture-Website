@@ -20,8 +20,11 @@
   --matrix-label-blue: #1a3a5a;
   /* Pastel green in the same family as dot blue (stats, About accents) */
   --matrix-green-pastel: #7fa399;
-  /* Accent (links, CTA) */
+  /* Accent (links, CTA, active nav, brand marks) */
   --af-accent: #e37222;
+  /* Button orange (interactive elements — slightly brighter than accent) */
+  --af-btn: #f28c38;
+  --af-btn-hover: #e78333;
 }
 
 *,
@@ -283,8 +286,8 @@ ul {
 }
 
 
-.active {
-  color: #e07a5f;
+a.active {
+  color: var(--af-accent);
 }
 
 .site-header {
@@ -365,7 +368,7 @@ ul {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  background: #f28c38;
+  background: var(--af-btn);
   color: #fff;
   font-size: 10px;
   font-weight: 700;
@@ -444,11 +447,11 @@ ul {
 }
 
 .nav-overlay__links a.is-active {
-  color: #e07a5f;
+  color: var(--af-accent);
 }
 
 .nav-overlay__links a:focus-visible {
-  outline: 2px solid #e07a5f;
+  outline: 2px solid var(--af-accent);
   outline-offset: 4px;
 }
 
@@ -638,7 +641,7 @@ body.page-about .about-glass.about-problem__card {
 }
 
 .page-about .nav-overlay__links a.is-active {
-  color: #c14e28;
+  color: var(--af-accent);
 }
 
 /* Hero / our story */
@@ -1140,7 +1143,7 @@ body.page-why {
 .page-why .page-sub .af-accent {
   font-family: var(--font-logo);
   font-weight: 700;
-  color: #e68a5c;
+  color: var(--af-accent);
   font-size: 1.1em;
 }
 
@@ -1165,7 +1168,7 @@ body.page-why {
   font-family: var(--font-logo);
   font-weight: 700;
   font-size: 1rem;
-  color: #e68a5c;
+  color: var(--af-accent);
 }
 
 .page-why .feature-card {
@@ -1365,7 +1368,7 @@ body.page-shop {
   width: 36px;
   height: 36px;
   border-radius: 50%;
-  background: #f28c38;
+  background: var(--af-btn);
   color: #fff;
   display: flex;
   align-items: center;
@@ -1412,7 +1415,7 @@ body.page-shop {
   min-height: 34px;
   border-radius: var(--radius-pill);
   padding: 8px 12px;
-  background: #f28c38;
+  background: var(--af-btn);
   color: #fff;
   font-size: 12px;
   font-weight: 700;
@@ -1424,7 +1427,7 @@ body.page-shop {
 .page-shop .product-card__inline-add:focus-visible {
   transform: translateY(-1px);
   box-shadow: 0 10px 20px rgba(242, 140, 56, 0.36);
-  background: #e78333;
+  background: var(--af-btn-hover);
 }
 
 .page-shop .qty-btn {
@@ -1653,7 +1656,7 @@ body.page-product {
   width: 8px;
   height: 8px;
   border-radius: 50%;
-  background: #f28c38;
+  background: var(--af-btn);
 }
 
 .product-detail__specs {
@@ -1736,7 +1739,7 @@ body.page-product {
 }
 
 .btn-shop-now {
-  background: #f28c38;
+  background: var(--af-btn);
   color: #fff;
 }
 
@@ -1758,7 +1761,7 @@ body.page-product {
 
 .btn-shop-now:hover,
 .btn-shop-now:focus-visible {
-  background: #e78333;
+  background: var(--af-btn-hover);
 }
 
 .btn-shop-now.is-added {
@@ -1879,14 +1882,8 @@ body.page-product {
   gap: 16px;
 }
 
-.shop-panel [data-cart-list] {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-}
-
 .page-shop .cart-item .product-card__add {
-  background: #f28c38;
+  background: var(--af-btn);
 }
 
 .page-shop .cart-item .product-card__add svg path {
@@ -1949,7 +1946,7 @@ body.page-product {
   width: 100%;
   padding: 16px;
   border-radius: var(--radius-md);
-  background: #f28c38;
+  background: var(--af-btn);
   color: #fff;
   font-weight: 700;
   font-size: 1rem;
@@ -1958,7 +1955,7 @@ body.page-product {
 
 .shop-panel__footer .btn-primary:hover,
 .shop-panel__footer .btn-primary:focus-visible {
-  background: #e78333;
+  background: var(--af-btn-hover);
   transform: translateY(-1px);
   box-shadow: 0 10px 22px rgba(231, 131, 51, 0.34);
 }
@@ -2080,7 +2077,7 @@ body.page-product {
 
 .filter-toggle input {
   margin-top: 3px;
-  accent-color: #f28c38;
+  accent-color: var(--af-btn);
 }
 
 .empty-cart {
@@ -2128,7 +2125,7 @@ body.page-invest {
 .page-invest .page-sub .af-accent {
  font-family: var(--font-logo);
  font-weight: 700;
- color: #e68a5c;
+ color: var(--af-accent);
  font-size: 1.1em;
 }
 
@@ -2179,7 +2176,7 @@ body.page-invest {
   font-family: var(--font-logo);
   font-weight: 700;
   font-size: 0.85em;
-  color: #e68a5c;
+  color: var(--af-accent);
   margin-left: 0.15em;
 }
 

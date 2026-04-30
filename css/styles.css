@@ -94,8 +94,6 @@ ul {
   display: flex;
   justify-content: center;
   width: 100%;
-  background-color: #f2efe9;
-  border-radius: var(--radius-lg);
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
 }
 
@@ -2207,6 +2205,7 @@ body.page-invest {
   width: min(100%, 280px);
   margin-left: auto;
   margin-right: auto;
+  margin-bottom: 10px;
   color: var(--matrix-label-blue, #1a3a5a);
   background: rgba(255, 255, 255, 0.26);
   backdrop-filter: blur(24px) saturate(140%);
@@ -2214,6 +2213,7 @@ body.page-invest {
   border: 1px solid rgba(255, 255, 255, 0.5);
   border-radius: 24px;
   box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+  text-align: center;
 }
 
 

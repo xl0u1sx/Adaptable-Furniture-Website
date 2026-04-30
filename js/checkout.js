@@ -12,34 +12,32 @@
     {
       id: "sea-foam",
       name: "Sea foam green",
-      price: 899,
-      image: "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=400&q=80",
+      price: 189,
+      image: "img/Product-green.png",
     },
     {
       id: "lemon",
       name: "Lemon yellow",
-      price: 899,
-      image:
-        "https://images.unsplash.com/photo-1558211583-d26f610c1eb1?auto=format&fit=crop&w=900&h=700&q=80",
+      price: 179,
+      image: "img/Product-yellow.png",
     },
     {
       id: "terracotta",
       name: "Terracotta rose",
-      price: 929,
-      image: "https://images.unsplash.com/photo-1549187774-b4e9b0445b41?w=900&h=700&fit=crop&q=80",
+      price: 195,
+      image: "img/Product-teracotta.png",
     },
     {
       id: "glacier",
       name: "Glacier blue",
-      price: 949,
-      image: "https://images.unsplash.com/photo-1524758631624-e2822e304c36?w=400&q=80",
+      price: 199,
+      image: "img/Product-blue.png",
     },
     {
       id: "lavender",
       name: "Lavender haze",
-      price: 899,
-      image:
-        "https://images.unsplash.com/photo-1616486029423-aaa4789e8c9a?auto=format&fit=crop&w=900&h=700&q=80",
+      price: 185,
+      image: "img/Product-lavender.png",
     },
   ];
 

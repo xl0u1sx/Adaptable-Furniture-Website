@@ -22,7 +22,7 @@
         </div>
         <a href="why-af.html">Why AF?</a>
         <a class="active" href="shop.html">Store</a>
-        <a href="about.html">About</a>       
+        <a href="about.html">About</a>
         <a href="invest.html">Invest</a>
         <a class="site-header__cart" href="shop.html?cart=1" aria-label="Open shopping cart">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
@@ -46,33 +46,70 @@
     </header>
 
     <div class="site-blur">
-      <main class="page-wrap">
-        <section class="shop-intro" aria-label="Shop intro">
-          <p class="shop-intro__kicker">Adaptive Collection</p>
-          <h1 class="shop-intro__title">Modular pieces built for flexible living.</h1>
-          <p class="shop-intro__sub">Discover colorways designed to move with your space.</p>
-        </section>
-        <div class="shop-toolbar">
-          <div class="search-wrap">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-              <circle cx="11" cy="11" r="7" />
-              <path d="M20 20l-3-3" />
-            </svg>
-            <label class="sr-only" for="shop-search">Search products</label>
-            <input id="shop-search" type="search" placeholder="Search" autocomplete="off" data-search />
-            <button type="button" class="icon-btn" data-open-filter aria-label="Filter by color">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-                <path d="M4 6h16M7 12h10M10 18h4" />
-              </svg>
-            </button>
+      <main class="page-wrap page-wrap--shop">
+        <header class="shop-page-header">
+          <div class="shop-page-header__copy">
+            <p class="shop-page-header__eyebrow">Store · Adaptive Collection</p>
+            <h1 class="shop-page-header__series">Modular sofa system</h1>
+            <p class="shop-page-header__lede">Choose a finish and quantity. Pricing reflects fabric and dye lot.</p>
           </div>
-          <button type="button" class="btn-cart-nav" data-open-cart>
-            Go to cart<span class="cart-count"></span>
           </button>
-        </div>
-        <p class="shop-results" data-results-count aria-live="polite"></p>
+        </header>
 
-        <div class="product-list" data-product-list aria-live="polite"></div>
+        <section class="product-detail shop-product-detail" aria-labelledby="shop-product-title" data-shop-single>
+          <div class="product-detail__image-wrap shop-product-detail__image">
+            <span class="product-detail__badge" data-product-badge>Limited run</span>
+            <img
+              class="product-detail__image"
+              data-product-image
+              src="img/Product-green.png"
+              alt="Modular sofa"
+              width="1200"
+              height="900"
+            />
+          </div>
+          <article class="product-detail__meta shop-product-meta">
+            <div class="shop-product-meta__head">
+              <div class="shop-product-meta__titles">
+                <p class="product-detail__kicker">Selected finish</p>
+                <h2 id="shop-product-title" class="product-detail__title shop-product-meta__name" data-product-title>Sea foam green</h2>
+              </div>
+              <div class="shop-product-meta__commerce">
+                <p class="product-detail__price shop-product-meta__price" data-product-price>
+                  <span class="shop-product-meta__price-amount" data-product-price-amount>$189</span><span class="shop-product-meta__price-includes">For 1 sofa seat unit + 1 side table</span>
+                </p>
+                <p class="product-detail__sku shop-product-meta__sku" data-product-sku>SKU AF-MOD-SEA</p>
+              </div>
+            </div>
+            <p class="product-detail__desc shop-product-meta__desc" data-product-desc>
+              Floor seating modules with a cool, relaxed palette — limited run.
+            </p>
+
+            <div class="shop-purchase-block">
+              <div class="shop-color-field" role="group" aria-labelledby="shop-finish-heading">
+                <div class="shop-color-field__legend-row">
+                  <p class="shop-color-field__heading" id="shop-finish-heading">Finish</p>
+                  <span class="shop-color-field__current" data-selected-color-label aria-live="polite">Sea foam green</span>
+                </div>
+                <div class="shop-color-swatches" data-color-options aria-label="Finish options"></div>
+              </div>
+
+              <div class="shop-qty-row">
+                <span class="shop-qty-label" id="shop-qty-label">Quantity</span>
+                <div class="product-card__qty shop-qty-control shop-qty-control--panel" role="group" aria-labelledby="shop-qty-label">
+                  <button type="button" class="qty-btn" data-page-qty-minus aria-label="Decrease quantity">-</button>
+                  <span class="qty-value" data-page-qty-value>1</span>
+                  <button type="button" class="qty-btn" data-page-qty-plus aria-label="Increase quantity">+</button>
+                </div>
+              </div>
+
+              <div class="product-detail__actions shop-product-actions">
+                <button type="button" class="btn-shop-now" data-add-selection>Add to cart</button>
+                <button type="button" class="btn-view-cart" data-open-cart>View cart</button>
+              </div>
+            </div>
+          </article>
+        </section>
       </main>
     </div>
 

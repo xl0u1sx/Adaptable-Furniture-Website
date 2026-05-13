@@ -3039,9 +3039,7 @@ body.page-checkout {
 
 .site-footer__legal {
   background: var(--footer-bg);
-  margin-top: clamp(1.5rem, 4vw, 2.75rem);
-  padding: clamp(0.7rem, 1.8vw, 0.95rem) clamp(1.1rem, 3.5vw, 2rem) calc(0.65rem + env(safe-area-inset-bottom, 0px));
-  border-top: 1px solid rgba(22, 28, 26, 0.08);
+  padding: 0.55rem clamp(1.1rem, 3.5vw, 2rem) calc(0.65rem + env(safe-area-inset-bottom, 0px));
 }
 
 .site-footer__legal-inner {

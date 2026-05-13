@@ -24,7 +24,7 @@
         </div>
         <a class="active" href="why-af.html">Why AF?</a>
         <a href="shop.html">Store</a>
-        <a href="about.html">About</a>       
+        <a href="about.html">About</a>
         <a href="invest.html">Invest</a>
         <a class="site-header__cart" href="shop.html?cart=1" aria-label="Open shopping cart">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
@@ -82,15 +82,57 @@
                     alt="Adaptable Furniture modular seating in 3D"
                     shadow-intensity="1"
                     interaction-prompt="none"
-                  ></model-viewer>
-                  <p class="story-visual__hint" aria-hidden="true">Scroll to move the view</p>
+                  >
+                    <!-- Vertically spread along the sofa (low seat → high back); light X variation -->
+                    <button
+                      type="button"
+                      class="story-hotspot"
+                      slot="hotspot-rim-left"
+                      data-position="-0.72 1.12 -3.48"
+                      data-normal="-0.85 0.35 0.42"
+                      data-feature-trigger="0"
+                      aria-controls="story-feature-0"
+                      aria-label="Show Adaptable"
+                    ></button>
+                    <button
+                      type="button"
+                      class="story-hotspot"
+                      slot="hotspot-seat-mid-left"
+                      data-position="0.08 1.52 -3.4"
+                      data-normal="0.1 0.55 0.83"
+                      data-feature-trigger="1"
+                      aria-controls="story-feature-1"
+                      aria-label="Show Playful and Sleek"
+                    ></button>
+                    <button
+                      type="button"
+                      class="story-hotspot"
+                      slot="hotspot-seat-mid-right"
+                      data-position="0.58 1.98 -3.28"
+                      data-normal="0.55 0.45 0.7"
+                      data-feature-trigger="2"
+                      aria-controls="story-feature-2"
+                      aria-label="Show Space-Efficient"
+                    ></button>
+                    <button
+                      type="button"
+                      class="story-hotspot"
+                      slot="hotspot-seat-right"
+                      data-position="-0.1 2.7 -3.15"
+                      data-normal="-0.15 0.55 -0.82"
+                      data-feature-trigger="3"
+                      aria-controls="story-feature-3"
+                      aria-label="Show Durable and Comfortable"
+                    ></button>
+                  </model-viewer>
+                  <p class="story-visual__hint" aria-hidden="true">Tap a point on the sofa</p>
                 </div>
               </div>
             </div>
 
             <div class="story-copy">
               <div class="story-copy__slot">
-                <article class="feature-panel is-active" data-feature="0">
+                <article class="feature-panel is-active" data-feature="0" id="story-feature-0">
                   <h2 class="feature-panel__title">Adaptable</h2>
                   <ul class="feature-panel__list">
                     <li>Intuitively supports creative use</li>
@@ -99,7 +141,7 @@
                     <li>No complex setup required</li>
                   </ul>
                 </article>
-                <article class="feature-panel" data-feature="1">
+                <article class="feature-panel" data-feature="1" id="story-feature-1">
                   <h2 class="feature-panel__title">Playful &amp; Sleek</h2>
                   <ul class="feature-panel__list">
                     <li>Built for socializing and connecting</li>
@@ -108,7 +150,7 @@
                     <li>A vibe, not just furniture</li>
                   </ul>
                 </article>
-                <article class="feature-panel" data-feature="2">
+                <article class="feature-panel" data-feature="2" id="story-feature-2">
                   <h2 class="feature-panel__title">Space-Efficient</h2>
                   <ul class="feature-panel__list">
                     <li>Reconfigures without extra floor space</li>
@@ -117,7 +159,7 @@
                     <li>Compact when you need it to be</li>
                   </ul>
                 </article>
-                <article class="feature-panel" data-feature="3">
+                <article class="feature-panel" data-feature="3" id="story-feature-3">
                   <h2 class="feature-panel__title">Durable &amp; Comfortable</h2>
                   <ul class="feature-panel__list">
                     <li>Soft yet strong materials</li>
@@ -213,6 +255,90 @@
       </footer>
     </div>
 
+    <footer class="site-footer" aria-label="Site footer">
+      <div class="site-footer__main">
+        <div class="site-footer__inner">
+          <div class="site-footer__left">
+            <div class="site-footer__brand">
+              <a class="site-footer__logo" href="index.html" aria-label="Adaptable Furniture home">
+                <img src="img/Logo.png" alt="" width="120" height="32" decoding="async" />
+              </a>
+              <p class="site-footer__tagline">Furniture that&rsquo;s cool <span class="site-footer__tagline-em">AF</span></p>
+            </div>
+            <nav class="site-footer__col site-footer__nav-support" aria-labelledby="footer-support-heading">
+              <h2 id="footer-support-heading" class="site-footer__heading">Support</h2>
+              <ul class="site-footer__list">
+                <li><a href="shop.html">Shipping &amp; delivery</a></li>
+                <li><a href="about.html">Care &amp; materials</a></li>
+                <li><a href="shop.html">Orders &amp; returns</a></li>
+              </ul>
+            </nav>
+          </div>
+          <div class="site-footer__form-col" id="footer-contact">
+            <h2 id="footer-contact-heading" class="site-footer__heading">Get in touch</h2>
+            <div class="site-footer__card">
+              <p class="site-footer__lede">
+                We usually reply within one business day.
+              </p>
+              <form class="site-footer__form" data-footer-contact-form>
+                <div class="site-footer__field-row site-footer__field-row--split">
+                  <label class="site-footer__label">
+                    <span class="site-footer__label-text">Your email</span>
+                    <input
+                      type="email"
+                      name="email"
+                      autocomplete="email"
+                      required
+                      placeholder="you@example.com"
+                      class="site-footer__input"
+                    />
+                  </label>
+                  <label class="site-footer__label">
+                    <span class="site-footer__label-text">Subject</span>
+                    <input
+                      type="text"
+                      name="subject"
+                      required
+                      maxlength="200"
+                      placeholder="Order, custom quote, press…"
+                      class="site-footer__input"
+                    />
+                  </label>
+                </div>
+                <label class="site-footer__label">
+                  <span class="site-footer__label-text">Message</span>
+                  <textarea
+                    name="message"
+                    class="site-footer__textarea"
+                    rows="3"
+                    required
+                    placeholder="What would you like us to know?"
+                  ></textarea>
+                </label>
+                <p class="site-footer__form-status" data-footer-form-status hidden aria-live="polite"></p>
+                <button type="submit" class="site-footer__submit">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                    <path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z" />
+                  </svg>
+                  Send message
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="site-footer__legal">
+        <div class="site-footer__legal-inner">
+          <nav class="site-footer__legal-nav" aria-label="Legal">
+            <a href="#">Privacy</a>
+            <a href="#">Terms</a>
+            <a href="#">Accessibility</a>
+          </nav>
+          <p class="site-footer__copyright">© 2026 Adaptable Furniture. All rights reserved.</p>
+        </div>
+      </div>
+    </footer>
+
     <div
       id="nav-overlay"
       class="nav-overlay"
@@ -242,6 +368,7 @@
       </nav>
     </div>
 
+    <script src="js/footer-form.js" defer></script>
     <script src="js/app.js" defer></script>
     <script src="js/story.js" defer></script>
     <script>

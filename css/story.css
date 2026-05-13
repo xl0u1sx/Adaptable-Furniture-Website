@@ -120,10 +120,10 @@ body.page-why.page-why-story .hero__subtitle {
   max-width: 22rem;
 }
 
-/* ----- Scroll story (taller = less sensitive per feature, esp. first) ----- */
+/* ----- Scroll story (shorter than before: primary navigation is sofa hotspots) ----- */
 .story-scroll {
   position: relative;
-  height: 680vh;
+  height: 320vh;
   scroll-margin-top: 96px;
 }
 
@@ -137,6 +137,7 @@ body.page-why.page-why-story .hero__subtitle {
   justify-content: stretch;
   padding: 0;
   width: 100%;
+  isolation: isolate;
 }
 
 /* Full-viewport canvas + copy stacked in one grid cell */
@@ -196,10 +197,51 @@ body.page-why.page-why-story .hero__subtitle {
   margin: 0;
   background: transparent;
   --poster-color: transparent;
+  /* Keep all four hotspots visible / hit-testable when they face away from the camera */
+  --min-hotspot-opacity: 1;
   z-index: 1;
-  /* Camera is scroll-driven only — do not capture drag / pinch / wheel */
-  pointer-events: none;
+  /* Hotspots need hits; camera stays script-driven (no camera-controls). */
+  pointer-events: auto;
   touch-action: pan-y;
+}
+
+/* 3D hotspots (children of model-viewer): move with the GLB when the camera orbits */
+.story-visual__model .story-hotspot {
+  display: block;
+  box-sizing: border-box;
+  min-width: 32px;
+  min-height: 32px;
+  width: 32px;
+  height: 32px;
+  margin: 0;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.28);
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  transition: box-shadow 0.2s ease, filter 0.2s ease;
+}
+
+.story-visual__model .story-hotspot:hover,
+.story-visual__model .story-hotspot:focus-visible {
+  filter: brightness(1.08);
+  box-shadow: 0 0 0 3px rgba(227, 114, 34, 0.45);
+  outline: none;
+}
+
+.story-visual__model .story-hotspot:active {
+  filter: brightness(0.95);
+}
+
+@media (min-width: 769px) {
+  .story-visual__model .story-hotspot {
+    min-width: 34px;
+    min-height: 34px;
+    width: 34px;
+    height: 34px;
+  }
 }
 
 .story-visual__hint {
@@ -208,7 +250,7 @@ body.page-why.page-why-story .hero__subtitle {
   left: 50%;
   transform: translateX(-50%);
   bottom: auto;
-  z-index: 3;
+  z-index: 5;
   margin: 0;
   padding: 0.35rem 0.65rem;
   font-size: 0.65rem;
@@ -239,21 +281,45 @@ body.page-why.page-why-story .hero__subtitle {
   );
 }
 
-/* Glass slot: position is scroll-driven via --slot-tx / --slot-ty (see js/story.js) */
+/* Lift copy layer while the card is pinned so the glass panel paints above the 3D view (below .story-progress z=60) */
+.story-copy.story-copy--card-pop {
+  z-index: 58;
+}
+
+/* Glass card: bottom-centered until sticky pins it beside the active hotspot (no stray top-left) */
+.story-copy__slot:not(.story-copy__slot--pin) {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: none;
+  top: auto;
+  bottom: max(1rem, env(safe-area-inset-bottom, 0px));
+  left: 50%;
+  right: auto;
+  transform: translateX(-50%);
+}
+
 .story-copy__slot {
   position: absolute;
-  left: 0;
-  top: 0;
+  top: auto;
   right: auto;
   bottom: auto;
-  width: min(27rem, calc(100% - 2rem));
+  width: min(20.5rem, calc(100% - 2rem));
   max-width: calc(100% - 2rem);
   min-height: min(30vh, 220px);
-  transform: translate3d(var(--slot-tx, 0px), var(--slot-ty, 0px), 0);
-  /* No transition: transform must track scroll 1:1 or the card lags and feels like it “pops”. */
-  will-change: transform;
+  z-index: 6;
+}
+
+.story-copy__slot.story-copy__slot--pin {
+  position: fixed;
+  transform: none;
+  opacity: 1;
+  visibility: visible;
   pointer-events: none;
-  z-index: 2;
+  z-index: 59;
+  width: min(20.5rem, calc(100vw - 1.5rem));
+  max-width: calc(100vw - 1.5rem);
+  /* Panels are position:absolute; without min-height the slot collapses and JS cannot place the card */
+  min-height: min(42vh, 280px);
 }
 
 .feature-panel {
@@ -264,24 +330,24 @@ body.page-why.page-why-story .hero__subtitle {
   bottom: 0;
   margin: 0;
   opacity: 0;
-  transform: scale(0.98);
+  transform: none;
   pointer-events: none;
-  transition: opacity 0.9s ease, transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+  transition: opacity 0.45s ease;
   z-index: 0;
-  padding: clamp(0.85rem, 2.4vw, 1.1rem) clamp(1rem, 2.4vw, 1.2rem);
+  padding: clamp(0.75rem, 2vw, 0.95rem) clamp(0.8rem, 2vw, 1rem);
   border-radius: 24px;
   /* Same glass as floating nav (.desk-header in styles.css) */
   background: rgba(255, 255, 255, 0.26);
   backdrop-filter: blur(24px) saturate(140%);
   -webkit-backdrop-filter: blur(24px) saturate(140%);
-  border: 1px solid rgba(255, 255, 255, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.45);
   box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
   overflow: auto;
 }
 
 .feature-panel.is-active {
   opacity: 1;
-  transform: scale(1);
+  transform: none;
   pointer-events: auto;
   z-index: 1;
 }
@@ -350,15 +416,13 @@ body.page-why.page-why-story .hero__subtitle {
   }
 }
 
-/* Wider glass card on small screens — slot gutters were visually heavy */
+/* Mobile: full-width bottom sheet before pin */
 @media (max-width: 768px) {
-  .story-copy__slot {
+  .story-copy__slot:not(.story-copy__slot--pin) {
     left: max(10px, env(safe-area-inset-left, 0px));
     right: max(10px, env(safe-area-inset-right, 0px));
     width: auto;
     max-width: none;
-    top: auto;
-    bottom: max(1rem, env(safe-area-inset-bottom, 0px));
     transform: none;
   }
 }

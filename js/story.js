@@ -11,10 +11,28 @@
   var slot = document.querySelector(".story-copy__slot");
   var storyCopy = storySection ? storySection.querySelector(".story-copy") : null;
   var heroIntro = document.querySelector(".hero.hero--intro");
+  var hotspotButtons = viewer ? viewer.querySelectorAll(".story-hotspot") : [];
 
   if (!storySection || !progressEl) return;
 
   var lastIndex = -1;
+
+  function refreshHotspotButtons() {
+    hotspotButtons = viewer ? viewer.querySelectorAll(".story-hotspot") : [];
+  }
+
+  function onHotspotClick(ev) {
+    if (!viewer) return;
+    var el = ev.target;
+    if (!el || typeof el.closest !== "function") return;
+    var btn = el.closest(".story-hotspot");
+    if (!btn || !viewer.contains(btn)) return;
+    var raw = btn.getAttribute("data-feature-trigger");
+    var i = raw == null ? NaN : parseInt(raw, 10);
+    if (!isNaN(i)) {
+      scrollToFeature(i);
+    }
+  }
 
   function clamp(n, min, max) {
     return Math.min(max, Math.max(min, n));
@@ -28,73 +46,102 @@
     return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
   }
 
-  function isStorySlotMobile() {
-    return window.matchMedia("(max-width: 768px)").matches;
+  function storyHeaderSafeTop() {
+    return clamp(window.innerWidth * 0.02 + 65 + 24, 88, 120);
   }
 
   /**
-   * Glass card path (desktop): bottom-left → bottom-right → top-right → top-left,
-   * interpolated continuously from scroll progress so motion follows the scroll instead of jumping per feature.
+   * Pin the glass card above the active hotspot (fixed viewport coords).
+   * Panels are position:absolute so the slot can measure 0×0 — use fallback height for layout math.
    */
-  function updateSlotPosition(progress) {
-    if (!slot || !storyCopy) return;
-    if (isStorySlotMobile()) {
-      slot.style.removeProperty("--slot-tx");
-      slot.style.removeProperty("--slot-ty");
-      slot.style.removeProperty("transform");
+  function updateSlotNearActiveHotspot() {
+    if (!slot || !storySection) return;
+    var rect = storySection.getBoundingClientRect();
+    var sticky = rect.top <= 0 && rect.bottom > 40;
+    if (!sticky) {
+      slot.classList.remove("story-copy__slot--pin");
+      if (storyCopy) {
+        storyCopy.classList.remove("story-copy--card-pop");
+      }
+      slot.style.removeProperty("left");
+      slot.style.removeProperty("top");
+      slot.style.removeProperty("right");
+      slot.style.removeProperty("bottom");
       return;
     }
 
-    var p = clamp(progress, 0, 1);
-    var W = storyCopy.offsetWidth;
-    var H = storyCopy.offsetHeight;
-    var slotW = slot.offsetWidth;
-    var slotH = slot.offsetHeight;
-    if (W <= 0 || H <= 0 || slotW <= 0 || slotH <= 0) return;
+    var idx = featureIndex(getProgress());
+    var btn = hotspotButtons[idx];
+    if (!btn) return;
 
-    var padX = clamp(window.innerWidth * 0.04, 16, 32);
-    var padBottom = clamp(window.innerHeight * 0.04, 20, 44);
-    var padTop = clamp(window.innerHeight * 0.12, 88, 136);
+    var hr = btn.getBoundingClientRect();
+    if (hr.width < 2 && hr.height < 2) return;
 
-    var yBottom = H - slotH - padBottom;
-    var yTop = padTop;
-
-    var bl = { x: padX, y: yBottom };
-    var br = { x: W - slotW - padX, y: yBottom };
-    var tr = { x: W - slotW - padX, y: yTop };
-    var tl = { x: padX, y: yTop };
-
-    /* Linear in scroll progress so the card tracks the finger/wheel without easing “drift”. */
-    var u = p * 3;
-    var x;
-    var y;
-    if (u <= 1) {
-      var t0 = clamp(u, 0, 1);
-      x = lerp(bl.x, br.x, t0);
-      y = lerp(bl.y, br.y, t0);
-    } else if (u <= 2) {
-      var t1 = clamp(u - 1, 0, 1);
-      x = lerp(br.x, tr.x, t1);
-      y = lerp(br.y, tr.y, t1);
-    } else {
-      var t2 = clamp(u - 2, 0, 1);
-      x = lerp(tr.x, tl.x, t2);
-      y = lerp(tr.y, tl.y, t2);
+    var margin = 22;
+    var vertExtra = 14;
+    var pad = Math.max(12, Math.min(20, window.innerWidth * 0.03));
+    var topSafe = storyHeaderSafeTop();
+    slot.classList.add("story-copy__slot--pin");
+    if (storyCopy) {
+      storyCopy.classList.add("story-copy--card-pop");
     }
 
-    slot.style.setProperty("--slot-tx", Math.round(x) + "px");
-    slot.style.setProperty("--slot-ty", Math.round(y) + "px");
+    var slotW = slot.offsetWidth || Math.min(328, window.innerWidth - pad * 2);
+    var slotH = slot.offsetHeight;
+    if (slotH < 120) {
+      slotH = 240;
+    }
+
+    var cx = hr.left + hr.width * 0.5;
+    var left = cx - slotW * 0.5;
+    left = clamp(left, pad, window.innerWidth - slotW - pad);
+
+    var top = hr.top - slotH - margin - vertExtra;
+    if (top < topSafe) {
+      top = hr.bottom + margin + vertExtra;
+    }
+    top = clamp(top, topSafe, window.innerHeight - slotH - pad);
+
+    /* Nudge the card horizontally away from the 3D model so it does not cover hotspot taps */
+    if (viewer && viewer.getBoundingClientRect) {
+      var vr = viewer.getBoundingClientRect();
+      var modelCx = vr.left + vr.width * 0.5;
+      var sofaAway = clamp(Math.round(vr.width * 0.08), 28, 56);
+      var cardCx = left + slotW * 0.5;
+      if (cardCx >= modelCx) {
+        left = Math.min(left + sofaAway, window.innerWidth - slotW - pad);
+      } else {
+        left = Math.max(left - sofaAway, pad);
+      }
+    }
+
+    slot.style.left = Math.round(left) + "px";
+    slot.style.top = Math.round(top) + "px";
+    slot.style.right = "auto";
+    slot.style.bottom = "auto";
   }
 
   function getProgress() {
     var rect = storySection.getBoundingClientRect();
-    var vh = window.innerHeight;
     var sectionTop = rect.top + window.scrollY;
     var sectionHeight = storySection.offsetHeight;
-    var denom = sectionHeight - vh;
+    var denom = sectionHeight - window.innerHeight;
     if (denom <= 0) return 0;
     var p = (window.scrollY - sectionTop) / denom;
     return clamp(p, 0, 1);
+  }
+
+  function scrollToFeature(index) {
+    index = clamp(index, 0, 3);
+    var sectionHeight = storySection.offsetHeight;
+    var denom = sectionHeight - window.innerHeight;
+    if (denom <= 0) return;
+    var rect = storySection.getBoundingClientRect();
+    var sectionTop = rect.top + window.scrollY;
+    var p = (index + 0.5) / 4;
+    var targetY = sectionTop + p * denom;
+    var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    window.scrollTo({ top: targetY, behavior: reduce ? "auto" : "smooth" });
   }
 
   function segmentWidths(progress) {
@@ -114,8 +161,10 @@
 
   /**
    * Scroll-driven camera for sofa.glb (model-viewer):
-   * Q1 — zoom in · Q2 — zoom out · Q3 — orbit to show another side · Q4 — settle.
-   * Theta/phi/radius% tuned for a typical furniture bounding sphere.
+   * Q1 Adaptable — orbit to show the back (rim hotspot).
+   * Q2 Playful — zoomed out.
+   * Q3 Space-Efficient — zoomed in.
+   * Q4 Durable — comfortable front three-quarter.
    */
   function cameraOrbitFromProgress(p) {
     var t = clamp(p, 0, 1);
@@ -124,24 +173,24 @@
     var radiusPct;
     if (t < 0.25) {
       var u = easeInOutCubic(t / 0.25);
-      theta = lerp(22, 30, u);
-      phi = lerp(72, 68, u);
-      radiusPct = lerp(118, 74, u);
+      theta = lerp(168, 206, u);
+      phi = lerp(64, 60, u);
+      radiusPct = lerp(96, 108, u);
     } else if (t < 0.5) {
       var u2 = easeInOutCubic((t - 0.25) / 0.25);
-      theta = lerp(30, 34, u2);
-      phi = lerp(68, 70, u2);
-      radiusPct = lerp(74, 124, u2);
+      theta = lerp(32, 40, u2);
+      phi = lerp(70, 72, u2);
+      radiusPct = lerp(136, 152, u2);
     } else if (t < 0.75) {
       var u3 = easeInOutCubic((t - 0.5) / 0.25);
-      theta = lerp(34, 198, u3);
-      phi = lerp(70, 64, u3);
-      radiusPct = lerp(124, 108, u3);
+      theta = lerp(46, 54, u3);
+      phi = lerp(72, 76, u3);
+      radiusPct = lerp(66, 78, u3);
     } else {
       var u4 = easeInOutCubic((t - 0.75) / 0.25);
-      theta = lerp(198, 218, u4);
-      phi = lerp(64, 58, u4);
-      radiusPct = lerp(108, 98, u4);
+      theta = lerp(84, 98, u4);
+      phi = lerp(58, 62, u4);
+      radiusPct = lerp(92, 100, u4);
     }
     return theta + "deg " + phi + "deg " + radiusPct + "%";
   }
@@ -180,8 +229,7 @@
 
   function updateProgressVisibility() {
     var rect = storySection.getBoundingClientRect();
-    var vh = window.innerHeight;
-    var inViewport = rect.top < vh && rect.bottom > 0;
+    var inViewport = rect.top < window.innerHeight && rect.bottom > 0;
     /* Hide under the fixed nav on the text hero — only show once intro has scrolled away. */
     var pastHero = true;
     if (heroIntro) {
@@ -194,13 +242,15 @@
   function onScroll() {
     var p = getProgress();
     applyModelCamera(p);
-    updateSlotPosition(p);
+    setActiveFeature(featureIndex(p));
     var widths = segmentWidths(p);
     fills.forEach(function (fill, i) {
       fill.style.width = widths[i] + "%";
     });
-    setActiveFeature(featureIndex(p));
     updateProgressVisibility();
+    requestAnimationFrame(function () {
+      updateSlotNearActiveHotspot();
+    });
   }
 
   var ticking = false;
@@ -214,7 +264,23 @@
   }
 
   if (viewer) {
-    viewer.addEventListener("load", requestTick, { once: true });
+    viewer.addEventListener("click", onHotspotClick);
+    function onViewerLoaded() {
+      refreshHotspotButtons();
+      requestTick();
+    }
+    var alreadyLoaded =
+      Object.prototype.hasOwnProperty.call(viewer, "loaded") && viewer.loaded === true;
+    if (alreadyLoaded) {
+      onViewerLoaded();
+    } else {
+      viewer.addEventListener("load", onViewerLoaded, { once: true });
+    }
+    viewer.addEventListener("camera-change", function () {
+      requestAnimationFrame(function () {
+        updateSlotNearActiveHotspot();
+      });
+    });
   }
 
   window.addEventListener("scroll", requestTick, { passive: true });

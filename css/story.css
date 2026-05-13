@@ -113,6 +113,7 @@ body.page-why.page-why-story .hero__subtitle {
   width: 100%;
   max-width: none;
   margin: 0;
+  height: auto;
 }
 
 .story-img-column {
@@ -257,6 +258,12 @@ body.page-why.page-why-story .hero__subtitle {
   margin: 0 auto;
   min-height: min(12rem, 28vh);
   padding-bottom: 0.35rem;
+  display: grid;
+  grid-template-columns: 1fr;
+  width: min(28rem, 90%); /* Slightly wider for desktop readability */
+  margin: 0 auto;
+  min-height: 300px; /* Force a base height */
+  height: auto;
 }
 
 /* No feature card until the user taps a hotspot (initial sofa-only view) */
@@ -377,6 +384,9 @@ body.page-why.page-why-story .hero__subtitle {
   .story-visual {
     min-height: min(50vh, 440px);
   }
+  .story-copy__slot {
+    min-height: 200px;
+  }
 }
 
 @media (min-width: 769px) {
@@ -411,9 +421,10 @@ body.page-why.page-why-story .hero__subtitle {
     width: 100%;
     max-width: none;
     margin: 0;
-    min-height: min(11rem, 22vh);
+    height: fit-content;
   }
-}
+} 
+
 
 /* ----- Configurations (infinite horizontal scroll) ----- */
 .config {

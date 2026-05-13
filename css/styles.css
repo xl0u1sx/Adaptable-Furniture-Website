@@ -1358,8 +1358,14 @@ body.page-shop {
 }
 
 .page-shop .shop-product-meta__head {
-  display: grid;
-  gap: 14px;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 16px;
+}
+
+.page-shop .shop-product-meta__titles {
+  min-width: 0;
 }
 
 .page-shop .shop-product-meta__titles .product-detail__kicker {
@@ -1372,13 +1378,39 @@ body.page-shop {
 }
 
 .page-shop .shop-product-meta__commerce {
-  padding-top: 2px;
+  width: 100%;
+  min-width: 0;
+  border-top: 1px solid rgba(26, 39, 68, 0.08);
+  padding-top: 14px;
+  margin-top: 2px;
+}
+
+.page-shop .shop-product-meta__commerce .shop-product-meta__price {
+  margin-left: 0;
+  text-align: left;
+  max-width: none;
 }
 
 .page-shop .shop-product-meta__price {
   margin: 0;
   font-size: 1.5rem;
   letter-spacing: -0.02em;
+  line-height: 1.35;
+}
+
+.page-shop .shop-product-meta__price-amount {
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.page-shop .shop-product-meta__price-includes {
+  display: block;
+  margin-top: 5px;
+  font-weight: 600;
+  font-size: 0.82rem;
+  line-height: 1.4;
+  letter-spacing: 0;
+  color: rgba(26, 39, 68, 0.78);
 }
 
 .page-shop .shop-product-meta__sku {
@@ -1509,19 +1541,6 @@ body.page-shop {
 
 .page-shop .shop-product-actions {
   margin-top: 20px;
-}
-
-@media (min-width: 640px) {
-  .page-shop .shop-product-meta__head {
-    grid-template-columns: minmax(0, 1fr) auto;
-    align-items: start;
-    gap: 16px 24px;
-  }
-
-  .page-shop .shop-product-meta__commerce {
-    text-align: right;
-    justify-self: end;
-  }
 }
 
 @media (min-width: 860px) {

@@ -68,7 +68,7 @@
     image: root.querySelector("[data-product-image]"),
     badge: root.querySelector("[data-product-badge]"),
     title: root.querySelector("[data-product-title]"),
-    price: root.querySelector("[data-product-price]"),
+    priceAmount: root.querySelector("[data-product-price-amount]"),
     sku: root.querySelector("[data-product-sku]"),
     desc: root.querySelector("[data-product-desc]"),
     colorOptions: root.querySelector("[data-color-options]"),
@@ -203,7 +203,7 @@
       els.badge.textContent = p.badge;
     }
     if (els.title) els.title.textContent = p.name;
-    if (els.price) els.price.textContent = formatDollars(p.price);
+    if (els.priceAmount) els.priceAmount.textContent = formatDollars(p.price);
     if (els.sku) els.sku.textContent = p.sku;
     if (els.desc) els.desc.textContent = p.desc;
     if (els.pageQtyValue) els.pageQtyValue.textContent = String(pageQty);

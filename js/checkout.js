@@ -53,6 +53,9 @@
     error: root.querySelector("[data-checkout-error]"),
   };
 
+  /** After a successful order the cart is cleared; keep totals and lines for the receipt view. */
+  let completedOrderSnapshot = null;
+
   function formatMoney(cents) {
     return new Intl.NumberFormat("en-US", {
       style: "currency",
@@ -129,19 +132,11 @@
     if (els.tax) els.tax.textContent = formatMoney(0);
     if (els.total) els.total.textContent = formatMoney(0);
     if (els.submit) els.submit.disabled = true;
+    if (els.confirmation) els.confirmation.hidden = true;
   }
 
-  function render() {
-    const cart = loadCart();
-    const entries = cartEntries(cart);
-    if (!entries.length) {
-      renderEmpty();
-      return;
-    }
-
-    if (els.submit) els.submit.disabled = false;
+  function renderLineItems(entries) {
     if (!els.items) return;
-
     els.items.innerHTML = entries
       .map((entry) => {
         const lineTotal = entry.product.price * entry.qty * 100;
@@ -157,8 +152,9 @@
         `;
       })
       .join("");
+  }
 
-    const totals = computeTotals(entries);
+  function applyTotalsToDom(totals) {
     if (els.subtotal) els.subtotal.textContent = formatMoney(totals.subtotalCents);
     if (els.shipping) {
       els.shipping.textContent =
@@ -166,6 +162,72 @@
     }
     if (els.tax) els.tax.textContent = formatMoney(totals.taxCents);
     if (els.total) els.total.textContent = formatMoney(totals.totalCents);
+  }
+
+  function renderCompletedOrder(snapshot) {
+    if (!els.items) return;
+    renderLineItems(snapshot.entries);
+    applyTotalsToDom(snapshot.totals);
+    if (els.submit) {
+      els.submit.disabled = true;
+      els.submit.textContent = "Order placed";
+    }
+    if (els.confirmation) els.confirmation.hidden = false;
+  }
+
+  function playConfetti() {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+    const layer = document.createElement("div");
+    layer.className = "checkout-confetti";
+    layer.setAttribute("aria-hidden", "true");
+
+    const colors = ["#f28c38", "#e37222", "#1a2744", "#5f7596", "#7fa399", "#b3d4cf", "#c9daf0"];
+    const count = 52;
+    for (let i = 0; i < count; i++) {
+      const piece = document.createElement("span");
+      piece.className = "checkout-confetti__piece";
+      const wide = Math.random() > 0.55;
+      piece.classList.toggle("checkout-confetti__piece--wide", wide);
+      piece.style.left = `${Math.random() * 100}%`;
+      piece.style.top = `${-8 - Math.random() * 40}px`;
+      piece.style.animationDelay = `${Math.random() * 0.45}s`;
+      piece.style.animationDuration = `${1.75 + Math.random() * 1.1}s`;
+      piece.style.background = colors[Math.floor(Math.random() * colors.length)];
+      piece.style.setProperty("--drift", `${(Math.random() - 0.5) * 140}px`);
+      piece.style.setProperty("--spin", `${(Math.random() > 0.5 ? 1 : -1) * (540 + Math.random() * 420)}deg`);
+      layer.appendChild(piece);
+    }
+
+    document.body.appendChild(layer);
+    window.setTimeout(() => layer.remove(), 3400);
+  }
+
+  function render() {
+    if (completedOrderSnapshot) {
+      renderCompletedOrder(completedOrderSnapshot);
+      return;
+    }
+
+    const cart = loadCart();
+    const entries = cartEntries(cart);
+    if (!entries.length) {
+      renderEmpty();
+      return;
+    }
+
+    if (els.confirmation) els.confirmation.hidden = true;
+
+    if (els.submit) {
+      els.submit.disabled = false;
+      els.submit.textContent = "Place order";
+    }
+    if (!els.items) return;
+
+    renderLineItems(entries);
+
+    const totals = computeTotals(entries);
+    applyTotalsToDom(totals);
   }
 
   function buildOrderPayload(form, entries, totals) {
@@ -241,16 +303,25 @@
         throw new Error(serverMessage || "Unable to place order right now.");
       }
 
-      localStorage.removeItem(STORAGE_KEY);
-      render();
+      completedOrderSnapshot = {
+        entries: entries.map((e) => ({ product: e.product, qty: e.qty })),
+        totals: {
+          subtotalCents: totals.subtotalCents,
+          shippingCents: totals.shippingCents,
+          taxCents: totals.taxCents,
+          totalCents: totals.totalCents,
+        },
+      };
 
-      if (els.confirmation) {
-        els.confirmation.hidden = false;
-      }
-      if (els.submit) {
-        els.submit.disabled = true;
-        els.submit.textContent = "Order placed";
-      }
+      localStorage.removeItem(STORAGE_KEY);
+      document.dispatchEvent(
+        new CustomEvent("af:cart-updated", {
+          detail: { count: 0 },
+        })
+      );
+
+      render();
+      playConfetti();
     } catch (error) {
       const message =
         error instanceof Error

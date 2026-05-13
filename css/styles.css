@@ -2946,6 +2946,51 @@ body.page-checkout {
   box-shadow: 0 10px 22px rgba(231, 131, 51, 0.3);
 }
 
+/* Post-checkout confetti (pointer-events none; removed after animation) */
+.checkout-confetti {
+  position: fixed;
+  inset: 0;
+  z-index: 4000;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.checkout-confetti__piece {
+  position: absolute;
+  width: 7px;
+  height: 11px;
+  border-radius: 2px;
+  opacity: 0.95;
+  animation-name: checkout-confetti-fall;
+  animation-timing-function: linear;
+  animation-fill-mode: forwards;
+  will-change: transform, opacity;
+}
+
+.checkout-confetti__piece--wide {
+  width: 10px;
+  height: 7px;
+  border-radius: 3px;
+}
+
+@keyframes checkout-confetti-fall {
+  0% {
+    transform: translate3d(0, 0, 0) rotate(0deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translate3d(var(--drift), min(105vh, 900px), 0) rotate(var(--spin, 720deg));
+    opacity: 0.88;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .checkout-confetti__piece {
+    animation: none;
+    opacity: 0;
+  }
+}
+
 @media (min-width: 980px) {
   .checkout-grid {
     grid-template-columns: 1.2fr 0.9fr;

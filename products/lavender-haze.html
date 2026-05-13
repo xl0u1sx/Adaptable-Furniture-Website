@@ -3,132 +3,13 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Lavender Haze — Adaptable Furniture</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Host+Grotesk:wght@400;500;600;700;800&family=Nunito+Sans:wght@400;500;600;700;800&display=swap"
-      rel="stylesheet"
-    />
-    <link rel="stylesheet" href="../css/styles.css" />
+    <title>Redirecting…</title>
+    <meta http-equiv="refresh" content="0; url=../shop.html?variant=lavender" />
+    <script>
+      location.replace("../shop.html?variant=lavender");
+    </script>
   </head>
-  <body class="page-product" data-nav-active="shop.html" data-product-id="lavender">
-    <header class="site-header">
-      <div class="desk-header">
-        <a href="../about.html">About</a>
-        <a href="../why-af.html">Why AF?</a>
-        <div class="af-logo">
-          <a class="site-header__logo site-header__logo--mark" href="../index.html" aria-label="Adaptable Furniture home">
-            <img src="../img/Logo.png" alt="" width="180" height="48" decoding="async" />
-          </a>
-        </div>
-        <a class="active" href="../shop.html">Shop</a>
-        <a href="../invest.html">Invest</a>
-        <a class="site-header__cart" href="../shop.html?cart=1" aria-label="Open shopping cart">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-            <path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.08-.14.12-.31.12-.48 0-.55-.45-1-1-1H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/>
-          </svg>
-          <span class="site-header__cart-count is-hidden" data-cart-count-badge>0</span>
-        </a>
-      </div>
-      <button
-        type="button"
-        class="site-header__menu"
-        aria-label="Open menu"
-        aria-expanded="false"
-        aria-controls="nav-overlay"
-        data-nav-open
-      >
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-          <path d="M4 7h16M4 12h16M4 17h16" />
-        </svg>
-      </button>
-    </header>
-
-    <div class="site-blur">
-      <main class="page-wrap">
-        <section class="product-detail" aria-labelledby="product-title">
-          <div class="product-detail__image-wrap">
-            <span class="product-detail__badge">Mood Collection</span>
-            <img class="product-detail__image" src="../img/Product-lavender.png" alt="Lavender-toned modular sofa in a calm modern living room" width="1200" height="900" />
-          </div>
-          <article class="product-detail__meta">
-            <p class="product-detail__kicker">Featured Colorway</p>
-            <div class="product-detail__head">
-              <h1 id="product-title" class="product-detail__title">Lavender haze</h1>
-              <p class="product-detail__price">$185</p>
-              <p class="product-detail__sku">SKU AF-MOD-LAVENDER</p>
-            </div>
-            <p class="product-detail__desc">A soft purple-toned modular sofa that adds character without overpowering the room.</p>
-            <div class="product-detail__highlights" aria-label="Key highlights">
-              <span class="product-detail__chip">Soft Statement</span>
-              <span class="product-detail__chip">Relaxed Seating</span>
-              <span class="product-detail__chip">Versatile Palette</span>
-            </div>
-            <ul class="product-detail__bullets">
-              <li>Muted violet tone for modern and eclectic rooms.</li>
-              <li>Comfort-first cushioning for long sessions.</li>
-              <li>Subtle statement color with strong day-to-day versatility.</li>
-            </ul>
-            <div class="product-detail__specs" aria-label="Lavender haze product highlights">
-              <div class="product-detail__spec">
-                <span class="product-detail__spec-label">Best For</span>
-                <span class="product-detail__spec-value">Relaxed Lounges</span>
-              </div>
-              <div class="product-detail__spec">
-                <span class="product-detail__spec-label">Feel</span>
-                <span class="product-detail__spec-value">Soft + Supportive</span>
-              </div>
-              <div class="product-detail__spec">
-                <span class="product-detail__spec-label">Seating Capacity</span>
-                <span class="product-detail__spec-value">3-5 people</span>
-              </div>
-              <div class="product-detail__spec">
-                <span class="product-detail__spec-label">Setup Time</span>
-                <span class="product-detail__spec-value">Under 3 mins</span>
-              </div>
-            </div>
-            <div class="product-detail__notes" aria-label="Purchase notes">
-              <p class="product-detail__note"><strong>Free Shipping:</strong> Delivered in 5-7 business days in the continental US.</p>
-              <p class="product-detail__note"><strong>30-Day Trial:</strong> Try it in your space and return if needed.</p>
-            </div>
-            <div class="product-detail__actions">
-              <a class="btn-shop-now" href="../shop.html" data-add-to-cart>Shop now</a>
-              <a class="btn-view-cart" href="../shop.html?cart=1">View cart</a>
-              <a class="btn-back-shop" href="../shop.html">Back to Shop</a>
-            </div>
-          </article>
-        </section>
-      </main>
-    </div>
-
-    <div
-      id="nav-overlay"
-      class="nav-overlay"
-      role="dialog"
-      aria-modal="true"
-      aria-label="Site menu"
-      aria-hidden="true"
-    >
-      <button type="button" class="nav-overlay__close" data-nav-close aria-label="Close menu">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <path d="M6 6l12 12M18 6L6 18" />
-        </svg>
-      </button>
-      <a class="site-header__logo site-header__logo--mark nav-overlay__brand" href="../index.html" aria-label="Adaptable Furniture home">
-        <img src="../img/Logo.png" alt="" width="180" height="48" decoding="async" />
-      </a>
-      <nav class="nav-overlay__links" aria-label="Primary">
-        <a href="../index.html" data-nav>Home</a>
-        <a href="../about.html" data-nav>About</a>
-        <a href="../why-af.html" data-nav>Why AF?</a>
-        <a href="../shop.html" data-nav>Shop</a>
-        <a href="../invest.html" data-nav>Invest</a>
-      </nav>
-    </div>
-
-
-    <script src="../js/app.js" defer></script>
-    <script src="../js/product.js" defer></script>
+  <body>
+    <p><a href="../shop.html?variant=lavender">Continue to shop</a></p>
   </body>
 </html>

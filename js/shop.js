@@ -4,90 +4,91 @@
 
   const STORAGE_KEY = "af-cart";
 
-  const COLORS = {
-    green: "#2d6a4f",
-    blue: "#1d3557",
-    purple: "#5f4bb6",
-    pink: "#d63384",
-    red: "#c1121f",
-    brown: "#7f5539",
-    orange: "#e85d04",
-    yellow: "#f4a261",
-  };
-
   const PRODUCTS = [
     {
       id: "sea-foam",
       name: "Sea foam green",
       desc: "Floor seating modules with glacier blue table — limited run.",
       price: 189,
-      colorKey: "green",
-      customColor: true,
-      detailUrl: "products/sea-foam.html",
+      badge: "Limited run",
       image: "img/Product-green.png",
+      sku: "SKU AF-MOD-SEA",
+      swatch: "#b3d4cf",
     },
     {
       id: "lemon",
       name: "Lemon yellow",
       desc: "Bright modular pieces that reconfigure in minutes.",
       price: 179,
-      colorKey: "yellow",
-      customColor: false,
-      detailUrl: "products/lemon-yellow.html",
+      badge: "Brand new color",
       image: "img/Product-yellow.png",
+      sku: "SKU AF-MOD-LEMON",
+      swatch: "#f2e68a",
     },
     {
       id: "terracotta",
       name: "Terracotta rose",
       desc: "Warm tones, soft edges, built for daily reshaping.",
       price: 195,
-      colorKey: "orange",
-      customColor: true,
-      detailUrl: "products/terracotta-rose.html",
+      badge: "Classic style",
       image: "img/Product-teracotta.png",
+      sku: "SKU AF-MOD-TERRA",
+      swatch: "#d9c0ab",
     },
     {
       id: "glacier",
       name: "Glacier blue",
       desc: "Cool palette pairing for open, social layouts.",
       price: 199,
-      colorKey: "blue",
-      customColor: true,
-      detailUrl: "products/glacier-blue.html",
+      badge: "Limited run",
       image: "img/Product-blue.png",
+      sku: "SKU AF-MOD-GLACIER",
+      swatch: "#a9bfcb",
     },
     {
       id: "lavender",
       name: "Lavender haze",
       desc: "Compact footprint, generous seating options.",
       price: 185,
-      colorKey: "purple",
-      customColor: false,
-      detailUrl: "products/lavender-haze.html",
+      badge: "Brand new color",
       image: "img/Product-lavender.png",
+      sku: "SKU AF-MOD-LAV",
+      swatch: "#b9a7cc",
     },
   ];
 
   const els = {
-    list: root.querySelector("[data-product-list]"),
-    search: root.querySelector("[data-search]"),
-    filterOpen: root.querySelector("[data-open-filter]"),
-    cartOpen: root.querySelector("[data-open-cart]"),
+    cartOpenTargets: root.querySelectorAll("[data-open-cart]"),
     cartPanel: document.getElementById("cart-panel"),
-    filterPanel: document.getElementById("filter-panel"),
     cartList: root.querySelector("[data-cart-list]"),
     cartTotal: root.querySelector("[data-cart-total]"),
     cartTotalFooter: root.querySelector("[data-cart-total-footer]"),
     cartClose: root.querySelector("[data-close-cart]"),
-    filterClose: root.querySelector("[data-close-filter]"),
-    filterApply: root.querySelector("[data-apply-filter]"),
-    filterForm: document.getElementById("filter-form"),
     checkout: root.querySelector("[data-checkout]"),
-    resultsCount: root.querySelector("[data-results-count]"),
+    image: root.querySelector("[data-product-image]"),
+    badge: root.querySelector("[data-product-badge]"),
+    title: root.querySelector("[data-product-title]"),
+    price: root.querySelector("[data-product-price]"),
+    sku: root.querySelector("[data-product-sku]"),
+    desc: root.querySelector("[data-product-desc]"),
+    colorOptions: root.querySelector("[data-color-options]"),
+    selectedColorLabel: root.querySelector("[data-selected-color-label]"),
+    pageQtyValue: root.querySelector("[data-page-qty-value]"),
+    pageQtyPlus: root.querySelector("[data-page-qty-plus]"),
+    pageQtyMinus: root.querySelector("[data-page-qty-minus]"),
+    addSelection: root.querySelector("[data-add-selection]"),
   };
 
+  const params = new URLSearchParams(window.location.search);
+  const variantParam = params.get("variant");
+  let selectedVariantId = PRODUCTS.some((p) => p.id === variantParam)
+    ? variantParam
+    : PRODUCTS[0].id;
+  /** Remember quantity picker per colorway while browsing (not the same as cart). */
+  const draftQtyByVariant = {};
+  let pageQty = 1;
+
   let cart = loadCart();
-  let filterState = { colors: [], customOnly: false };
 
   function loadCart() {
     try {
@@ -132,26 +133,6 @@
     }).format(dollars);
   }
 
-  function getFilteredProducts() {
-    const q = (els.search?.value || "").trim().toLowerCase();
-    return PRODUCTS.filter((p) => {
-      if (
-        filterState.colors.length > 0 &&
-        !filterState.colors.includes(p.colorKey)
-      ) {
-        return false;
-      }
-      if (filterState.customOnly && !p.customColor) return false;
-      if (!q) return true;
-      const blob = `${p.name} ${p.desc}`.toLowerCase();
-      return blob.includes(q);
-    });
-  }
-
-  function iconCart() {
-    return `<svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.08-.14.12-.31.12-.48 0-.55-.45-1-1-1H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/></svg>`;
-  }
-
   function iconTrash() {
     return `<svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2" d="M9 3h6l1 2h4v2H4V5h4l1-2zm1 5v10m4-10v10M6 8h12l-1 12H7L6 8z"/></svg>`;
   }
@@ -171,103 +152,85 @@
     saveCart();
     notifyCartUpdated();
     updateCartButton();
-    renderProducts();
     renderCart();
   }
 
-  function renderProducts() {
-    if (!els.list) return;
-    const items = getFilteredProducts();
-    if (els.resultsCount) {
-      els.resultsCount.textContent = `${items.length} product${
-        items.length === 1 ? "" : "s"
-      }`;
-    }
-    if (!items.length) {
-      els.list.innerHTML =
-        '<p class="empty-cart">No products match your filters.</p>';
-      return;
-    }
-    els.list.innerHTML = items
-      .map(
-        (p) => `
-      <article class="product-card" data-id="${p.id}">
-        <a class="product-card__img" href="${p.detailUrl}" aria-label="View ${p.name} details">
-          <img src="${p.image}" alt="${p.name} modular sofa" width="400" height="400" loading="lazy" />
-        </a>
-        <div class="product-card__body">
-          <h3><a href="${p.detailUrl}" aria-label="View ${p.name} details">${p.name}</a></h3>
-          <p class="product-card__price">${formatDollars(p.price)}</p>
-          <p>${p.desc}</p>
-          ${
-            (cart[p.id] || 0) > 0
-              ? `<div class="product-card__qty" data-qty-wrap="${p.id}">
-            <button type="button" class="qty-btn" data-qty-minus="${p.id}" aria-label="Decrease ${p.name} quantity">-</button>
-            <span class="qty-value" data-qty-value="${p.id}">${cart[p.id] || 0}</span>
-            <button type="button" class="qty-btn" data-qty-plus="${p.id}" aria-label="Increase ${p.name} quantity">+</button>
-          </div>`
-              : `<button type="button" class="product-card__inline-add" data-add="${p.id}" aria-label="Add ${p.name} to cart">
-            ${iconCart()} <span>Add to cart</span>
-          </button>`
-          }
-          <p class="product-card__added" data-added="${p.id}" aria-live="polite"></p>
-          <a class="product-card__cta" href="${p.detailUrl}" aria-label="View ${p.name} details">View details</a>
-        </div>
-      </article>`
-      )
-      .join("");
-
-    els.list.querySelectorAll(".product-card").forEach((card) => {
-      const id = card.getAttribute("data-id");
-      const detail = productById(id || "");
-      if (!id || !detail) return;
-      card.addEventListener("click", (event) => {
-        const target = event.target;
-        if (!(target instanceof Element)) return;
-        if (target.closest("a, button")) return;
-        window.location.href = detail.detailUrl;
-      });
-    });
-
-    els.list.querySelectorAll("[data-add]").forEach((btn) => {
-      btn.addEventListener("click", () => {
-        const id = btn.getAttribute("data-add");
-        if (!id) return;
-        updateQty(id, 1);
-        const added = els.list?.querySelector(`[data-added="${id}"]`);
-        if (added) {
-          added.textContent = "Added to cart";
-          added.classList.add("is-visible");
-          window.setTimeout(() => {
-            added.classList.remove("is-visible");
-          }, 900);
-        }
-      });
-    });
-
-    els.list.querySelectorAll("[data-qty-plus]").forEach((btn) => {
-      btn.addEventListener("click", () => {
-        updateQty(btn.getAttribute("data-qty-plus"), 1);
-      });
-    });
-
-    els.list.querySelectorAll("[data-qty-minus]").forEach((btn) => {
-      btn.addEventListener("click", () => {
-        updateQty(btn.getAttribute("data-qty-minus"), -1);
-      });
-    });
+  function addQtyToCart(id, qty) {
+    if (!id || qty <= 0) return;
+    cart[id] = (cart[id] || 0) + qty;
+    saveCart();
+    notifyCartUpdated();
+    updateCartButton();
+    renderCart();
   }
 
   function productById(id) {
     return PRODUCTS.find((p) => p.id === id);
   }
 
+  function syncVariantUrl() {
+    const next = new URL(window.location.href);
+    next.searchParams.set("variant", selectedVariantId);
+    window.history.replaceState({}, "", `${next.pathname}${next.search}${next.hash}`);
+  }
+
+  function setSelectedVariant(id) {
+    if (!productById(id)) return;
+    if (id === selectedVariantId) return;
+    draftQtyByVariant[selectedVariantId] = pageQty;
+    selectedVariantId = id;
+    pageQty = draftQtyByVariant[id] ?? 1;
+    syncVariantUrl();
+    renderSingleProduct();
+  }
+
+  function setPageQty(next) {
+    const n = Math.min(99, Math.max(1, next));
+    pageQty = n;
+    draftQtyByVariant[selectedVariantId] = n;
+    if (els.pageQtyValue) els.pageQtyValue.textContent = String(pageQty);
+  }
+
+  function renderSingleProduct() {
+    const p = productById(selectedVariantId);
+    if (!p) return;
+
+    if (els.image) {
+      els.image.src = p.image;
+      els.image.alt = `${p.name} modular sofa`;
+    }
+    if (els.badge) {
+      els.badge.textContent = p.badge;
+    }
+    if (els.title) els.title.textContent = p.name;
+    if (els.price) els.price.textContent = formatDollars(p.price);
+    if (els.sku) els.sku.textContent = p.sku;
+    if (els.desc) els.desc.textContent = p.desc;
+    if (els.pageQtyValue) els.pageQtyValue.textContent = String(pageQty);
+    if (els.selectedColorLabel) els.selectedColorLabel.textContent = p.name;
+
+    if (els.colorOptions) {
+      els.colorOptions.innerHTML = PRODUCTS.map((opt) => {
+        const selected = opt.id === selectedVariantId;
+        return `<button type="button" class="shop-color-swatch${selected ? " is-selected" : ""}" data-variant-id="${
+          opt.id
+        }" style="--swatch:${opt.swatch}" aria-pressed="${selected}" aria-label="${opt.name}"></button>`;
+      }).join("");
+
+      els.colorOptions.querySelectorAll("[data-variant-id]").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          const id = btn.getAttribute("data-variant-id");
+          if (id) setSelectedVariant(id);
+        });
+      });
+    }
+  }
+
   function renderCart() {
     if (!els.cartList || !els.cartTotal || !els.cartTotalFooter) return;
     const ids = Object.keys(cart).filter((id) => cart[id] > 0);
     if (!ids.length) {
-      els.cartList.innerHTML =
-        '<p class="empty-cart">Your cart is empty.</p>';
+      els.cartList.innerHTML = '<p class="empty-cart">Your cart is empty.</p>';
       els.cartTotal.textContent = formatMoney(0);
       els.cartTotalFooter.textContent = formatMoney(0);
       return;
@@ -312,7 +275,6 @@
         saveCart();
         notifyCartUpdated();
         updateCartButton();
-        renderProducts();
         renderCart();
       });
     });
@@ -332,7 +294,7 @@
 
   function updateCartButton() {
     const n = cartCount();
-    const label = els.cartOpen?.querySelector(".cart-count");
+    const label = root.querySelector(".btn-cart-nav .cart-count");
     if (label) label.textContent = n ? ` (${n})` : "";
     document.dispatchEvent(new CustomEvent("af:cart-updated", { detail: { count: n } }));
   }
@@ -349,55 +311,15 @@
     document.body.style.overflow = "";
   }
 
-  function updateFilterVisualState() {
-    if (!els.filterForm) return;
-    const rows = els.filterForm.querySelectorAll(".filter-row");
-    if (!rows.length) return;
-
-    let selectedCount = 0;
-    rows.forEach((row) => {
-      const input = row.querySelector("input[name='colors']");
-      const isSelected = Boolean(input?.checked);
-      row.classList.toggle("is-selected", isSelected);
-      if (isSelected) selectedCount += 1;
+  els.cartOpenTargets.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      renderCart();
+      openPanel(els.cartPanel);
     });
-
-    els.filterForm.classList.toggle("is-empty", selectedCount === 0);
-  }
-
-  els.search?.addEventListener("input", () => renderProducts());
-
-  els.filterOpen?.addEventListener("click", () => {
-    updateFilterVisualState();
-    openPanel(els.filterPanel);
-  });
-
-  els.filterClose?.addEventListener("click", () => {
-    closePanel(els.filterPanel);
-  });
-
-  els.cartOpen?.addEventListener("click", () => {
-    renderCart();
-    openPanel(els.cartPanel);
   });
 
   els.cartClose?.addEventListener("click", () => {
     closePanel(els.cartPanel);
-  });
-
-  els.filterApply?.addEventListener("click", () => {
-    const fd = new FormData(els.filterForm);
-    filterState.colors = fd.getAll("colors").map(String);
-    filterState.customOnly = fd.get("customOnly") === "on";
-    renderProducts();
-    closePanel(els.filterPanel);
-  });
-
-  els.filterForm?.addEventListener("change", (event) => {
-    const target = event.target;
-    if (!(target instanceof HTMLInputElement)) return;
-    if (target.name !== "colors") return;
-    updateFilterVisualState();
   });
 
   els.checkout?.addEventListener("click", () => {
@@ -405,13 +327,38 @@
     window.location.href = "checkout.html";
   });
 
-  renderProducts();
+  els.pageQtyPlus?.addEventListener("click", () => {
+    setPageQty(pageQty + 1);
+  });
+
+  els.pageQtyMinus?.addEventListener("click", () => {
+    setPageQty(pageQty - 1);
+  });
+
+  els.addSelection?.addEventListener("click", () => {
+    addQtyToCart(selectedVariantId, pageQty);
+    const btn = els.addSelection;
+    if (btn) {
+      btn.classList.add("is-added");
+      const original = btn.textContent;
+      btn.textContent = "Added";
+      window.setTimeout(() => {
+        btn.classList.remove("is-added");
+        btn.textContent = original || "Add to cart";
+      }, 900);
+    }
+    draftQtyByVariant[selectedVariantId] = 1;
+    pageQty = 1;
+    if (els.pageQtyValue) els.pageQtyValue.textContent = "1";
+  });
+
+  syncVariantUrl();
+  renderSingleProduct();
   renderCart();
   updateCartButton();
-  updateFilterVisualState();
 
-  const params = new URLSearchParams(window.location.search);
-  if (params.get("cart") === "1") {
+  const openParams = new URLSearchParams(window.location.search);
+  if (openParams.get("cart") === "1") {
     renderCart();
     openPanel(els.cartPanel);
   }

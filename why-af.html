@@ -47,21 +47,6 @@
       </button>
     </header>
 
-    <div
-      class="story-progress"
-      id="story-progress"
-      role="progressbar"
-      aria-label="Product story progress"
-      aria-valuemin="0"
-      aria-valuemax="100"
-      aria-valuenow="0"
-    >
-      <div class="story-progress__segment"><div class="story-progress__fill"></div></div>
-      <div class="story-progress__segment"><div class="story-progress__fill"></div></div>
-      <div class="story-progress__segment"><div class="story-progress__fill"></div></div>
-      <div class="story-progress__segment"><div class="story-progress__fill"></div></div>
-    </div>
-
     <div class="site-blur">
       <section class="hero hero--intro" aria-label="Introduction">
         <div class="hero__intro">
@@ -83,7 +68,7 @@
                     shadow-intensity="1"
                     interaction-prompt="none"
                   >
-                    <!-- Vertically spread along the sofa (low seat → high back); light X variation -->
+                    <!-- Positions in sofa.glb model space — keep near mesh (bad coords collapse hotspots to the edge) -->
                     <button
                       type="button"
                       class="story-hotspot"
@@ -131,8 +116,8 @@
             </div>
 
             <div class="story-copy">
-              <div class="story-copy__slot">
-                <article class="feature-panel is-active" data-feature="0" id="story-feature-0">
+              <div class="story-copy__slot story-copy__slot--hidden">
+                <article class="feature-panel" data-feature="0" id="story-feature-0">
                   <h2 class="feature-panel__title">Adaptable</h2>
                   <ul class="feature-panel__list">
                     <li>Intuitively supports creative use</li>
@@ -176,55 +161,74 @@
 
       <section class="config" aria-labelledby="config-headline">
         <h2 id="config-headline" class="config__headline">One piece. Infinite layouts.</h2>
+        <p id="config-marquee-live" class="config-marquee__live" aria-live="polite">4-Seat Sofa</p>
         <div class="config-marquee" role="region" aria-label="Layout examples, scrolling">
           <div class="config-marquee__track">
-            <figure class="config-marquee__item">
+            <figure class="config-marquee__item" data-layout-index="0">
               <img src="images/Render2.png" alt="Four-seat sofa with blue side tables" width="1440" height="1080" decoding="async" />
-              <figcaption class="config-marquee__caption">4-Seat Sofa</figcaption>
+              <figcaption class="config-marquee__caption sr-only">4-Seat Sofa</figcaption>
             </figure>
-            <figure class="config-marquee__item">
+            <figure class="config-marquee__item" data-layout-index="1">
               <img src="images/Render4.png" alt="Flat bed configuration" width="1440" height="1080" decoding="async" />
-              <figcaption class="config-marquee__caption">Twin Bed</figcaption>
+              <figcaption class="config-marquee__caption sr-only">Twin Bed</figcaption>
             </figure>
-            <figure class="config-marquee__item">
+            <figure class="config-marquee__item" data-layout-index="2">
               <img src="images/Render3.png" alt="Modular seating in a corner arrangement" width="1440" height="1080" decoding="async" />
-              <figcaption class="config-marquee__caption">Corner group</figcaption>
+              <figcaption class="config-marquee__caption sr-only">Corner group</figcaption>
             </figure>
-            <figure class="config-marquee__item">
-              <img src="images/Render5.png" alt="Modular seating in an open social layout" width="1440" height="1080" decoding="async" />
-              <figcaption class="config-marquee__caption">Social setup</figcaption>
+            <figure class="config-marquee__item" data-layout-index="3">
+              <img
+                src="images/Render5.png"
+                alt="Three modular arrangements: corner sofa, straight four-seat sofa, and lounge chair with ottoman"
+                width="1440"
+                height="1080"
+                decoding="async"
+              />
+              <figcaption class="config-marquee__caption sr-only">Three layout ideas</figcaption>
             </figure>
-            <figure class="config-marquee__item">
-              <img src="images/Render6.png" alt="Modular seating configured for lounging" width="1440" height="1080" decoding="async" />
-              <figcaption class="config-marquee__caption">Lounge row</figcaption>
+            <figure class="config-marquee__item" data-layout-index="4">
+              <img
+                src="images/Render6.png"
+                alt="Five modular furniture configurations in one overview"
+                width="1440"
+                height="1080"
+                decoding="async"
+              />
+              <figcaption class="config-marquee__caption sr-only">Five setup ideas</figcaption>
             </figure>
-            <figure class="config-marquee__item">
-              <img src="images/Render7.png" alt="Modular seating in a low-profile layout" width="1440" height="1080" decoding="async" />
-              <figcaption class="config-marquee__caption">Open layout</figcaption>
+            <figure class="config-marquee__item" data-layout-index="5">
+              <img
+                src="images/Render7.png"
+                alt="Modular seating in a rectangular ring with open center"
+                width="1440"
+                height="1080"
+                decoding="async"
+              />
+              <figcaption class="config-marquee__caption sr-only">Conversation ring</figcaption>
             </figure>
-            <figure class="config-marquee__item" aria-hidden="true">
+            <figure class="config-marquee__item" aria-hidden="true" data-layout-index="0">
               <img src="images/Render2.png" alt="" width="1440" height="1080" decoding="async" />
-              <figcaption class="config-marquee__caption">4-Seat Sofa</figcaption>
+              <figcaption class="config-marquee__caption sr-only">4-Seat Sofa</figcaption>
             </figure>
-            <figure class="config-marquee__item" aria-hidden="true">
+            <figure class="config-marquee__item" aria-hidden="true" data-layout-index="1">
               <img src="images/Render4.png" alt="" width="1440" height="1080" decoding="async" />
-              <figcaption class="config-marquee__caption">Twin Bed</figcaption>
+              <figcaption class="config-marquee__caption sr-only">Twin Bed</figcaption>
             </figure>
-            <figure class="config-marquee__item" aria-hidden="true">
+            <figure class="config-marquee__item" aria-hidden="true" data-layout-index="2">
               <img src="images/Render3.png" alt="" width="1440" height="1080" decoding="async" />
-              <figcaption class="config-marquee__caption">Corner group</figcaption>
+              <figcaption class="config-marquee__caption sr-only">Corner group</figcaption>
             </figure>
-            <figure class="config-marquee__item" aria-hidden="true">
+            <figure class="config-marquee__item" aria-hidden="true" data-layout-index="3">
               <img src="images/Render5.png" alt="" width="1440" height="1080" decoding="async" />
-              <figcaption class="config-marquee__caption">Social setup</figcaption>
+              <figcaption class="config-marquee__caption sr-only">Three layout ideas</figcaption>
             </figure>
-            <figure class="config-marquee__item" aria-hidden="true">
+            <figure class="config-marquee__item" aria-hidden="true" data-layout-index="4">
               <img src="images/Render6.png" alt="" width="1440" height="1080" decoding="async" />
-              <figcaption class="config-marquee__caption">Lounge row</figcaption>
+              <figcaption class="config-marquee__caption sr-only">Five setup ideas</figcaption>
             </figure>
-            <figure class="config-marquee__item" aria-hidden="true">
+            <figure class="config-marquee__item" aria-hidden="true" data-layout-index="5">
               <img src="images/Render7.png" alt="" width="1440" height="1080" decoding="async" />
-              <figcaption class="config-marquee__caption">Open layout</figcaption>
+              <figcaption class="config-marquee__caption sr-only">Conversation ring</figcaption>
             </figure>
           </div>
         </div>
@@ -371,25 +375,5 @@
     <script src="js/footer-form.js" defer></script>
     <script src="js/app.js" defer></script>
     <script src="js/story.js" defer></script>
-    <script>
-      (function () {
-        var bar = document.getElementById("story-progress");
-        var story = document.getElementById("story-scroll");
-        if (!bar || !story) return;
-
-        function ariaUpdate() {
-          var rect = story.getBoundingClientRect();
-          var vh = window.innerHeight;
-          var sectionTop = rect.top + window.scrollY;
-          var denom = story.offsetHeight - vh;
-          var p = denom <= 0 ? 0 : (window.scrollY - sectionTop) / denom;
-          p = Math.min(1, Math.max(0, p));
-          bar.setAttribute("aria-valuenow", String(Math.round(p * 100)));
-        }
-
-        window.addEventListener("scroll", ariaUpdate, { passive: true });
-        ariaUpdate();
-      })();
-    </script>
   </body>
 </html>

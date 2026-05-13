@@ -15,7 +15,7 @@
 }
 
 html {
-  scroll-behavior: smooth;
+  scroll-behavior: auto;
 }
 
 body.page-why.page-why-story {
@@ -31,45 +31,6 @@ img {
   max-width: 100%;
   height: auto;
   display: block;
-}
-
-/* ----- Progress bar (fixed; sits just below the floating header) ----- */
-.story-progress {
-  position: fixed;
-  top: calc(16px + 65px + 6px); /* floating header: offset + height + gap */
-  left: 16px;
-  right: 16px;
-  z-index: 60;
-  display: flex;
-  gap: 4px;
-  height: 3px;
-  padding: 0;
-  border-radius: 2px;
-  overflow: hidden;
-  opacity: 0;
-  visibility: hidden;
-  transition: opacity 0.35s ease, visibility 0.35s ease;
-}
-
-.story-progress.is-visible {
-  opacity: 1;
-  visibility: visible;
-}
-
-.story-progress__segment {
-  flex: 1;
-  height: 100%;
-  background: rgba(26, 26, 46, 0.12);
-  border-radius: 1px;
-  overflow: hidden;
-}
-
-.story-progress__fill {
-  height: 100%;
-  width: 0%;
-  background: var(--accent);
-  border-radius: 1px;
-  will-change: width;
 }
 
 /* ----- Hero (Why AF: text on page background; 3D story follows) ----- */
@@ -120,10 +81,10 @@ body.page-why.page-why-story .hero__subtitle {
   max-width: 22rem;
 }
 
-/* ----- Scroll story (shorter than before: primary navigation is sofa hotspots) ----- */
+/* ----- Scroll story (sticky viewport; hotspots drive copy + camera) ----- */
 .story-scroll {
   position: relative;
-  height: 320vh;
+  height: 125vh;
   scroll-margin-top: 96px;
 }
 
@@ -138,14 +99,15 @@ body.page-why.page-why-story .hero__subtitle {
   padding: 0;
   width: 100%;
   isolation: isolate;
+  box-sizing: border-box;
 }
 
-/* Full-viewport canvas + copy stacked in one grid cell */
+/* Model + copy: stacked on small screens; side‑by‑side on desktop */
 .story-layout {
   position: relative;
-  display: grid;
-  grid-template-columns: 1fr;
-  grid-template-rows: minmax(100vh, min-content);
+  display: flex;
+  flex-direction: column;
+  flex: 1;
   min-height: 100vh;
   min-height: 100dvh;
   width: 100%;
@@ -154,13 +116,11 @@ body.page-why.page-why-story .hero__subtitle {
 }
 
 .story-img-column {
-  grid-column: 1;
-  grid-row: 1;
   position: relative;
   z-index: 1;
+  flex: 1 1 auto;
+  min-height: min(52vh, 420px);
   width: 100%;
-  min-height: 100vh;
-  min-height: 100dvh;
   display: flex;
   justify-content: stretch;
   align-items: stretch;
@@ -169,11 +129,11 @@ body.page-why.page-why-story .hero__subtitle {
 .story-visual {
   position: relative;
   flex: 1;
+  min-height: 0;
   width: 100%;
   max-width: none;
   margin: 0;
-  min-height: 100vh;
-  min-height: 100dvh;
+  min-height: min(56vh, 520px);
   aspect-ratio: auto;
   will-change: transform;
 }
@@ -192,6 +152,8 @@ body.page-why.page-why-story .hero__subtitle {
   display: block;
   width: 100%;
   height: 100%;
+  min-width: 100%;
+  min-height: 100%;
   max-width: 100%;
   max-height: 100%;
   margin: 0;
@@ -263,66 +225,53 @@ body.page-why.page-why-story .hero__subtitle {
 }
 
 .story-copy {
-  grid-column: 1;
-  grid-row: 1;
+  --story-copy-pad: clamp(0.9rem, 2.5vw, 1.35rem);
+  --story-copy-pad-bottom: calc(var(--story-copy-pad) + 0.85rem);
   position: relative;
-  z-index: 4;
+  z-index: 2;
+  flex: 0 0 auto;
+  width: 100%;
   align-self: stretch;
-  justify-self: stretch;
-  min-height: 100vh;
-  min-height: 100dvh;
-  pointer-events: none;
-  /* Soft scrim so type stays readable over the model */
-  background: linear-gradient(
-    to top,
-    rgba(242, 235, 225, 0.94) 0%,
-    rgba(242, 235, 225, 0.38) 40%,
-    rgba(242, 235, 225, 0) 62%
-  );
+  padding-top: max(var(--story-copy-pad), env(safe-area-inset-top, 0px));
+  padding-right: max(var(--story-copy-pad), env(safe-area-inset-right, 0px));
+  padding-bottom: max(var(--story-copy-pad-bottom), env(safe-area-inset-bottom, 0px));
+  padding-left: max(var(--story-copy-pad), env(safe-area-inset-left, 0px));
+  background: var(--page-bg, var(--bg));
+  pointer-events: auto;
 }
 
-/* Lift copy layer while the card is pinned so the glass panel paints above the 3D view (below .story-progress z=60) */
-.story-copy.story-copy--card-pop {
-  z-index: 58;
-}
-
-/* Glass card: bottom-centered until sticky pins it beside the active hotspot (no stray top-left) */
-.story-copy__slot:not(.story-copy__slot--pin) {
-  opacity: 1;
-  visibility: visible;
-  pointer-events: none;
-  top: auto;
-  bottom: max(1rem, env(safe-area-inset-bottom, 0px));
-  left: 50%;
-  right: auto;
-  transform: translateX(-50%);
-}
-
+/* Feature card: centered in the copy strip (below model on phone, right column on desktop) */
 .story-copy__slot {
-  position: absolute;
+  position: relative;
   top: auto;
   right: auto;
   bottom: auto;
-  width: min(20.5rem, calc(100% - 2rem));
-  max-width: calc(100% - 2rem);
-  min-height: min(30vh, 220px);
-  z-index: 6;
-}
-
-.story-copy__slot.story-copy__slot--pin {
-  position: fixed;
+  left: auto;
   transform: none;
   opacity: 1;
   visibility: visible;
   pointer-events: none;
-  z-index: 59;
-  width: min(20.5rem, calc(100vw - 1.5rem));
-  max-width: calc(100vw - 1.5rem);
-  /* Panels are position:absolute; without min-height the slot collapses and JS cannot place the card */
-  min-height: min(42vh, 280px);
+  z-index: 1;
+  width: min(22rem, 100%);
+  max-width: 100%;
+  margin: 0 auto;
+  min-height: min(12rem, 28vh);
+  padding-bottom: 0.35rem;
+}
+
+/* No feature card until the user taps a hotspot (initial sofa-only view) */
+.story-copy__slot.story-copy__slot--hidden {
+  opacity: 0;
+  visibility: hidden;
+  min-height: 0;
+  height: 0;
+  overflow: hidden;
+  pointer-events: none;
+  transition: opacity 0.35s ease, visibility 0.35s ease;
 }
 
 .feature-panel {
+  --feature-pad: clamp(1rem, 2.2vw, 1.25rem);
   position: absolute;
   left: 0;
   top: 0;
@@ -334,7 +283,7 @@ body.page-why.page-why-story .hero__subtitle {
   pointer-events: none;
   transition: opacity 0.45s ease;
   z-index: 0;
-  padding: clamp(0.75rem, 2vw, 0.95rem) clamp(0.8rem, 2vw, 1rem);
+  padding: var(--feature-pad);
   border-radius: 24px;
   /* Same glass as floating nav (.desk-header in styles.css) */
   background: rgba(255, 255, 255, 0.26);
@@ -343,12 +292,16 @@ body.page-why.page-why-story .hero__subtitle {
   border: 1px solid rgba(255, 255, 255, 0.45);
   box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
   overflow: auto;
+  overflow-x: hidden;
+  scroll-padding-bottom: 1rem;
+  padding-bottom: calc(var(--feature-pad) + 0.85rem);
 }
 
 .feature-panel.is-active {
   opacity: 1;
   transform: none;
-  pointer-events: auto;
+  /* Let taps pass through to the 3D hotspots; card is display-only. */
+  pointer-events: none;
   z-index: 1;
 }
 
@@ -373,7 +326,7 @@ body.page-why.page-why-story .hero__subtitle {
 .feature-panel__list li {
   position: relative;
   padding-left: 1.1rem;
-  margin-bottom: 0.45rem;
+  margin-bottom: 0.72rem;
   opacity: 0;
   transform: translateY(8px);
 }
@@ -416,14 +369,49 @@ body.page-why.page-why-story .hero__subtitle {
   }
 }
 
-/* Mobile: full-width bottom sheet before pin */
 @media (max-width: 768px) {
-  .story-copy__slot:not(.story-copy__slot--pin) {
-    left: max(10px, env(safe-area-inset-left, 0px));
-    right: max(10px, env(safe-area-inset-right, 0px));
+  .story-img-column {
+    min-height: min(48vh, 380px);
+  }
+
+  .story-visual {
+    min-height: min(50vh, 440px);
+  }
+}
+
+@media (min-width: 769px) {
+  .story-layout {
+    flex-direction: row;
+    align-items: stretch;
+  }
+
+  .story-img-column {
+    flex: 1 1 58%;
+    min-width: 0;
+    min-height: 0;
+  }
+
+  .story-visual {
+    flex: 1;
+    min-height: min(100dvh, 100vh);
+  }
+
+  .story-copy {
+    flex: 0 0 clamp(17.5rem, 30vw, 24rem);
     width: auto;
     max-width: none;
-    transform: none;
+    align-self: stretch;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: min(100dvh, 100vh);
+  }
+
+  .story-copy__slot {
+    width: 100%;
+    max-width: none;
+    margin: 0;
+    min-height: min(11rem, 22vh);
   }
 }
 
@@ -444,6 +432,19 @@ body.page-why.page-why-story .hero__subtitle {
   font-weight: 700;
   letter-spacing: -0.03em;
   text-align: center;
+}
+
+.config-marquee__live {
+  margin: 0 auto 1rem;
+  padding: 0 1.25rem;
+  max-width: 42rem;
+  min-height: 1.45em;
+  text-align: center;
+  font-family: var(--font-heading, "Host Grotesk", system-ui, sans-serif);
+  font-size: clamp(1.05rem, 2.4vw, 1.35rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--text);
 }
 
 .config-marquee {
